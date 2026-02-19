@@ -72,6 +72,36 @@
 
 ---
 
+## [2026-02-19] - Task 3: 创建领域实体模型
+
+### What was done:
+- 创建枚举类型:
+  - UserRole (User, EnterpriseUser, Admin)
+  - OrderStatus (Pending, Confirmed, Shipped, Completed, Cancelled)
+- 创建领域实体:
+  - User: 用户实体 (Id, Email, PasswordHash, Name, Company, Phone, Role, IsActive, CreatedAt, UpdatedAt)
+  - Category: 分类实体 (支持树形结构, ParentId 自引用)
+  - Product: 产品实体 (Name, ModelNumber, CategoryId, Brand, Price, Stock, Specs, Images 等)
+  - Order: 订单实体 (OrderNumber, UserId, Status, TotalAmount, Remark)
+  - OrderItem: 订单项实体 (ProductName, ModelNumber, Quantity, UnitPrice 快照)
+  - CartItem: 购物车项实体 (UserId, ProductId, Quantity)
+- 更新 ElectroBuyDbContext:
+  - 添加所有 DbSet<TEntity>
+  - 配置实体映射 (主键、索引、最大长度)
+  - 配置关系 (一对多、自引用)
+  - 配置级联删除策略
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+
+### Notes:
+- 实体遵循 design.md 中的数据表设计
+- OrderItem 存储产品快照，避免产品信息变更影响历史订单
+- CartItem 设置 UserId+ProductId 唯一索引，防止重复添加
+- Category 支持树形结构 (ParentId 自引用)
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -101,7 +131,7 @@
 |----|----------|------|
 | 1 | 初始化后端项目结构 | ✅ 已完成 |
 | 2 | 配置后端基础架构 | ✅ 已完成 |
-| 3 | 创建领域实体模型 | ⏳ 待开始 |
+| 3 | 创建领域实体模型 | ✅ 已完成 |
 | 4 | 实现用户认证模块 | ⏳ 待开始 |
 | 5 | 实现产品分类模块 | ⏳ 待开始 |
 | 6 | 实现产品模块 | ⏳ 待开始 |
