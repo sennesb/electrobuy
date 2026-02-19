@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-19
-> 累计会话次数：7
+> 累计会话次数：8
 
 ---
 
@@ -11,7 +11,7 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React + TypeScript + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：6
+- **已完成任务**：7
 - **当前阶段**：后端开发
 
 ### 关键文件清单
@@ -37,8 +37,12 @@
 | `backend/src/ElectroBuy.Application/Interfaces/IProductService.cs` | 产品服务接口 | 2026-02-19 | 任务#6 |
 | `backend/src/ElectroBuy.Infrastructure/Services/ProductService.cs` | 产品服务实现 | 2026-02-19 | 任务#6 |
 | `backend/src/ElectroBuy.Api/Controllers/ProductsController.cs` | 产品控制器 | 2026-02-19 | 任务#6 |
-| `task.json` | 任务清单 | 2026-02-19 | 任务#6 |
-| `progress.txt` | 进度日志 | 2026-02-19 | 任务#6 |
+| `backend/src/ElectroBuy.Application/DTOs/Cart/*.cs` | 购物车 DTOs | 2026-02-19 | 任务#7 |
+| `backend/src/ElectroBuy.Application/Interfaces/ICartService.cs` | 购物车服务接口 | 2026-02-19 | 任务#7 |
+| `backend/src/ElectroBuy.Infrastructure/Services/CartService.cs` | 购物车服务实现 | 2026-02-19 | 任务#7 |
+| `backend/src/ElectroBuy.Api/Controllers/CartController.cs` | 购物车控制器 | 2026-02-19 | 任务#7 |
+| `task.json` | 任务清单 | 2026-02-19 | 任务#7 |
+| `progress.txt` | 进度日志 | 2026-02-19 | 任务#7 |
 
 ### API 端点清单
 
@@ -60,6 +64,12 @@
 | `/api/products` | POST | 创建产品 (Admin) | ✅ 已实现 |
 | `/api/products/{id}` | PUT | 更新产品 (Admin) | ✅ 已实现 |
 | `/api/products/{id}` | DELETE | 删除产品 (Admin) | ✅ 已实现 |
+| `/api/cart` | GET | 获取购物车 | ✅ 已实现 |
+| `/api/cart/count` | GET | 获取购物车商品数量 | ✅ 已实现 |
+| `/api/cart` | POST | 添加商品到购物车 | ✅ 已实现 |
+| `/api/cart/{id}` | PUT | 更新购物车商品数量 | ✅ 已实现 |
+| `/api/cart/{id}` | DELETE | 移除购物车商品 | ✅ 已实现 |
+| `/api/cart/clear` | DELETE | 清空购物车 | ✅ 已实现 |
 
 ### 数据库表清单
 
@@ -85,11 +95,36 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#6 已完成，等待开始任务#7
+**当前步骤**：任务#7 已完成，等待开始任务#8
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-19] - 任务#7: 实现购物车模块
+
+**完成内容**：
+- 创建购物车相关 DTOs (CartDto, CartItemDto, AddToCartDto, UpdateCartDto)
+- 创建 ICartService 接口和 CartService 实现
+- 实现获取购物车功能 (返回用户购物车所有商品项)
+- 实现添加商品到购物车功能 (产品存在性验证、状态检查、库存检查、重复商品合并)
+- 实现更新购物车商品数量功能 (库存检查、数量为0时自动移除)
+- 实现移除购物车商品功能
+- 实现清空购物车功能
+- 实现获取购物车商品数量功能
+- 创建 CartController 控制器
+
+**修改的文件**：
+- `backend/src/ElectroBuy.Application/DTOs/Cart/CartDto.cs` - 购物车 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Cart/CartItemDto.cs` - 购物车项 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Cart/AddToCartDto.cs` - 添加到购物车 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Cart/UpdateCartDto.cs` - 更新购物车 DTO
+- `backend/src/ElectroBuy.Application/Interfaces/ICartService.cs` - 购物车服务接口
+- `backend/src/ElectroBuy.Infrastructure/Services/CartService.cs` - 购物车服务实现
+- `backend/src/ElectroBuy.Api/Controllers/CartController.cs` - 购物车控制器
+- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
+
+**测试结果**：✅ dotnet build 编译成功
 
 ### [2026-02-19] - 任务#6: 实现产品模块
 
@@ -421,6 +456,34 @@
 - 负面影响：复杂查询可能影响性能
 - 需要注意：大量产品时考虑添加搜索索引
 
+### ADR-008: 购物车模块设计
+
+**日期**：2026-02-19
+**状态**：已采纳
+
+**背景**：
+需要为电气自动化产品采买平台实现购物车功能，支持用户添加商品、修改数量、移除商品等操作。
+
+**决策**：
+- 购物车所有接口需要用户认证
+- 添加商品时检查产品是否存在、是否上架、库存是否充足
+- 同一产品重复添加时自动合并数量
+- 更新数量为0时自动移除商品
+- 购物车项包含产品快照信息 (名称、型号、品牌、价格)
+- 购物车响应包含总商品数量和总金额计算
+
+**原因**：
+- 认证保护确保购物车数据安全
+- 产品检查防止无效商品进入购物车
+- 合并数量提升用户体验
+- 自动移除简化操作流程
+- 快照信息便于用户确认商品
+
+**影响**：
+- 正面影响：购物车功能完善，用户体验好
+- 负面影响：产品价格变更后购物车显示可能不一致
+- 需要注意：下单时需重新获取最新价格
+
 ---
 
 ## 💡 给下一个 AI 的提示
@@ -450,6 +513,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #8 - 2026-02-19
+- **AI 类型**：开发
+- **完成任务**：任务#7 - 实现购物车模块
+- **主要变更**：创建购物车 DTOs、ICartService 接口、CartService 实现、CartController 控制器
+- **遗留问题**：无
 
 ### 会话 #7 - 2026-02-19
 - **AI 类型**：开发

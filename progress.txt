@@ -209,6 +209,43 @@
 
 ---
 
+## [2026-02-19] - Task 7: 实现购物车模块
+
+### What was done:
+- 创建购物车相关 DTOs:
+  - CartItemDto: 购物车项信息响应 (ProductId, ProductName, ModelNumber, Brand, Price, Quantity, Subtotal, Stock, Image, IsActive)
+  - CartDto: 购物车响应 (Items, TotalItems, TotalAmount)
+  - AddToCartDto: 添加到购物车请求 (ProductId, Quantity)
+  - UpdateCartDto: 更新购物车数量请求 (Quantity)
+- 创建 ICartService 接口 (GetCartAsync, AddToCartAsync, UpdateQuantityAsync, RemoveItemAsync, ClearCartAsync, GetCartItemCountAsync)
+- 创建 CartService 实现:
+  - 获取购物车: 返回用户购物车所有商品项
+  - 添加到购物车: 产品存在性验证、产品状态检查、库存检查、重复商品合并
+  - 更新数量: 库存检查、数量为0时自动移除
+  - 移除商品: 根据购物车项ID移除
+  - 清空购物车: 清除用户所有购物车项
+  - 获取购物车数量: 返回商品总数量
+- 创建 CartController 控制器:
+  - GET /api/cart - 获取购物车 (需要认证)
+  - GET /api/cart/count - 获取购物车商品数量 (需要认证)
+  - POST /api/cart - 添加商品到购物车 (需要认证)
+  - PUT /api/cart/{id} - 更新购物车商品数量 (需要认证)
+  - DELETE /api/cart/{id} - 移除购物车商品 (需要认证)
+  - DELETE /api/cart/clear - 清空购物车 (需要认证)
+- 注册服务到 DI 容器 (Program.cs)
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+
+### Notes:
+- 所有购物车接口需要用户认证
+- 添加商品时检查产品是否存在、是否上架、库存是否充足
+- 同一产品重复添加时自动合并数量
+- 更新数量为0时自动移除商品
+- 购物车项包含产品快照信息 (名称、型号、品牌、价格)
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -242,7 +279,7 @@
 | 4 | 实现用户认证模块 | ✅ 已完成 |
 | 5 | 实现产品分类模块 | ✅ 已完成 |
 | 6 | 实现产品模块 | ✅ 已完成 |
-| 7 | 实现购物车模块 | ⏳ 待开始 |
+| 7 | 实现购物车模块 | ✅ 已完成 |
 | 8 | 实现订单模块 | ⏳ 待开始 |
 | 9 | 数据库迁移与种子数据 | ⏳ 待开始 |
 | 10 | 初始化前端项目 | ⏳ 待开始 |
