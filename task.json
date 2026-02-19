@@ -170,18 +170,28 @@
       "priority": "high",
       "dependencies": [2, 3, 5],
       "steps": [
-        { "description": "创建 IProductService 接口和 ProductService 实现", "completed": false },
-        { "description": "创建 ProductsController 控制器", "completed": false },
-        { "description": "实现获取产品列表接口 (分页、筛选、搜索)", "completed": false },
-        { "description": "实现获取产品详情接口", "completed": false },
-        { "description": "实现创建、更新、删除产品接口 (Admin)", "completed": false },
-        { "description": "创建产品相关 DTOs", "completed": false }
+        { "description": "创建 IProductService 接口和 ProductService 实现", "completed": true },
+        { "description": "创建 ProductsController 控制器", "completed": true },
+        { "description": "实现获取产品列表接口 (分页、筛选、搜索)", "completed": true },
+        { "description": "实现获取产品详情接口", "completed": true },
+        { "description": "实现创建、更新、删除产品接口 (Admin)", "completed": true },
+        { "description": "创建产品相关 DTOs", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-19T00:00:00+08:00",
+      "completedAt": "2026-02-19T00:30:00+08:00",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Application/DTOs/Products/ProductDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Products/ProductListDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Products/CreateProductDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Products/UpdateProductDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Products/ProductQueryDto.cs",
+        "backend/src/ElectroBuy.Application/Interfaces/IProductService.cs",
+        "backend/src/ElectroBuy.Infrastructure/Services/ProductService.cs",
+        "backend/src/ElectroBuy.Api/Controllers/ProductsController.cs",
+        "backend/src/ElectroBuy.Api/Program.cs"
+      ],
+      "notes": "实现了产品模块，包括分页、筛选、搜索、排序功能，支持按分类、品牌、价格区间筛选，支持关键词搜索，创建/更新/删除产品需要 Admin 角色"
     },
     {
       "id": 7,

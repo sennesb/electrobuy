@@ -171,6 +171,44 @@
 
 ---
 
+## [2026-02-19] - Task 6: 实现产品模块
+
+### What was done:
+- 创建产品相关 DTOs:
+  - ProductDto: 产品信息响应 (Id, Name, ModelNumber, CategoryId, Brand, Price, Stock, Specs, Images 等)
+  - ProductListDto: 产品列表分页响应 (Data, Total, Page, PageSize, TotalPages)
+  - CreateProductDto: 创建产品请求 (含验证属性)
+  - UpdateProductDto: 更新产品请求 (含验证属性)
+  - ProductQueryDto: 产品查询参数 (分页、筛选、排序)
+- 创建 IProductService 接口 (GetListAsync, GetByIdAsync, CreateAsync, UpdateAsync, DeleteAsync, GetBrandsAsync, ExistsAsync)
+- 创建 ProductService 实现:
+  - 获取产品列表: 支持分页、关键词搜索、分类筛选、品牌筛选、价格区间筛选、排序
+  - 获取产品详情: 包含分类信息
+  - 创建产品: 分类存在性验证
+  - 更新产品: 分类存在性验证
+  - 删除产品: 检查购物车和订单关联
+  - 获取品牌列表: 返回所有活跃产品的品牌
+- 创建 ProductsController 控制器:
+  - GET /api/products - 获取产品列表 (支持分页、筛选、搜索)
+  - GET /api/products/{id} - 获取产品详情
+  - GET /api/products/brands - 获取品牌列表
+  - POST /api/products - 创建产品 (需要 Admin 角色)
+  - PUT /api/products/{id} - 更新产品 (需要 Admin 角色)
+  - DELETE /api/products/{id} - 删除产品 (需要 Admin 角色)
+- 注册服务到 DI 容器 (Program.cs)
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+
+### Notes:
+- 产品列表支持多条件筛选 (分类、品牌、价格区间、关键词)
+- 支持多种排序方式 (价格、名称、创建时间、库存)
+- 创建/更新/删除产品需要 Admin 角色
+- 删除产品时检查购物车和订单关联，防止数据不一致
+- Images 字段使用 JSON 格式存储图片 URL 列表
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -203,7 +241,7 @@
 | 3 | 创建领域实体模型 | ✅ 已完成 |
 | 4 | 实现用户认证模块 | ✅ 已完成 |
 | 5 | 实现产品分类模块 | ✅ 已完成 |
-| 6 | 实现产品模块 | ⏳ 待开始 |
+| 6 | 实现产品模块 | ✅ 已完成 |
 | 7 | 实现购物车模块 | ⏳ 待开始 |
 | 8 | 实现订单模块 | ⏳ 待开始 |
 | 9 | 数据库迁移与种子数据 | ⏳ 待开始 |

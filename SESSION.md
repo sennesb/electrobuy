@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-19
-> 累计会话次数：6
+> 累计会话次数：7
 
 ---
 
@@ -11,7 +11,7 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React + TypeScript + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：5
+- **已完成任务**：6
 - **当前阶段**：后端开发
 
 ### 关键文件清单
@@ -33,8 +33,12 @@
 | `backend/src/ElectroBuy.Application/Interfaces/ICategoryService.cs` | 分类服务接口 | 2026-02-19 | 任务#5 |
 | `backend/src/ElectroBuy.Infrastructure/Services/CategoryService.cs` | 分类服务实现 | 2026-02-19 | 任务#5 |
 | `backend/src/ElectroBuy.Api/Controllers/CategoriesController.cs` | 分类控制器 | 2026-02-19 | 任务#5 |
-| `task.json` | 任务清单 | 2026-02-19 | 任务#5 |
-| `progress.txt` | 进度日志 | 2026-02-19 | 任务#5 |
+| `backend/src/ElectroBuy.Application/DTOs/Products/*.cs` | 产品 DTOs | 2026-02-19 | 任务#6 |
+| `backend/src/ElectroBuy.Application/Interfaces/IProductService.cs` | 产品服务接口 | 2026-02-19 | 任务#6 |
+| `backend/src/ElectroBuy.Infrastructure/Services/ProductService.cs` | 产品服务实现 | 2026-02-19 | 任务#6 |
+| `backend/src/ElectroBuy.Api/Controllers/ProductsController.cs` | 产品控制器 | 2026-02-19 | 任务#6 |
+| `task.json` | 任务清单 | 2026-02-19 | 任务#6 |
+| `progress.txt` | 进度日志 | 2026-02-19 | 任务#6 |
 
 ### API 端点清单
 
@@ -50,6 +54,12 @@
 | `/api/categories` | POST | 创建分类 (Admin) | ✅ 已实现 |
 | `/api/categories/{id}` | PUT | 更新分类 (Admin) | ✅ 已实现 |
 | `/api/categories/{id}` | DELETE | 删除分类 (Admin) | ✅ 已实现 |
+| `/api/products` | GET | 获取产品列表 (分页、筛选、搜索) | ✅ 已实现 |
+| `/api/products/{id}` | GET | 获取产品详情 | ✅ 已实现 |
+| `/api/products/brands` | GET | 获取品牌列表 | ✅ 已实现 |
+| `/api/products` | POST | 创建产品 (Admin) | ✅ 已实现 |
+| `/api/products/{id}` | PUT | 更新产品 (Admin) | ✅ 已实现 |
+| `/api/products/{id}` | DELETE | 删除产品 (Admin) | ✅ 已实现 |
 
 ### 数据库表清单
 
@@ -75,11 +85,37 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#5 已完成，等待开始任务#6
+**当前步骤**：任务#6 已完成，等待开始任务#7
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-19] - 任务#6: 实现产品模块
+
+**完成内容**：
+- 创建产品相关 DTOs (ProductDto, ProductListDto, CreateProductDto, UpdateProductDto, ProductQueryDto)
+- 创建 IProductService 接口和 ProductService 实现
+- 实现获取产品列表功能 (分页、关键词搜索、分类筛选、品牌筛选、价格区间筛选、排序)
+- 实现获取产品详情功能 (包含分类信息)
+- 实现创建产品功能 (分类存在性验证)
+- 实现更新产品功能 (分类存在性验证)
+- 实现删除产品功能 (检查购物车和订单关联)
+- 实现获取品牌列表功能
+- 创建 ProductsController 控制器
+
+**修改的文件**：
+- `backend/src/ElectroBuy.Application/DTOs/Products/ProductDto.cs` - 产品信息 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Products/ProductListDto.cs` - 产品列表分页 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Products/CreateProductDto.cs` - 创建产品 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Products/UpdateProductDto.cs` - 更新产品 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Products/ProductQueryDto.cs` - 产品查询参数 DTO
+- `backend/src/ElectroBuy.Application/Interfaces/IProductService.cs` - 产品服务接口
+- `backend/src/ElectroBuy.Infrastructure/Services/ProductService.cs` - 产品服务实现
+- `backend/src/ElectroBuy.Api/Controllers/ProductsController.cs` - 产品控制器
+- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
+
+**测试结果**：✅ dotnet build 编译成功
 
 ### [2026-02-19] - 任务#5: 实现产品分类模块
 
@@ -357,6 +393,34 @@
 - 负面影响：递归查询可能影响性能
 - 需要注意：大量分类时考虑缓存优化
 
+### ADR-007: 产品模块设计
+
+**日期**：2026-02-19
+**状态**：已采纳
+
+**背景**：
+需要为电气自动化产品采买平台实现产品管理功能，支持产品搜索、筛选和分页。
+
+**决策**：
+- 产品列表支持分页查询 (默认每页 20 条，最大 100 条)
+- 支持多条件筛选 (分类、品牌、价格区间、关键词)
+- 支持多种排序方式 (价格、名称、创建时间、库存)
+- 创建/更新/删除产品需要 Admin 角色
+- 删除产品时检查购物车和订单关联
+- Images 字段使用 JSON 格式存储图片 URL 列表
+
+**原因**：
+- 分页查询避免大量数据加载影响性能
+- 多条件筛选满足用户多样化搜索需求
+- Admin 角色限制确保数据安全
+- 删除检查防止数据不一致
+- JSON 存储灵活支持多图片
+
+**影响**：
+- 正面影响：产品管理功能完善，用户体验好
+- 负面影响：复杂查询可能影响性能
+- 需要注意：大量产品时考虑添加搜索索引
+
 ---
 
 ## 💡 给下一个 AI 的提示
@@ -386,6 +450,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #7 - 2026-02-19
+- **AI 类型**：开发
+- **完成任务**：任务#6 - 实现产品模块
+- **主要变更**：创建产品 DTOs、IProductService 接口、ProductService 实现、ProductsController 控制器
+- **遗留问题**：无
 
 ### 会话 #6 - 2026-02-19
 - **AI 类型**：开发
