@@ -136,6 +136,41 @@
 
 ---
 
+## [2026-02-19] - Task 5: 实现产品分类模块
+
+### What was done:
+- 创建分类相关 DTOs:
+  - CategoryDto: 分类信息响应 (Id, Name, ParentId, ParentName, Description, SortOrder, IsActive, CreatedAt)
+  - CategoryTreeDto: 分类树形结构响应 (包含 Children 子分类列表)
+  - CreateCategoryDto: 创建分类请求 (Name, ParentId, Description, SortOrder)
+  - UpdateCategoryDto: 更新分类请求 (Name, ParentId, Description, SortOrder, IsActive)
+- 创建 ICategoryService 接口 (GetAllAsync, GetTreeAsync, GetByIdAsync, CreateAsync, UpdateAsync, DeleteAsync, HasChildrenAsync)
+- 创建 CategoryService 实现:
+  - 获取分类列表: 按 SortOrder 和 Name 排序
+  - 获取分类树: 递归构建树形结构
+  - 创建分类: 父分类存在性验证
+  - 更新分类: 循环引用检测 (不能将子分类设为父分类)
+  - 删除分类: 检查子分类和关联产品
+- 创建 CategoriesController 控制器:
+  - GET /api/categories - 获取分类列表
+  - GET /api/categories/tree - 获取分类树形结构
+  - GET /api/categories/{id} - 获取分类详情
+  - POST /api/categories - 创建分类 (需要 Admin 角色)
+  - PUT /api/categories/{id} - 更新分类 (需要 Admin 角色)
+  - DELETE /api/categories/{id} - 删除分类 (需要 Admin 角色)
+- 注册服务到 DI 容器 (Program.cs)
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+
+### Notes:
+- 分类支持树形结构 (ParentId 自引用)
+- 创建/更新/删除分类需要 Admin 角色
+- 删除分类时检查是否存在子分类和关联产品
+- 更新分类时检测循环引用，防止分类层级错误
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -167,7 +202,7 @@
 | 2 | 配置后端基础架构 | ✅ 已完成 |
 | 3 | 创建领域实体模型 | ✅ 已完成 |
 | 4 | 实现用户认证模块 | ✅ 已完成 |
-| 5 | 实现产品分类模块 | ⏳ 待开始 |
+| 5 | 实现产品分类模块 | ✅ 已完成 |
 | 6 | 实现产品模块 | ⏳ 待开始 |
 | 7 | 实现购物车模块 | ⏳ 待开始 |
 | 8 | 实现订单模块 | ⏳ 待开始 |
