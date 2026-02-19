@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-19
-> 累计会话次数：8
+> 累计会话次数：9
 
 ---
 
@@ -11,7 +11,7 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React + TypeScript + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：7
+- **已完成任务**：8
 - **当前阶段**：后端开发
 
 ### 关键文件清单
@@ -41,8 +41,12 @@
 | `backend/src/ElectroBuy.Application/Interfaces/ICartService.cs` | 购物车服务接口 | 2026-02-19 | 任务#7 |
 | `backend/src/ElectroBuy.Infrastructure/Services/CartService.cs` | 购物车服务实现 | 2026-02-19 | 任务#7 |
 | `backend/src/ElectroBuy.Api/Controllers/CartController.cs` | 购物车控制器 | 2026-02-19 | 任务#7 |
-| `task.json` | 任务清单 | 2026-02-19 | 任务#7 |
-| `progress.txt` | 进度日志 | 2026-02-19 | 任务#7 |
+| `backend/src/ElectroBuy.Application/DTOs/Orders/*.cs` | 订单 DTOs | 2026-02-19 | 任务#8 |
+| `backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs` | 订单服务接口 | 2026-02-19 | 任务#8 |
+| `backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs` | 订单服务实现 | 2026-02-19 | 任务#8 |
+| `backend/src/ElectroBuy.Api/Controllers/OrdersController.cs` | 订单控制器 | 2026-02-19 | 任务#8 |
+| `task.json` | 任务清单 | 2026-02-19 | 任务#8 |
+| `progress.txt` | 进度日志 | 2026-02-19 | 任务#8 |
 
 ### API 端点清单
 
@@ -70,6 +74,11 @@
 | `/api/cart/{id}` | PUT | 更新购物车商品数量 | ✅ 已实现 |
 | `/api/cart/{id}` | DELETE | 移除购物车商品 | ✅ 已实现 |
 | `/api/cart/clear` | DELETE | 清空购物车 | ✅ 已实现 |
+| `/api/orders` | GET | 获取订单列表 | ✅ 已实现 |
+| `/api/orders/{id}` | GET | 获取订单详情 | ✅ 已实现 |
+| `/api/orders/count` | GET | 获取订单数量 | ✅ 已实现 |
+| `/api/orders` | POST | 创建订单 | ✅ 已实现 |
+| `/api/orders/{id}/cancel` | POST | 取消订单 | ✅ 已实现 |
 
 ### 数据库表清单
 
@@ -95,11 +104,36 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#7 已完成，等待开始任务#8
+**当前步骤**：任务#8 已完成，等待开始任务#9
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-19] - 任务#8: 实现订单模块
+
+**完成内容**：
+- 创建订单相关 DTOs (OrderDto, OrderItemDto, OrderListDto, CreateOrderDto, OrderQueryDto)
+- 创建 IOrderService 接口和 OrderService 实现
+- 实现获取订单列表功能 (支持分页、状态筛选)
+- 实现获取订单详情功能 (包含订单项列表)
+- 实现创建订单功能 (从购物车创建，验证库存、产品状态，扣减库存，生成订单编号，清空购物车)
+- 实现取消订单功能 (仅待确认状态可取消，恢复库存)
+- 实现获取订单数量功能
+- 创建 OrdersController 控制器
+
+**修改的文件**：
+- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderDto.cs` - 订单 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderItemDto.cs` - 订单项 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderListDto.cs` - 订单列表分页 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Orders/CreateOrderDto.cs` - 创建订单 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderQueryDto.cs` - 订单查询参数 DTO
+- `backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs` - 订单服务接口
+- `backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs` - 订单服务实现
+- `backend/src/ElectroBuy.Api/Controllers/OrdersController.cs` - 订单控制器
+- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
+
+**测试结果**：✅ dotnet build 编译成功
 
 ### [2026-02-19] - 任务#7: 实现购物车模块
 
@@ -484,6 +518,36 @@
 - 负面影响：产品价格变更后购物车显示可能不一致
 - 需要注意：下单时需重新获取最新价格
 
+### ADR-009: 订单模块设计
+
+**日期**：2026-02-19
+**状态**：已采纳
+
+**背景**：
+需要为电气自动化产品采买平台实现订单功能，支持从购物车创建订单、订单查询和取消订单等操作。
+
+**决策**：
+- 订单所有接口需要用户认证
+- 创建订单从购物车获取商品，验证库存和产品状态
+- 创建订单时自动扣减库存、生成订单编号、清空购物车
+- 订单编号格式：EB + 时间戳 + 随机数
+- 取消订单时恢复库存，仅待确认状态可取消
+- OrderItem 存储产品快照 (名称、型号、单价)
+- 订单状态：待确认、已确认、已发货、已完成、已取消
+
+**原因**：
+- 认证保护确保订单数据安全
+- 从购物车创建简化下单流程
+- 库存管理确保数据一致性
+- 订单编号唯一性便于查询
+- 快照存储避免产品信息变更影响历史订单
+- 状态管理支持订单生命周期
+
+**影响**：
+- 正面影响：订单流程完整，数据一致性好
+- 负面影响：库存操作需要事务保证
+- 需要注意：高并发场景需要库存锁机制
+
 ---
 
 ## 💡 给下一个 AI 的提示
@@ -513,6 +577,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #9 - 2026-02-19
+- **AI 类型**：开发
+- **完成任务**：任务#8 - 实现订单模块
+- **主要变更**：创建订单 DTOs、IOrderService 接口、OrderService 实现、OrdersController 控制器
+- **遗留问题**：无
 
 ### 会话 #8 - 2026-02-19
 - **AI 类型**：开发

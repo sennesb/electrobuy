@@ -246,6 +246,43 @@
 
 ---
 
+## [2026-02-19] - Task 8: 实现订单模块
+
+### What was done:
+- 创建订单相关 DTOs:
+  - OrderItemDto: 订单项信息响应 (ProductId, ProductName, ModelNumber, Quantity, UnitPrice, Subtotal)
+  - OrderDto: 订单信息响应 (OrderNumber, Status, StatusText, TotalAmount, Items, TotalItems)
+  - OrderListDto: 订单列表分页响应 (Data, Total, Page, PageSize, TotalPages)
+  - CreateOrderDto: 创建订单请求 (Remark)
+  - OrderQueryDto: 订单查询参数 (Page, PageSize, Status)
+- 创建 IOrderService 接口 (GetOrdersAsync, GetOrderByIdAsync, CreateOrderAsync, CancelOrderAsync, GetOrderCountAsync)
+- 创建 OrderService 实现:
+  - 获取订单列表: 支持分页、状态筛选
+  - 获取订单详情: 包含订单项列表
+  - 创建订单: 从购物车创建，验证库存、产品状态，扣减库存，生成订单编号，清空购物车
+  - 取消订单: 仅待确认状态可取消，恢复库存
+  - 获取订单数量: 返回用户订单总数
+- 创建 OrdersController 控制器:
+  - GET /api/orders - 获取订单列表 (需要认证)
+  - GET /api/orders/{id} - 获取订单详情 (需要认证)
+  - GET /api/orders/count - 获取订单数量 (需要认证)
+  - POST /api/orders - 创建订单 (需要认证)
+  - POST /api/orders/{id}/cancel - 取消订单 (需要认证)
+- 注册服务到 DI 容器 (Program.cs)
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+
+### Notes:
+- 所有订单接口需要用户认证
+- 创建订单时验证购物车是否为空、产品是否存在和上架、库存是否充足
+- 创建订单时自动扣减库存、生成订单编号 (格式: EB + 时间戳 + 随机数)
+- 创建订单后自动清空购物车
+- 取消订单时恢复库存，仅待确认状态可取消
+- OrderItem 存储产品快照 (名称、型号、单价)，避免产品信息变更影响历史订单
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -280,7 +317,7 @@
 | 5 | 实现产品分类模块 | ✅ 已完成 |
 | 6 | 实现产品模块 | ✅ 已完成 |
 | 7 | 实现购物车模块 | ✅ 已完成 |
-| 8 | 实现订单模块 | ⏳ 待开始 |
+| 8 | 实现订单模块 | ✅ 已完成 |
 | 9 | 数据库迁移与种子数据 | ⏳ 待开始 |
 | 10 | 初始化前端项目 | ⏳ 待开始 |
 | 11 | 创建前端基础组件 | ⏳ 待开始 |

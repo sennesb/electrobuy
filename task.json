@@ -230,19 +230,29 @@
       "priority": "high",
       "dependencies": [2, 3, 4, 6, 7],
       "steps": [
-        { "description": "创建 IOrderService 接口和 OrderService 实现", "completed": false },
-        { "description": "创建 OrdersController 控制器", "completed": false },
-        { "description": "实现创建订单接口 (从购物车创建)", "completed": false },
-        { "description": "实现获取订单列表接口", "completed": false },
-        { "description": "实现获取订单详情接口", "completed": false },
-        { "description": "实现取消订单接口", "completed": false },
-        { "description": "创建订单相关 DTOs", "completed": false }
+        { "description": "创建 IOrderService 接口和 OrderService 实现", "completed": true },
+        { "description": "创建 OrdersController 控制器", "completed": true },
+        { "description": "实现创建订单接口 (从购物车创建)", "completed": true },
+        { "description": "实现获取订单列表接口", "completed": true },
+        { "description": "实现获取订单详情接口", "completed": true },
+        { "description": "实现取消订单接口", "completed": true },
+        { "description": "创建订单相关 DTOs", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-19T02:00:00+08:00",
+      "completedAt": "2026-02-19T02:30:00+08:00",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderItemDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderListDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Orders/CreateOrderDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderQueryDto.cs",
+        "backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs",
+        "backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs",
+        "backend/src/ElectroBuy.Api/Controllers/OrdersController.cs",
+        "backend/src/ElectroBuy.Api/Program.cs"
+      ],
+      "notes": "实现了订单模块，包括从购物车创建订单、获取订单列表、获取订单详情、取消订单功能，支持库存扣减和恢复、订单编号自动生成、订单状态管理"
     },
     {
       "id": 9,
