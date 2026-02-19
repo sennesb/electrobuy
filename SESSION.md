@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-19
-> 累计会话次数：2
+> 累计会话次数：3
 
 ---
 
@@ -11,7 +11,7 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React + TypeScript + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：1
+- **已完成任务**：2
 - **当前阶段**：后端开发
 
 ### 关键文件清单
@@ -19,16 +19,18 @@
 | 文件路径 | 作用 | 最后修改 | 修改者 |
 |----------|------|----------|--------|
 | `backend/ElectroBuy.sln` | 解决方案文件 | 2026-02-19 | 任务#1 |
-| `backend/src/ElectroBuy.Api/` | API 层项目 | 2026-02-19 | 任务#1 |
-| `backend/src/ElectroBuy.Application/` | 应用层项目 | 2026-02-19 | 任务#1 |
-| `backend/src/ElectroBuy.Domain/` | 领域层项目 | 2026-02-19 | 任务#1 |
-| `backend/src/ElectroBuy.Infrastructure/` | 基础设施层项目 | 2026-02-19 | 任务#1 |
-| `task.json` | 任务清单 | 2026-02-19 | 任务#1 |
-| `progress.txt` | 进度日志 | 2026-02-19 | 任务#1 |
+| `backend/src/ElectroBuy.Api/Program.cs` | API 入口配置 | 2026-02-19 | 任务#2 |
+| `backend/src/ElectroBuy.Api/appsettings.json` | 应用配置 | 2026-02-19 | 任务#2 |
+| `backend/src/ElectroBuy.Api/Controllers/HealthController.cs` | 健康检查端点 | 2026-02-19 | 任务#2 |
+| `backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs` | 数据库上下文 | 2026-02-19 | 任务#2 |
+| `task.json` | 任务清单 | 2026-02-19 | 任务#2 |
+| `progress.txt` | 进度日志 | 2026-02-19 | 任务#2 |
 
 ### API 端点清单
 
-（待实现）
+| 端点 | 方法 | 描述 | 状态 |
+|------|------|------|------|
+| `/api/health` | GET | 健康检查 | ✅ 已实现 |
 
 ### 数据库表清单
 
@@ -38,7 +40,7 @@
 
 | 服务名称 | 用途 | 配置位置 | 状态 |
 |----------|------|----------|------|
-| SQL Server | 数据库 | `appsettings.json` | ⏳ 待配置 |
+| SQL Server | 数据库 | `appsettings.json` | ✅ 已配置 |
 | Redis | 缓存 | `appsettings.json` | ⏳ 待配置 |
 | .NET SDK 8.0.418 | 运行时 | `C:\Users\sensenbuxi\.dotnet` | ✅ 已安装 |
 
@@ -47,11 +49,32 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#1 已完成，等待开始任务#2
+**当前步骤**：任务#2 已完成，等待开始任务#3
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-19] - 任务#2: 配置后端基础架构
+
+**完成内容**：
+- 安装 NuGet 包 (EF Core, JWT, Serilog, Swagger)
+- 配置 appsettings.json (数据库连接、JWT、Serilog、CORS)
+- 创建 ElectroBuyDbContext 数据库上下文
+- 配置 JWT 认证服务
+- 配置 Swagger/OpenAPI (含 JWT 认证支持)
+- 配置 Serilog 日志
+- 配置 CORS 策略
+- 创建 HealthController 健康检查端点
+
+**修改的文件**：
+- `backend/src/ElectroBuy.Api/Program.cs` - API 入口配置
+- `backend/src/ElectroBuy.Api/appsettings.json` - 应用配置
+- `backend/src/ElectroBuy.Api/appsettings.Development.json` - 开发环境配置
+- `backend/src/ElectroBuy.Api/Controllers/HealthController.cs` - 健康检查端点
+- `backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs` - 数据库上下文
+
+**测试结果**：✅ dotnet build 编译成功
 
 ### [2026-02-19] - 任务#1: 初始化后端项目结构
 
@@ -81,8 +104,9 @@
 
 | 问题 | 严重程度 | 状态 | 解决方案 | 关联任务 |
 |------|----------|------|----------|----------|
-| 数据库连接字符串需要配置 | 高 | 待解决 | 在 appsettings.json 中配置 | 任务#2 |
-| JWT 密钥需要生成 | 高 | 待解决 | 生成安全的密钥字符串 | 任务#2 |
+| 数据库连接字符串需要配置 | 高 | ✅ 已解决 | 在 appsettings.json 中配置 | 任务#2 |
+| JWT 密钥需要生成 | 高 | ✅ 已解决 | 在 appsettings.json 中配置 | 任务#2 |
+| 需要创建领域实体模型 | 高 | 待解决 | 在 Domain 层创建实体类 | 任务#3 |
 
 ---
 
@@ -136,6 +160,32 @@
 - 负面影响：初期开发需要更多文件和配置
 - 需要注意：保持依赖方向正确（外层依赖内层）
 
+### ADR-003: 基础架构配置
+
+**日期**：2026-02-19
+**状态**：已采纳
+
+**背景**：
+需要配置后端基础架构组件，包括数据库、认证、日志等。
+
+**决策**：
+- ORM: Entity Framework Core 8.0 + SQL Server
+- 认证: JWT Bearer Token
+- 日志: Serilog (控制台 + 文件)
+- API 文档: Swagger/OpenAPI
+- CORS: 允许 localhost:5173 和 localhost:3000
+
+**原因**：
+- EF Core 与 ASP.NET Core 集成良好
+- JWT 是标准的无状态认证方案
+- Serilog 提供结构化日志
+- Swagger 便于 API 测试和文档
+
+**影响**：
+- 正面影响：开发体验好，易于调试
+- 负面影响：需要配置多个组件
+- 需要注意：生产环境应使用环境变量存储敏感信息
+
 ---
 
 ## 💡 给下一个 AI 的提示
@@ -165,6 +215,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #3 - 2026-02-19
+- **AI 类型**：开发
+- **完成任务**：任务#2 - 配置后端基础架构
+- **主要变更**：配置 EF Core、JWT、Serilog、Swagger、CORS，创建数据库上下文
+- **遗留问题**：无
 
 ### 会话 #2 - 2026-02-19
 - **AI 类型**：开发

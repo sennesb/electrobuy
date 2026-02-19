@@ -56,18 +56,24 @@
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "配置 Program.cs 和依赖注入", "completed": false },
-        { "description": "创建 ElectroBuyDbContext 数据库上下文", "completed": false },
-        { "description": "配置 JWT 认证服务", "completed": false },
-        { "description": "配置 Swagger/OpenAPI", "completed": false },
-        { "description": "配置 Serilog 日志", "completed": false },
-        { "description": "配置 CORS 策略", "completed": false }
+        { "description": "配置 Program.cs 和依赖注入", "completed": true },
+        { "description": "创建 ElectroBuyDbContext 数据库上下文", "completed": true },
+        { "description": "配置 JWT 认证服务", "completed": true },
+        { "description": "配置 Swagger/OpenAPI", "completed": true },
+        { "description": "配置 Serilog 日志", "completed": true },
+        { "description": "配置 CORS 策略", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-19T20:00:00+08:00",
+      "completedAt": "2026-02-19T20:30:00+08:00",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Api/Program.cs",
+        "backend/src/ElectroBuy.Api/appsettings.json",
+        "backend/src/ElectroBuy.Api/appsettings.Development.json",
+        "backend/src/ElectroBuy.Api/Controllers/HealthController.cs",
+        "backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs"
+      ],
+      "notes": "配置了 EF Core、JWT 认证、Swagger、Serilog 日志、CORS 策略，安装了相关 NuGet 包"
     },
     {
       "id": 3,

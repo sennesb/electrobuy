@@ -40,6 +40,38 @@
 
 ---
 
+## [2026-02-19] - Task 2: 配置后端基础架构
+
+### What was done:
+- 安装 NuGet 包:
+  - Microsoft.EntityFrameworkCore.SqlServer (8.0.0)
+  - Microsoft.EntityFrameworkCore.Design (8.0.0)
+  - Microsoft.AspNetCore.Authentication.JwtBearer (8.0.0)
+  - Serilog.AspNetCore (8.0.0)
+  - Serilog.Sinks.Console (5.0.0)
+  - Serilog.Sinks.File (5.0.0)
+  - Swashbuckle.AspNetCore (6.5.0)
+- 配置 appsettings.json (数据库连接、JWT、Serilog、CORS)
+- 创建 appsettings.Development.json
+- 创建 ElectroBuyDbContext 数据库上下文
+- 配置 Program.cs:
+  - Serilog 日志
+  - EF Core 数据库上下文
+  - JWT 认证服务
+  - Swagger/OpenAPI (含 JWT 认证支持)
+  - CORS 策略
+- 创建 HealthController 健康检查端点
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+
+### Notes:
+- JWT 密钥配置在 appsettings.json 中，生产环境应使用环境变量
+- CORS 配置允许 localhost:5173 (Vite) 和 localhost:3000
+- Serilog 配置输出到控制台和文件 (Logs/log-.txt)
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -68,7 +100,7 @@
 | ID | 任务标题 | 状态 |
 |----|----------|------|
 | 1 | 初始化后端项目结构 | ✅ 已完成 |
-| 2 | 配置后端基础架构 | ⏳ 待开始 |
+| 2 | 配置后端基础架构 | ✅ 已完成 |
 | 3 | 创建领域实体模型 | ⏳ 待开始 |
 | 4 | 实现用户认证模块 | ⏳ 待开始 |
 | 5 | 实现产品分类模块 | ⏳ 待开始 |
