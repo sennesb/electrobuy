@@ -102,6 +102,40 @@
 
 ---
 
+## [2026-02-19] - Task 4: 实现用户认证模块
+
+### What was done:
+- 创建认证相关 DTOs:
+  - RegisterDto: 用户注册请求 (Email, Password, Name, Company, Phone)
+  - LoginDto: 用户登录请求 (Email, Password)
+  - UserDto: 用户信息响应 (Id, Email, Name, Company, Phone, Role, IsActive, CreatedAt)
+  - AuthResponseDto: 认证响应 (User, Token, Expiration)
+- 创建 IUserService 接口 (RegisterAsync, LoginAsync, GetCurrentUserAsync, UserExistsAsync)
+- 安装 NuGet 包:
+  - BCrypt.Net-Next (4.0.3) - 密码加密
+  - System.IdentityModel.Tokens.Jwt (8.0.0) - JWT Token 生成
+- 创建 UserService 实现:
+  - 用户注册: 邮箱唯一性检查, BCrypt 密码加密
+  - 用户登录: 密码验证, 账户状态检查, JWT Token 生成
+  - 获取当前用户: 根据 UserId 查询用户信息
+- 创建 AuthController 控制器:
+  - POST /api/auth/register - 用户注册
+  - POST /api/auth/login - 用户登录
+  - GET /api/auth/me - 获取当前用户信息 (需要认证)
+- 注册服务到 DI 容器 (Program.cs)
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+
+### Notes:
+- 密码使用 BCrypt 加密存储
+- JWT Token 有效期配置为 120 分钟
+- Token 包含用户 ID、邮箱、姓名、角色等 Claims
+- 注册时邮箱唯一性检查
+- 登录时账户状态检查 (IsActive)
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -132,7 +166,7 @@
 | 1 | 初始化后端项目结构 | ✅ 已完成 |
 | 2 | 配置后端基础架构 | ✅ 已完成 |
 | 3 | 创建领域实体模型 | ✅ 已完成 |
-| 4 | 实现用户认证模块 | ⏳ 待开始 |
+| 4 | 实现用户认证模块 | ✅ 已完成 |
 | 5 | 实现产品分类模块 | ⏳ 待开始 |
 | 6 | 实现产品模块 | ⏳ 待开始 |
 | 7 | 实现购物车模块 | ⏳ 待开始 |

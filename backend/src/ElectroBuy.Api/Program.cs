@@ -1,5 +1,7 @@
 using System.Text;
+using ElectroBuy.Application.Interfaces;
 using ElectroBuy.Infrastructure.Data;
+using ElectroBuy.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -17,6 +19,8 @@ builder.Host.UseSerilog();
 
 builder.Services.AddDbContext<ElectroBuyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT SecretKey not configured");

@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-19
-> 累计会话次数：4
+> 累计会话次数：5
 
 ---
 
@@ -11,7 +11,7 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React + TypeScript + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：3
+- **已完成任务**：4
 - **当前阶段**：后端开发
 
 ### 关键文件清单
@@ -25,14 +25,21 @@
 | `backend/src/ElectroBuy.Domain/Entities/*.cs` | 领域实体 | 2026-02-19 | 任务#3 |
 | `backend/src/ElectroBuy.Domain/Enums/*.cs` | 枚举类型 | 2026-02-19 | 任务#3 |
 | `backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs` | 数据库上下文 | 2026-02-19 | 任务#3 |
-| `task.json` | 任务清单 | 2026-02-19 | 任务#3 |
-| `progress.txt` | 进度日志 | 2026-02-19 | 任务#3 |
+| `backend/src/ElectroBuy.Application/DTOs/Auth/*.cs` | 认证 DTOs | 2026-02-19 | 任务#4 |
+| `backend/src/ElectroBuy.Application/Interfaces/IUserService.cs` | 用户服务接口 | 2026-02-19 | 任务#4 |
+| `backend/src/ElectroBuy.Infrastructure/Services/UserService.cs` | 用户服务实现 | 2026-02-19 | 任务#4 |
+| `backend/src/ElectroBuy.Api/Controllers/AuthController.cs` | 认证控制器 | 2026-02-19 | 任务#4 |
+| `task.json` | 任务清单 | 2026-02-19 | 任务#4 |
+| `progress.txt` | 进度日志 | 2026-02-19 | 任务#4 |
 
 ### API 端点清单
 
 | 端点 | 方法 | 描述 | 状态 |
 |------|------|------|------|
 | `/api/health` | GET | 健康检查 | ✅ 已实现 |
+| `/api/auth/register` | POST | 用户注册 | ✅ 已实现 |
+| `/api/auth/login` | POST | 用户登录 | ✅ 已实现 |
+| `/api/auth/me` | GET | 获取当前用户信息 | ✅ 已实现 |
 
 ### 数据库表清单
 
@@ -58,11 +65,33 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#3 已完成，等待开始任务#4
+**当前步骤**：任务#4 已完成，等待开始任务#5
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-19] - 任务#4: 实现用户认证模块
+
+**完成内容**：
+- 创建认证相关 DTOs (RegisterDto, LoginDto, UserDto, AuthResponseDto)
+- 创建 IUserService 接口和 UserService 实现
+- 实现用户注册功能 (BCrypt 密码加密)
+- 实现用户登录功能 (JWT Token 生成)
+- 实现获取当前用户信息接口
+- 创建 AuthController 控制器
+
+**修改的文件**：
+- `backend/src/ElectroBuy.Application/DTOs/Auth/RegisterDto.cs` - 注册请求 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Auth/LoginDto.cs` - 登录请求 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Auth/UserDto.cs` - 用户信息 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Auth/AuthResponseDto.cs` - 认证响应 DTO
+- `backend/src/ElectroBuy.Application/Interfaces/IUserService.cs` - 用户服务接口
+- `backend/src/ElectroBuy.Infrastructure/Services/UserService.cs` - 用户服务实现
+- `backend/src/ElectroBuy.Api/Controllers/AuthController.cs` - 认证控制器
+- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
+
+**测试结果**：✅ dotnet build 编译成功
 
 ### [2026-02-19] - 任务#3: 创建领域实体模型
 
@@ -242,6 +271,30 @@
 - 负面影响：OrderItem 数据冗余
 - 需要注意：产品删除时需检查关联数据
 
+### ADR-005: 用户认证方案
+
+**日期**：2026-02-19
+**状态**：已采纳
+
+**背景**：
+需要为电气自动化产品采买平台实现用户认证功能，支持用户注册、登录和获取当前用户信息。
+
+**决策**：
+- 密码加密：BCrypt.Net-Next
+- Token 生成：JWT (System.IdentityModel.Tokens.Jwt)
+- 认证方式：Bearer Token
+- Token 有效期：120 分钟
+
+**原因**：
+- BCrypt 是业界标准的密码加密算法，安全性高
+- JWT 是无状态认证方案，适合分布式系统
+- Bearer Token 简单易用，前端只需在 Header 中携带 Token
+
+**影响**：
+- 正面影响：认证安全可靠，前端集成简单
+- 负面影响：Token 无法主动失效，需要等待过期
+- 需要注意：生产环境应使用 HTTPS 传输 Token
+
 ---
 
 ## 💡 给下一个 AI 的提示
@@ -271,6 +324,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #5 - 2026-02-19
+- **AI 类型**：开发
+- **完成任务**：任务#4 - 实现用户认证模块
+- **主要变更**：创建认证 DTOs、IUserService 接口、UserService 实现、AuthController 控制器
+- **遗留问题**：无
 
 ### 会话 #4 - 2026-02-19
 - **AI 类型**：开发

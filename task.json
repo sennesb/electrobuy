@@ -112,18 +112,28 @@
       "priority": "high",
       "dependencies": [2, 3],
       "steps": [
-        { "description": "创建 IUserService 接口和 UserService 实现", "completed": false },
-        { "description": "创建 AuthController 控制器", "completed": false },
-        { "description": "实现用户注册功能 (密码 BCrypt 加密)", "completed": false },
-        { "description": "实现用户登录功能 (JWT Token 生成)", "completed": false },
-        { "description": "实现获取当前用户信息接口", "completed": false },
-        { "description": "创建认证相关 DTOs", "completed": false }
+        { "description": "创建 IUserService 接口和 UserService 实现", "completed": true },
+        { "description": "创建 AuthController 控制器", "completed": true },
+        { "description": "实现用户注册功能 (密码 BCrypt 加密)", "completed": true },
+        { "description": "实现用户登录功能 (JWT Token 生成)", "completed": true },
+        { "description": "实现获取当前用户信息接口", "completed": true },
+        { "description": "创建认证相关 DTOs", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-19T22:00:00+08:00",
+      "completedAt": "2026-02-19T22:30:00+08:00",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Application/DTOs/Auth/RegisterDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Auth/LoginDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Auth/UserDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Auth/AuthResponseDto.cs",
+        "backend/src/ElectroBuy.Application/Interfaces/IUserService.cs",
+        "backend/src/ElectroBuy.Infrastructure/Services/UserService.cs",
+        "backend/src/ElectroBuy.Infrastructure/ElectroBuy.Infrastructure.csproj",
+        "backend/src/ElectroBuy.Api/Controllers/AuthController.cs",
+        "backend/src/ElectroBuy.Api/Program.cs"
+      ],
+      "notes": "实现了用户认证模块，包括注册、登录、获取当前用户信息功能，使用 BCrypt 加密密码，JWT Token 生成和验证"
     },
     {
       "id": 5,
