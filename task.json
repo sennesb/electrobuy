@@ -1,0 +1,417 @@
+{
+  "project": "ElectroBuy",
+  "description": "电气自动化产品采买平台 - 一个面向电气自动化行业的 B2B/B2C 电子商务平台",
+  "tasksQuantity": 20,
+  "metadata": {
+    "createdAt": "2026-02-19",
+    "lastUpdated": "2026-02-19",
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "ASP.NET Core 8",
+      "C#",
+      "Entity Framework Core",
+      "SQL Server",
+      "Redis"
+    ],
+    "dependencies": [
+      "Node.js >= 18.x",
+      ".NET SDK >= 8.x",
+      "SQL Server >= 2019"
+    ]
+  },
+  "tasks": [
+    {
+      "id": 1,
+      "title": "初始化后端项目结构",
+      "description": "创建 ASP.NET Core 后端解决方案，包含四层架构项目结构",
+      "priority": "high",
+      "dependencies": [],
+      "steps": [
+        { "description": "创建 ElectroBuy.sln 解决方案文件", "completed": false },
+        { "description": "创建 ElectroBuy.Api 项目 (Web API)", "completed": false },
+        { "description": "创建 ElectroBuy.Application 项目 (应用层)", "completed": false },
+        { "description": "创建 ElectroBuy.Domain 项目 (领域层)", "completed": false },
+        { "description": "创建 ElectroBuy.Infrastructure 项目 (基础设施层)", "completed": false },
+        { "description": "配置项目引用关系", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 2,
+      "title": "配置后端基础架构",
+      "description": "配置依赖注入、数据库上下文、JWT 认证等基础组件",
+      "priority": "high",
+      "dependencies": [1],
+      "steps": [
+        { "description": "配置 Program.cs 和依赖注入", "completed": false },
+        { "description": "创建 ElectroBuyDbContext 数据库上下文", "completed": false },
+        { "description": "配置 JWT 认证服务", "completed": false },
+        { "description": "配置 Swagger/OpenAPI", "completed": false },
+        { "description": "配置 Serilog 日志", "completed": false },
+        { "description": "配置 CORS 策略", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 3,
+      "title": "创建领域实体模型",
+      "description": "在 Domain 层创建所有实体类和枚举类型",
+      "priority": "high",
+      "dependencies": [1],
+      "steps": [
+        { "description": "创建 User 实体", "completed": false },
+        { "description": "创建 Category 实体", "completed": false },
+        { "description": "创建 Product 实体", "completed": false },
+        { "description": "创建 Order 和 OrderItem 实体", "completed": false },
+        { "description": "创建 CartItem 实体", "completed": false },
+        { "description": "创建枚举类型 (UserRole, OrderStatus)", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 4,
+      "title": "实现用户认证模块",
+      "description": "实现用户注册、登录、JWT Token 生成和验证功能",
+      "priority": "high",
+      "dependencies": [2, 3],
+      "steps": [
+        { "description": "创建 IUserService 接口和 UserService 实现", "completed": false },
+        { "description": "创建 AuthController 控制器", "completed": false },
+        { "description": "实现用户注册功能 (密码 BCrypt 加密)", "completed": false },
+        { "description": "实现用户登录功能 (JWT Token 生成)", "completed": false },
+        { "description": "实现获取当前用户信息接口", "completed": false },
+        { "description": "创建认证相关 DTOs", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 5,
+      "title": "实现产品分类模块",
+      "description": "实现产品分类的 CRUD 操作",
+      "priority": "high",
+      "dependencies": [2, 3],
+      "steps": [
+        { "description": "创建 ICategoryService 接口和 CategoryService 实现", "completed": false },
+        { "description": "创建 CategoriesController 控制器", "completed": false },
+        { "description": "实现获取分类列表接口 (支持树形结构)", "completed": false },
+        { "description": "实现创建、更新、删除分类接口", "completed": false },
+        { "description": "创建分类相关 DTOs", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 6,
+      "title": "实现产品模块",
+      "description": "实现产品的 CRUD 操作和搜索功能",
+      "priority": "high",
+      "dependencies": [2, 3, 5],
+      "steps": [
+        { "description": "创建 IProductService 接口和 ProductService 实现", "completed": false },
+        { "description": "创建 ProductsController 控制器", "completed": false },
+        { "description": "实现获取产品列表接口 (分页、筛选、搜索)", "completed": false },
+        { "description": "实现获取产品详情接口", "completed": false },
+        { "description": "实现创建、更新、删除产品接口 (Admin)", "completed": false },
+        { "description": "创建产品相关 DTOs", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 7,
+      "title": "实现购物车模块",
+      "description": "实现购物车的增删改查功能",
+      "priority": "high",
+      "dependencies": [2, 3, 4, 6],
+      "steps": [
+        { "description": "创建 ICartService 接口和 CartService 实现", "completed": false },
+        { "description": "创建 CartController 控制器", "completed": false },
+        { "description": "实现获取购物车接口", "completed": false },
+        { "description": "实现添加商品到购物车接口", "completed": false },
+        { "description": "实现更新购物车商品数量接口", "completed": false },
+        { "description": "实现移除购物车商品接口", "completed": false },
+        { "description": "实现清空购物车接口", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 8,
+      "title": "实现订单模块",
+      "description": "实现订单创建、查询、状态管理功能",
+      "priority": "high",
+      "dependencies": [2, 3, 4, 6, 7],
+      "steps": [
+        { "description": "创建 IOrderService 接口和 OrderService 实现", "completed": false },
+        { "description": "创建 OrdersController 控制器", "completed": false },
+        { "description": "实现创建订单接口 (从购物车创建)", "completed": false },
+        { "description": "实现获取订单列表接口", "completed": false },
+        { "description": "实现获取订单详情接口", "completed": false },
+        { "description": "实现取消订单接口", "completed": false },
+        { "description": "创建订单相关 DTOs", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 9,
+      "title": "数据库迁移与种子数据",
+      "description": "创建数据库迁移并添加初始种子数据",
+      "priority": "high",
+      "dependencies": [3, 4, 5, 6, 7, 8],
+      "steps": [
+        { "description": "创建初始数据库迁移", "completed": false },
+        { "description": "创建种子数据脚本 (分类、测试产品)", "completed": false },
+        { "description": "创建管理员账户种子数据", "completed": false },
+        { "description": "验证数据库迁移成功", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 10,
+      "title": "初始化前端项目",
+      "description": "创建 React + TypeScript + Vite 前端项目",
+      "priority": "high",
+      "dependencies": [],
+      "steps": [
+        { "description": "使用 Vite 创建 React + TypeScript 项目", "completed": false },
+        { "description": "配置 Tailwind CSS", "completed": false },
+        { "description": "配置路径别名 (@/)", "completed": false },
+        { "description": "配置 ESLint 和 Prettier", "completed": false },
+        { "description": "安装核心依赖 (react-router, zustand, tanstack-query 等)", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 11,
+      "title": "创建前端基础组件",
+      "description": "创建 UI 基础组件库 (Button, Input, Modal 等)",
+      "priority": "high",
+      "dependencies": [10],
+      "steps": [
+        { "description": "创建 Button 组件", "completed": false },
+        { "description": "创建 Input 组件", "completed": false },
+        { "description": "创建 Modal 组件", "completed": false },
+        { "description": "创建 Loading 组件", "completed": false },
+        { "description": "创建 Toast 消息组件", "completed": false },
+        { "description": "创建 Pagination 组件", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 12,
+      "title": "创建前端布局组件",
+      "description": "创建页面布局组件 (Header, Footer, MainLayout)",
+      "priority": "high",
+      "dependencies": [10, 11],
+      "steps": [
+        { "description": "创建 Header 组件 (Logo, 导航, 用户菜单)", "completed": false },
+        { "description": "创建 Footer 组件", "completed": false },
+        { "description": "创建 MainLayout 布局组件", "completed": false },
+        { "description": "创建 Sidebar 侧边栏组件", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 13,
+      "title": "实现前端 API 客户端",
+      "description": "创建 API 请求封装和类型定义",
+      "priority": "high",
+      "dependencies": [10],
+      "steps": [
+        { "description": "创建 Axios 实例配置", "completed": false },
+        { "description": "创建 API 类型定义 (types/api.ts)", "completed": false },
+        { "description": "创建认证 API (authApi)", "completed": false },
+        { "description": "创建产品 API (productsApi)", "completed": false },
+        { "description": "创建购物车 API (cartApi)", "completed": false },
+        { "description": "创建订单 API (ordersApi)", "completed": false },
+        { "description": "配置请求拦截器 (JWT Token)", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 14,
+      "title": "实现前端状态管理",
+      "description": "创建 Zustand stores 管理全局状态",
+      "priority": "high",
+      "dependencies": [10, 13],
+      "steps": [
+        { "description": "创建 authStore (用户认证状态)", "completed": false },
+        { "description": "创建 cartStore (购物车状态)", "completed": false },
+        { "description": "创建 uiStore (UI 状态)", "completed": false },
+        { "description": "配置状态持久化 (localStorage)", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 15,
+      "title": "实现登录注册页面",
+      "description": "创建用户登录和注册页面",
+      "priority": "high",
+      "dependencies": [11, 12, 13, 14],
+      "steps": [
+        { "description": "创建登录页面 (LoginPage)", "completed": false },
+        { "description": "创建注册页面 (RegisterPage)", "completed": false },
+        { "description": "创建登录表单组件 (LoginForm)", "completed": false },
+        { "description": "创建注册表单组件 (RegisterForm)", "completed": false },
+        { "description": "实现表单验证 (Zod)", "completed": false },
+        { "description": "实现登录/注册逻辑和跳转", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 16,
+      "title": "实现首页和产品列表页",
+      "description": "创建首页和产品浏览页面",
+      "priority": "high",
+      "dependencies": [11, 12, 13, 14],
+      "steps": [
+        { "description": "创建首页 (HomePage)", "completed": false },
+        { "description": "创建产品列表页 (ProductsPage)", "completed": false },
+        { "description": "创建产品卡片组件 (ProductCard)", "completed": false },
+        { "description": "创建产品筛选组件 (ProductFilter)", "completed": false },
+        { "description": "创建分类导航组件 (CategoryNav)", "completed": false },
+        { "description": "实现产品搜索功能", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 17,
+      "title": "实现产品详情页",
+      "description": "创建产品详情页面和加入购物车功能",
+      "priority": "high",
+      "dependencies": [11, 12, 13, 14, 16],
+      "steps": [
+        { "description": "创建产品详情页 (ProductDetailPage)", "completed": false },
+        { "description": "创建产品图片展示组件 (ProductGallery)", "completed": false },
+        { "description": "创建产品信息组件 (ProductInfo)", "completed": false },
+        { "description": "创建规格参数表格组件 (SpecTable)", "completed": false },
+        { "description": "实现加入购物车功能", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 18,
+      "title": "实现购物车页面",
+      "description": "创建购物车页面和订单提交功能",
+      "priority": "high",
+      "dependencies": [11, 12, 13, 14, 17],
+      "steps": [
+        { "description": "创建购物车页面 (CartPage)", "completed": false },
+        { "description": "创建购物车项组件 (CartItem)", "completed": false },
+        { "description": "创建订单摘要组件 (OrderSummary)", "completed": false },
+        { "description": "实现购物车数量修改功能", "completed": false },
+        { "description": "实现提交订单功能", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 19,
+      "title": "实现订单列表和详情页",
+      "description": "创建订单历史和订单详情页面",
+      "priority": "high",
+      "dependencies": [11, 12, 13, 14, 18],
+      "steps": [
+        { "description": "创建订单列表页 (OrdersPage)", "completed": false },
+        { "description": "创建订单详情页 (OrderDetailPage)", "completed": false },
+        { "description": "创建订单卡片组件 (OrderCard)", "completed": false },
+        { "description": "创建订单状态组件 (OrderStatus)", "completed": false },
+        { "description": "实现取消订单功能", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    },
+    {
+      "id": 20,
+      "title": "实现个人中心页面",
+      "description": "创建用户个人中心和信息管理页面",
+      "priority": "medium",
+      "dependencies": [11, 12, 13, 14, 15],
+      "steps": [
+        { "description": "创建个人中心页面 (ProfilePage)", "completed": false },
+        { "description": "创建用户信息编辑表单", "completed": false },
+        { "description": "实现修改密码功能", "completed": false },
+        { "description": "实现用户信息更新功能", "completed": false }
+      ],
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
+    }
+  ]
+}
