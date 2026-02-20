@@ -144,14 +144,14 @@ public class CategoryService : ICategoryService
     private async Task<bool> IsDescendantAsync(int ancestorId, int descendantId)
     {
         var visited = new HashSet<int>();
-        var currentId = descendantId;
+        int? currentId = descendantId;
 
         while (currentId.HasValue && !visited.Contains(currentId.Value))
         {
             visited.Add(currentId.Value);
 
             var parent = await _context.Categories
-                .Where(c => c.Id == currentId)
+                .Where(c => c.Id == currentId.Value)
                 .Select(c => c.ParentId)
                 .FirstOrDefaultAsync();
 

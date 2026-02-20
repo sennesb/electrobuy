@@ -26,7 +26,7 @@ public class CartService : ICartService
 
         return new CartDto
         {
-            Items = items.Select(MapToDto).ToList()
+            Items = items.Select(c => MapToDto(c)).ToList()
         };
     }
 

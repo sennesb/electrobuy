@@ -101,6 +101,30 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ElectroBuyDbContext>();
+        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+        if (pendingMigrations.Any())
+        {
+            Log.Information("Applying {Count} pending migrations...", pendingMigrations.Count());
+            await context.Database.MigrateAsync();
+            Log.Information("Migrations applied successfully.");
+        }
+
+        Log.Information("Seeding database...");
+        await DataSeeder.SeedAsync(context);
+        Log.Information("Database seeding completed.");
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex, "An error occurred while migrating or seeding the database.");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

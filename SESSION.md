@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
-> 最后更新：2026-02-19
-> 累计会话次数：9
+> 最后更新：2026-02-20
+> 累计会话次数：10
 
 ---
 
@@ -11,8 +11,8 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React + TypeScript + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：8
-- **当前阶段**：后端开发
+- **已完成任务**：9
+- **当前阶段**：后端开发完成，准备前端开发
 
 ### 关键文件清单
 
@@ -45,8 +45,11 @@
 | `backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs` | 订单服务接口 | 2026-02-19 | 任务#8 |
 | `backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs` | 订单服务实现 | 2026-02-19 | 任务#8 |
 | `backend/src/ElectroBuy.Api/Controllers/OrdersController.cs` | 订单控制器 | 2026-02-19 | 任务#8 |
-| `task.json` | 任务清单 | 2026-02-19 | 任务#8 |
-| `progress.txt` | 进度日志 | 2026-02-19 | 任务#8 |
+| `backend/src/ElectroBuy.Infrastructure/Data/Migrations/*.cs` | 数据库迁移文件 | 2026-02-20 | 任务#9 |
+| `backend/src/ElectroBuy.Infrastructure/Data/DataSeeder.cs` | 种子数据初始化器 | 2026-02-20 | 任务#9 |
+| `backend/.config/dotnet-tools.json` | .NET 工具配置 | 2026-02-20 | 任务#9 |
+| `task.json` | 任务清单 | 2026-02-20 | 任务#9 |
+| `progress.txt` | 进度日志 | 2026-02-20 | 任务#9 |
 
 ### API 端点清单
 
@@ -84,12 +87,12 @@
 
 | 表名 | 描述 | 状态 |
 |------|------|------|
-| Users | 用户表 | ✅ 实体已创建 |
-| Categories | 分类表 | ✅ 实体已创建 |
-| Products | 产品表 | ✅ 实体已创建 |
-| Orders | 订单表 | ✅ 实体已创建 |
-| OrderItems | 订单项表 | ✅ 实体已创建 |
-| CartItems | 购物车项表 | ✅ 实体已创建 |
+| Users | 用户表 | ✅ 迁移已创建 |
+| Categories | 分类表 | ✅ 迁移已创建 |
+| Products | 产品表 | ✅ 迁移已创建 |
+| Orders | 订单表 | ✅ 迁移已创建 |
+| OrderItems | 订单项表 | ✅ 迁移已创建 |
+| CartItems | 购物车项表 | ✅ 迁移已创建 |
 
 ### 外部依赖清单
 
@@ -104,11 +107,33 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#8 已完成，等待开始任务#9
+**当前步骤**：任务#9 已完成，后端开发完成，等待开始任务#10 (前端项目初始化)
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-20] - 任务#9: 数据库迁移与种子数据
+
+**完成内容**：
+- 安装 EF Core CLI 工具 (dotnet-ef 8.0.24)
+- 创建初始数据库迁移 (InitialCreate)
+- 创建 DataSeeder.cs 种子数据初始化器
+- 添加 8 个产品分类 (PLC可编程控制器、变频器、传感器、低压电器、人机界面、伺服系统、工业通信、电源与配电)
+- 添加 19 个测试产品 (西门子、三菱、ABB、倍加福、施耐德品牌)
+- 添加管理员账户种子数据 (admin@electrobuy.com / Admin@123456)
+- 配置应用启动时自动迁移和种子数据初始化
+
+**修改的文件**：
+- `backend/src/ElectroBuy.Infrastructure/Data/Migrations/20260220_InitialCreate.cs` - 迁移文件
+- `backend/src/ElectroBuy.Infrastructure/Data/Migrations/20260220_InitialCreate.Designer.cs` - 设计器文件
+- `backend/src/ElectroBuy.Infrastructure/Data/Migrations/ElectroBuyDbContextModelSnapshot.cs` - 模型快照
+- `backend/src/ElectroBuy.Infrastructure/Data/DataSeeder.cs` - 种子数据初始化器
+- `backend/src/ElectroBuy.Api/Program.cs` - 添加迁移和种子数据初始化逻辑
+- `backend/.config/dotnet-tools.json` - .NET 工具配置
+- `backend/src/ElectroBuy.Api/ElectroBuy.Api.csproj` - 添加 EF Core Design 包引用
+
+**测试结果**：✅ dotnet build 编译成功
 
 ### [2026-02-19] - 任务#8: 实现订单模块
 
@@ -304,7 +329,7 @@
 | 数据库连接字符串需要配置 | 高 | ✅ 已解决 | 在 appsettings.json 中配置 | 任务#2 |
 | JWT 密钥需要生成 | 高 | ✅ 已解决 | 在 appsettings.json 中配置 | 任务#2 |
 | 需要创建领域实体模型 | 高 | ✅ 已解决 | 在 Domain 层创建实体类 | 任务#3 |
-| 需要创建数据库迁移 | 高 | 待解决 | 运行 dotnet ef migrations add | 任务#9 |
+| 需要创建数据库迁移 | 高 | ✅ 已解决 | 运行 dotnet ef migrations add | 任务#9 |
 
 ---
 
@@ -548,6 +573,32 @@
 - 负面影响：库存操作需要事务保证
 - 需要注意：高并发场景需要库存锁机制
 
+### ADR-010: 数据库迁移与种子数据策略
+
+**日期**：2026-02-20
+**状态**：已采纳
+
+**背景**：
+需要为电气自动化产品采买平台创建数据库迁移并添加初始种子数据，确保应用启动时数据库自动初始化。
+
+**决策**：
+- 使用 EF Core Code-First 迁移方式管理数据库版本
+- 创建 DataSeeder 静态类处理种子数据初始化
+- 种子数据仅在数据库为空时初始化，避免重复插入
+- 应用启动时自动检查并应用待处理的迁移
+- 种子数据包含：8个产品分类、19个测试产品、1个管理员账户
+
+**原因**：
+- Code-First 方式便于版本控制和团队协作
+- 自动迁移简化部署流程
+- 空数据库检查避免数据重复
+- 真实产品数据便于测试和演示
+
+**影响**：
+- 正面影响：数据库初始化自动化，开发体验好
+- 负面影响：种子数据硬编码，更新需要修改代码
+- 需要注意：生产环境应考虑使用迁移脚本单独执行
+
 ---
 
 ## 💡 给下一个 AI 的提示
@@ -577,6 +628,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #10 - 2026-02-20
+- **AI 类型**：开发
+- **完成任务**：任务#9 - 数据库迁移与种子数据
+- **主要变更**：创建数据库迁移、种子数据初始化器、配置自动迁移逻辑
+- **遗留问题**：无
 
 ### 会话 #9 - 2026-02-19
 - **AI 类型**：开发
