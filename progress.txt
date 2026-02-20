@@ -431,6 +431,48 @@
 
 ---
 
+## [2026-02-21] - Task 15: 实现登录注册页面
+
+### What was done:
+- 创建 LoginForm 组件:
+  - 使用 react-hook-form + zod 实现表单验证
+  - 邮箱和密码字段验证
+  - 记住我和忘记密码链接
+  - 登录成功后跳转到首页或返回页面
+- 创建 RegisterForm 组件:
+  - 姓名、邮箱、密码、确认密码字段
+  - 公司和联系电话可选字段
+  - 密码一致性验证
+  - 服务条款和隐私政策链接
+- 创建 LoginPage 页面:
+  - 渐变背景设计
+  - 品牌 Logo 和欢迎信息
+  - 包含登录表单和注册链接
+- 创建 RegisterPage 页面:
+  - 与登录页面风格一致
+  - 包含注册表单和登录链接
+- 配置路由:
+  - 添加 /login 和 /register 路由
+  - App.tsx 配置 BrowserRouter 和 Routes
+- 集成后端 API:
+  - 调用 authApi.login 和 authApi.register
+  - 更新 authStore 状态
+  - 登录/注册成功后跳转
+
+### Testing:
+- ✅ npm run build 构建成功
+- ✅ npm run lint 检查通过
+- ✅ Playwright MCP 登录测试通过 (admin@electrobuy.com)
+- ✅ Playwright MCP 注册测试通过 (testuser2026@example.com)
+
+### Notes:
+- 表单验证使用 zod schema 定义规则
+- 登录/注册成功后自动跳转到首页
+- 支持 returnUrl 参数登录后返回原页面
+- 错误信息显示在表单顶部
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -472,7 +514,7 @@
 | 12 | 创建前端布局组件 | ✅ 已完成 |
 | 13 | 实现前端 API 客户端 | ✅ 已完成 (在任务10中提前完成) |
 | 14 | 实现前端状态管理 | ✅ 已完成 (在任务10中提前完成) |
-| 15 | 实现登录注册页面 | ⏳ 待开始 |
+| 15 | 实现登录注册页面 | ✅ 已完成 |
 | 16 | 实现首页和产品列表页 | ⏳ 待开始 |
 | 17 | 实现产品详情页 | ⏳ 待开始 |
 | 18 | 实现购物车页面 | ⏳ 待开始 |

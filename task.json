@@ -437,18 +437,27 @@
       "priority": "high",
       "dependencies": [11, 12, 13, 14],
       "steps": [
-        { "description": "创建登录页面 (LoginPage)", "completed": false },
-        { "description": "创建注册页面 (RegisterPage)", "completed": false },
-        { "description": "创建登录表单组件 (LoginForm)", "completed": false },
-        { "description": "创建注册表单组件 (RegisterForm)", "completed": false },
-        { "description": "实现表单验证 (Zod)", "completed": false },
-        { "description": "实现登录/注册逻辑和跳转", "completed": false }
+        { "description": "创建登录页面 (LoginPage)", "completed": true },
+        { "description": "创建注册页面 (RegisterPage)", "completed": true },
+        { "description": "创建登录表单组件 (LoginForm)", "completed": true },
+        { "description": "创建注册表单组件 (RegisterForm)", "completed": true },
+        { "description": "实现表单验证 (Zod)", "completed": true },
+        { "description": "实现登录/注册逻辑和跳转", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-21T00:40:00+08:00",
+      "completedAt": "2026-02-21T00:50:00+08:00",
+      "modifiedFiles": [
+        "frontend/src/components/auth/LoginForm.tsx",
+        "frontend/src/components/auth/RegisterForm.tsx",
+        "frontend/src/components/auth/index.ts",
+        "frontend/src/components/index.ts",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/RegisterPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx"
+      ],
+      "notes": "创建了登录注册页面和表单组件，使用 react-hook-form + zod 实现表单验证，集成后端 API 实现登录注册功能，Playwright MCP 测试通过"
     },
     {
       "id": 16,
