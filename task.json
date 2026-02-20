@@ -4,7 +4,7 @@
   "tasksQuantity": 20,
   "metadata": {
     "createdAt": "2026-02-19",
-    "lastUpdated": "2026-02-19",
+    "lastUpdated": "2026-02-20",
     "techStack": [
       "React",
       "TypeScript",
@@ -287,17 +287,40 @@
       "priority": "high",
       "dependencies": [],
       "steps": [
-        { "description": "使用 Vite 创建 React + TypeScript 项目", "completed": false },
-        { "description": "配置 Tailwind CSS", "completed": false },
-        { "description": "配置路径别名 (@/)", "completed": false },
-        { "description": "配置 ESLint 和 Prettier", "completed": false },
-        { "description": "安装核心依赖 (react-router, zustand, tanstack-query 等)", "completed": false }
+        { "description": "使用 Vite 创建 React + TypeScript 项目", "completed": true },
+        { "description": "配置 Tailwind CSS", "completed": true },
+        { "description": "配置路径别名 (@/)", "completed": true },
+        { "description": "配置 ESLint 和 Prettier", "completed": true },
+        { "description": "安装核心依赖 (react-router, zustand, tanstack-query 等)", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-20T15:00:00+08:00",
+      "completedAt": "2026-02-20T15:30:00+08:00",
+      "modifiedFiles": [
+        "frontend/package.json",
+        "frontend/vite.config.ts",
+        "frontend/tsconfig.app.json",
+        "frontend/eslint.config.js",
+        "frontend/.prettierrc",
+        "frontend/.prettierignore",
+        "frontend/src/index.css",
+        "frontend/src/App.tsx",
+        "frontend/src/lib/utils.ts",
+        "frontend/src/lib/constants/index.ts",
+        "frontend/src/lib/api/client.ts",
+        "frontend/src/lib/api/auth.ts",
+        "frontend/src/lib/api/products.ts",
+        "frontend/src/lib/api/cart.ts",
+        "frontend/src/lib/api/orders.ts",
+        "frontend/src/lib/api/index.ts",
+        "frontend/src/types/api.ts",
+        "frontend/src/types/index.ts",
+        "frontend/src/stores/authStore.ts",
+        "frontend/src/stores/cartStore.ts",
+        "frontend/src/stores/uiStore.ts",
+        "frontend/src/stores/index.ts"
+      ],
+      "notes": "创建了 React + TypeScript + Vite 前端项目，配置了 Tailwind CSS 4.x、路径别名、ESLint + Prettier，安装了核心依赖 (react-router-dom, zustand, @tanstack/react-query, axios, react-hook-form, zod, @hookform/resolvers, clsx, tailwind-merge)，创建了 API 客户端、类型定义、状态管理 stores"
     },
     {
       "id": 11,
@@ -344,19 +367,28 @@
       "priority": "high",
       "dependencies": [10],
       "steps": [
-        { "description": "创建 Axios 实例配置", "completed": false },
-        { "description": "创建 API 类型定义 (types/api.ts)", "completed": false },
-        { "description": "创建认证 API (authApi)", "completed": false },
-        { "description": "创建产品 API (productsApi)", "completed": false },
-        { "description": "创建购物车 API (cartApi)", "completed": false },
-        { "description": "创建订单 API (ordersApi)", "completed": false },
-        { "description": "配置请求拦截器 (JWT Token)", "completed": false }
+        { "description": "创建 Axios 实例配置", "completed": true },
+        { "description": "创建 API 类型定义 (types/api.ts)", "completed": true },
+        { "description": "创建认证 API (authApi)", "completed": true },
+        { "description": "创建产品 API (productsApi)", "completed": true },
+        { "description": "创建购物车 API (cartApi)", "completed": true },
+        { "description": "创建订单 API (ordersApi)", "completed": true },
+        { "description": "配置请求拦截器 (JWT Token)", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-20T15:00:00+08:00",
+      "completedAt": "2026-02-20T15:30:00+08:00",
+      "modifiedFiles": [
+        "frontend/src/lib/api/client.ts",
+        "frontend/src/lib/api/auth.ts",
+        "frontend/src/lib/api/products.ts",
+        "frontend/src/lib/api/cart.ts",
+        "frontend/src/lib/api/orders.ts",
+        "frontend/src/lib/api/index.ts",
+        "frontend/src/types/api.ts",
+        "frontend/src/types/index.ts"
+      ],
+      "notes": "在任务#10中提前完成：创建了 Axios 实例配置、JWT Token 请求拦截器、401 自动跳转登录处理、所有 API 模块 (auth, products, cart, orders) 和完整的 API 类型定义"
     },
     {
       "id": 14,
@@ -365,16 +397,21 @@
       "priority": "high",
       "dependencies": [10, 13],
       "steps": [
-        { "description": "创建 authStore (用户认证状态)", "completed": false },
-        { "description": "创建 cartStore (购物车状态)", "completed": false },
-        { "description": "创建 uiStore (UI 状态)", "completed": false },
-        { "description": "配置状态持久化 (localStorage)", "completed": false }
+        { "description": "创建 authStore (用户认证状态)", "completed": true },
+        { "description": "创建 cartStore (购物车状态)", "completed": true },
+        { "description": "创建 uiStore (UI 状态)", "completed": true },
+        { "description": "配置状态持久化 (localStorage)", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-20T15:00:00+08:00",
+      "completedAt": "2026-02-20T15:30:00+08:00",
+      "modifiedFiles": [
+        "frontend/src/stores/authStore.ts",
+        "frontend/src/stores/cartStore.ts",
+        "frontend/src/stores/uiStore.ts",
+        "frontend/src/stores/index.ts"
+      ],
+      "notes": "在任务#10中提前完成：创建了 authStore (用户认证状态，支持 localStorage 持久化)、cartStore (购物车状态)、uiStore (UI 状态)"
     },
     {
       "id": 15,

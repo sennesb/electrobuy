@@ -315,6 +315,37 @@
 
 ---
 
+## [2026-02-20] - Task 10: 初始化前端项目
+
+### What was done:
+- 使用 Vite 创建 React 19 + TypeScript 前端项目
+- 配置 Tailwind CSS 4.x (使用 @tailwindcss/vite 插件)
+- 配置路径别名 (@/) 指向 src 目录
+- 配置 ESLint + Prettier 代码规范
+- 安装核心依赖:
+  - react-router-dom (路由)
+  - zustand (状态管理)
+  - @tanstack/react-query (数据请求)
+  - axios (HTTP 客户端)
+  - react-hook-form + zod + @hookform/resolvers (表单处理)
+  - clsx + tailwind-merge (样式工具)
+- 创建 API 客户端配置 (axios 实例、请求拦截器)
+- 创建 API 类型定义 (User, Product, Category, Cart, Order 等)
+- 创建 Zustand stores (authStore, cartStore, uiStore)
+- 配置 Vite 开发服务器代理 (代理 /api 到后端)
+
+### Testing:
+- ✅ npm run build 构建成功
+- ✅ npm run lint 检查通过
+
+### Notes:
+- 前端项目使用 React 19 + Vite 7 + TypeScript 5.9
+- Tailwind CSS 使用 4.x 版本，通过 Vite 插件集成
+- API 客户端配置了 JWT Token 自动注入和 401 自动跳转登录
+- 状态管理使用 Zustand，支持 localStorage 持久化
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -351,11 +382,11 @@
 | 7 | 实现购物车模块 | ✅ 已完成 |
 | 8 | 实现订单模块 | ✅ 已完成 |
 | 9 | 数据库迁移与种子数据 | ✅ 已完成 |
-| 10 | 初始化前端项目 | ⏳ 待开始 |
+| 10 | 初始化前端项目 | ✅ 已完成 |
 | 11 | 创建前端基础组件 | ⏳ 待开始 |
 | 12 | 创建前端布局组件 | ⏳ 待开始 |
-| 13 | 实现前端 API 客户端 | ⏳ 待开始 |
-| 14 | 实现前端状态管理 | ⏳ 待开始 |
+| 13 | 实现前端 API 客户端 | ✅ 已完成 (在任务10中提前完成) |
+| 14 | 实现前端状态管理 | ✅ 已完成 (在任务10中提前完成) |
 | 15 | 实现登录注册页面 | ⏳ 待开始 |
 | 16 | 实现首页和产品列表页 | ⏳ 待开始 |
 | 17 | 实现产品详情页 | ⏳ 待开始 |
