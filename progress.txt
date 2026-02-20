@@ -346,6 +346,91 @@
 
 ---
 
+## [2026-02-20] - Task 11: 创建前端基础组件
+
+### What was done:
+- 创建 Button 组件:
+  - 5种变体 (primary, secondary, outline, ghost, danger)
+  - 3种尺寸 (sm, md, lg)
+  - 支持加载状态、左/右图标
+- 创建 Input 组件:
+  - 支持 text, password, email 类型
+  - 密码显示/隐藏切换
+  - 左/右图标支持
+  - 标签、错误提示、提示文字
+  - 使用 useId 生成唯一 ID
+- 创建 Modal 组件:
+  - 5种尺寸 (sm, md, lg, xl, full)
+  - ESC 键关闭、遮罩层点击关闭
+  - 标题、内容、底部按钮区域
+- 创建 Loading 组件:
+  - Spinner 加载动画 (3种尺寸)
+  - Loading 带文字提示
+  - FullscreenLoading 全屏加载
+  - Skeleton 骨架屏 (text, circular, rectangular)
+  - SkeletonCard 卡片骨架屏
+  - SkeletonTable 表格骨架屏
+- 创建 Toast 消息组件:
+  - 4种类型 (success, error, warning, info)
+  - 自动关闭 (可配置时长)
+  - 手动关闭按钮
+  - 6种位置 (top-right, top-left, bottom-right, bottom-left, top-center, bottom-center)
+- 创建 Pagination 组件:
+  - 智能页码范围显示
+  - 上一页/下一页按钮
+  - 快速跳转功能
+  - 总记录数显示
+
+### Testing:
+- ✅ npm run build 构建成功
+- ✅ npm run lint 检查通过
+
+### Notes:
+- 所有组件使用 Tailwind CSS 样式
+- 组件支持 className 属性覆盖默认样式
+- 使用 cn() 工具函数合并 Tailwind 类名
+- Input 组件使用 React useId Hook 生成唯一 ID，避免渲染不一致
+
+---
+
+## [2026-02-20] - Task 12: 创建前端布局组件
+
+### What was done:
+- 创建 Header 组件:
+  - Logo 和品牌名称
+  - 导航菜单 (产品目录、PLC控制器、变频器、传感器)
+  - 搜索栏 (支持关键词搜索)
+  - 购物车图标 (显示商品数量)
+  - 用户菜单 (登录/注册、个人中心、我的订单、退出登录)
+- 创建 Footer 组件:
+  - 品牌介绍和社交媒体链接
+  - 产品分类快速链接
+  - 快速导航链接
+  - 客户服务和联系方式
+  - 版权信息和法律链接
+- 创建 MainLayout 组件:
+  - Header + Main + Footer 结构
+  - 支持可选侧边栏布局
+  - 响应式设计
+- 创建 Sidebar 组件:
+  - 产品分类导航
+  - 支持展开/折叠子分类
+  - 热门品牌标签
+  - 当前分类高亮显示
+- 更新 cartStore 添加 totalItems 状态
+
+### Testing:
+- ✅ npm run build 构建成功
+- ✅ npm run lint 检查通过
+
+### Notes:
+- 布局组件使用 Tailwind CSS 响应式设计
+- Header 支持用户登录状态切换显示
+- Sidebar 支持外部传入分类数据或使用默认分类
+- MainLayout 支持带侧边栏和不带侧边栏两种布局模式
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -383,8 +468,8 @@
 | 8 | 实现订单模块 | ✅ 已完成 |
 | 9 | 数据库迁移与种子数据 | ✅ 已完成 |
 | 10 | 初始化前端项目 | ✅ 已完成 |
-| 11 | 创建前端基础组件 | ⏳ 待开始 |
-| 12 | 创建前端布局组件 | ⏳ 待开始 |
+| 11 | 创建前端基础组件 | ✅ 已完成 |
+| 12 | 创建前端布局组件 | ✅ 已完成 |
 | 13 | 实现前端 API 客户端 | ✅ 已完成 (在任务10中提前完成) |
 | 14 | 实现前端状态管理 | ✅ 已完成 (在任务10中提前完成) |
 | 15 | 实现登录注册页面 | ⏳ 待开始 |
