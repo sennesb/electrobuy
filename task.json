@@ -466,18 +466,28 @@
       "priority": "high",
       "dependencies": [11, 12, 13, 14],
       "steps": [
-        { "description": "创建首页 (HomePage)", "completed": false },
-        { "description": "创建产品列表页 (ProductsPage)", "completed": false },
-        { "description": "创建产品卡片组件 (ProductCard)", "completed": false },
-        { "description": "创建产品筛选组件 (ProductFilter)", "completed": false },
-        { "description": "创建分类导航组件 (CategoryNav)", "completed": false },
-        { "description": "实现产品搜索功能", "completed": false }
+        { "description": "创建首页 (HomePage)", "completed": true },
+        { "description": "创建产品列表页 (ProductsPage)", "completed": true },
+        { "description": "创建产品卡片组件 (ProductCard)", "completed": true },
+        { "description": "创建产品筛选组件 (ProductFilter)", "completed": true },
+        { "description": "创建分类导航组件 (CategoryNav)", "completed": true },
+        { "description": "实现产品搜索功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-21T03:45:00+08:00",
+      "completedAt": "2026-02-21T03:50:00+08:00",
+      "modifiedFiles": [
+        "frontend/src/components/products/ProductCard.tsx",
+        "frontend/src/components/products/ProductFilter.tsx",
+        "frontend/src/components/products/CategoryNav.tsx",
+        "frontend/src/components/products/index.ts",
+        "frontend/src/components/index.ts",
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/pages/ProductsPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx"
+      ],
+      "notes": "创建了首页和产品列表页，包含产品卡片、筛选、分类导航组件，实现了产品搜索功能，Playwright MCP 测试通过"
     },
     {
       "id": 17,
