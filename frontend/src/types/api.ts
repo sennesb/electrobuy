@@ -37,7 +37,7 @@ export interface Product {
   unit: string
   stock: number
   minOrderQty: number
-  specs: Record<string, string> | null
+  specs: string | Record<string, string> | null
   description: string | null
   images: string[] | null
   isActive: boolean

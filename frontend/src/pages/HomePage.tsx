@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { MainLayout } from '@/components/layout'
 import { ProductCard, ProductCardSkeleton, CategoryNavHorizontal } from '@/components/products'
-import { Button, Loading } from '@/components/ui'
+import { Button } from '@/components/ui'
 import { productsApi, categoriesApi } from '@/lib/api'
 
 const heroSlides = [

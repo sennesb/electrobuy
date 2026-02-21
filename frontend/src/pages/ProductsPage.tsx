@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { MainLayout } from '@/components/layout'
 import { ProductCard, ProductCardSkeleton, ProductFilter, CategoryNav } from '@/components/products'
-import { Pagination, Loading } from '@/components/ui'
+import { Pagination } from '@/components/ui'
 import { productsApi, categoriesApi, type ProductQuery } from '@/lib/api'
 
 export function ProductsPage() {

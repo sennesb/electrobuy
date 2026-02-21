@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-21
-> 累计会话次数：15
+> 累计会话次数：16
 
 ---
 
@@ -11,8 +11,8 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React 19 + TypeScript + Vite 7 + Tailwind CSS 4 + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：16 (任务#1-16)
-- **当前阶段**：首页和产品列表页已完成，准备开发产品详情页
+- **已完成任务**：17 (任务#1-17)
+- **当前阶段**：产品详情页已完成，准备开发购物车页面
 
 ### 关键文件清单
 
@@ -60,10 +60,10 @@
 | `frontend/src/components/ui/*.tsx` | UI 基础组件 | 2026-02-20 | 任务#11 |
 | `frontend/src/components/layout/*.tsx` | 布局组件 | 2026-02-20 | 任务#12 |
 | `frontend/src/components/auth/*.tsx` | 认证组件 | 2026-02-21 | 任务#15 |
-| `frontend/src/components/products/*.tsx` | 产品组件 | 2026-02-21 | 任务#16 |
-| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16 |
-| `task.json` | 任务清单 | 2026-02-21 | 任务#16 |
-| `progress.txt` | 进度日志 | 2026-02-21 | 任务#16 |
+| `frontend/src/components/products/*.tsx` | 产品组件 | 2026-02-21 | 任务#16, #17 |
+| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16, #17 |
+| `task.json` | 任务清单 | 2026-02-21 | 任务#17 |
+| `progress.txt` | 进度日志 | 2026-02-21 | 任务#17 |
 
 ### API 端点清单
 
@@ -121,11 +121,34 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#15 已完成，登录注册页面已创建，等待开始任务#16 (实现首页和产品列表页)
+**当前步骤**：任务#17 已完成，产品详情页已创建，等待开始任务#18 (实现购物车页面)
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-21] - 任务#17: 实现产品详情页
+
+**完成内容**：
+- 创建 ProductGallery 组件 (产品图片展示、缩略图导航、图片加载失败占位图)
+- 创建 ProductInfo 组件 (产品信息展示、数量选择器、加入购物车按钮)
+- 创建 SpecTable 组件 (规格参数表格、斑马纹样式)
+- 创建 ProductDetailPage 页面 (面包屑导航、双栏布局、加入购物车功能)
+- 配置路由 (/products/:id)
+- 集成后端 API (productsApi.getProduct, cartApi.addToCart)
+
+**修改的文件**：
+- `frontend/src/components/products/ProductGallery.tsx` - 产品图片展示组件
+- `frontend/src/components/products/ProductInfo.tsx` - 产品信息组件
+- `frontend/src/components/products/SpecTable.tsx` - 规格参数表格组件
+- `frontend/src/components/products/index.ts` - 产品组件索引
+- `frontend/src/pages/ProductDetailPage.tsx` - 产品详情页面
+- `frontend/src/pages/index.ts` - 页面索引
+- `frontend/src/App.tsx` - 路由配置
+- `frontend/src/types/api.ts` - API 类型定义
+- `frontend/src/lib/api/index.ts` - API 导出
+
+**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
 
 ### [2026-02-21] - 任务#15: 实现登录注册页面
 
@@ -733,6 +756,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #16 - 2026-02-21
+- **AI 类型**：开发
+- **完成任务**：任务#17 - 实现产品详情页
+- **主要变更**：创建产品图片展示、产品信息、规格参数组件，创建产品详情页，实现加入购物车功能
+- **遗留问题**：无
 
 ### 会话 #15 - 2026-02-21
 - **AI 类型**：开发

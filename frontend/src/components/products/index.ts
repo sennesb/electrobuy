@@ -1,3 +1,6 @@
 export { ProductCard, ProductCardSkeleton } from './ProductCard'
 export { ProductFilter } from './ProductFilter'
 export { CategoryNav, CategoryNavHorizontal } from './CategoryNav'
+export { ProductGallery, ProductGallerySkeleton } from './ProductGallery'
+export { ProductInfo, ProductInfoSkeleton } from './ProductInfo'
+export { SpecTable, SpecTableSkeleton } from './SpecTable'

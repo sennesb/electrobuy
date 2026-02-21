@@ -496,17 +496,27 @@
       "priority": "high",
       "dependencies": [11, 12, 13, 14, 16],
       "steps": [
-        { "description": "创建产品详情页 (ProductDetailPage)", "completed": false },
-        { "description": "创建产品图片展示组件 (ProductGallery)", "completed": false },
-        { "description": "创建产品信息组件 (ProductInfo)", "completed": false },
-        { "description": "创建规格参数表格组件 (SpecTable)", "completed": false },
-        { "description": "实现加入购物车功能", "completed": false }
+        { "description": "创建产品详情页 (ProductDetailPage)", "completed": true },
+        { "description": "创建产品图片展示组件 (ProductGallery)", "completed": true },
+        { "description": "创建产品信息组件 (ProductInfo)", "completed": true },
+        { "description": "创建规格参数表格组件 (SpecTable)", "completed": true },
+        { "description": "实现加入购物车功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-21T12:00:00+08:00",
+      "completedAt": "2026-02-21T12:20:00+08:00",
+      "modifiedFiles": [
+        "frontend/src/components/products/ProductGallery.tsx",
+        "frontend/src/components/products/ProductInfo.tsx",
+        "frontend/src/components/products/SpecTable.tsx",
+        "frontend/src/components/products/index.ts",
+        "frontend/src/pages/ProductDetailPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx",
+        "frontend/src/types/api.ts",
+        "frontend/src/lib/api/index.ts"
+      ],
+      "notes": "创建了产品详情页和图片展示、产品信息、规格参数组件，实现了加入购物车功能，Playwright MCP 测试通过"
     },
     {
       "id": 18,
