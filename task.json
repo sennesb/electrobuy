@@ -553,17 +553,27 @@
       "priority": "high",
       "dependencies": [11, 12, 13, 14, 18],
       "steps": [
-        { "description": "创建订单列表页 (OrdersPage)", "completed": false },
-        { "description": "创建订单详情页 (OrderDetailPage)", "completed": false },
-        { "description": "创建订单卡片组件 (OrderCard)", "completed": false },
-        { "description": "创建订单状态组件 (OrderStatus)", "completed": false },
-        { "description": "实现取消订单功能", "completed": false }
+        { "description": "创建订单列表页 (OrdersPage)", "completed": true },
+        { "description": "创建订单详情页 (OrderDetailPage)", "completed": true },
+        { "description": "创建订单卡片组件 (OrderCard)", "completed": true },
+        { "description": "创建订单状态组件 (OrderStatus)", "completed": true },
+        { "description": "实现取消订单功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-21T13:55:00+08:00",
+      "completedAt": "2026-02-21T14:10:00+08:00",
+      "modifiedFiles": [
+        "frontend/src/components/orders/OrderStatus.tsx",
+        "frontend/src/components/orders/OrderCard.tsx",
+        "frontend/src/components/orders/index.ts",
+        "frontend/src/components/index.ts",
+        "frontend/src/pages/OrdersPage.tsx",
+        "frontend/src/pages/OrderDetailPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx",
+        "frontend/src/types/api.ts"
+      ],
+      "notes": "创建了订单列表和详情页面，包含订单状态徽章、订单状态步骤、订单卡片组件，实现了取消订单功能，修复了后端返回数字状态码的问题"
     },
     {
       "id": 20,

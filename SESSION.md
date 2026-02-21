@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-21
-> 累计会话次数：17
+> 累计会话次数：18
 
 ---
 
@@ -11,8 +11,8 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React 19 + TypeScript + Vite 7 + Tailwind CSS 4 + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：18 (任务#1-18)
-- **当前阶段**：购物车页面已完成，准备开发订单列表和详情页
+- **已完成任务**：19 (任务#1-19)
+- **当前阶段**：订单列表和详情页已完成，准备开发个人中心页面
 
 ### 关键文件清单
 
@@ -62,9 +62,10 @@
 | `frontend/src/components/auth/*.tsx` | 认证组件 | 2026-02-21 | 任务#15 |
 | `frontend/src/components/products/*.tsx` | 产品组件 | 2026-02-21 | 任务#16, #17 |
 | `frontend/src/components/cart/*.tsx` | 购物车组件 | 2026-02-21 | 任务#18 |
-| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16, #17, #18 |
-| `task.json` | 任务清单 | 2026-02-21 | 任务#18 |
-| `progress.txt` | 进度日志 | 2026-02-21 | 任务#18 |
+| `frontend/src/components/orders/*.tsx` | 订单组件 | 2026-02-21 | 任务#19 |
+| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16, #17, #18, #19 |
+| `task.json` | 任务清单 | 2026-02-21 | 任务#19 |
+| `progress.txt` | 进度日志 | 2026-02-21 | 任务#19 |
 
 ### API 端点清单
 
@@ -122,11 +123,35 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#18 已完成，购物车页面已创建，等待开始任务#19 (实现订单列表和详情页)
+**当前步骤**：任务#19 已完成，订单列表和详情页已创建，等待开始任务#20 (实现个人中心页面)
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-21] - 任务#19: 实现订单列表和详情页
+
+**完成内容**：
+- 创建 OrderStatusBadge 组件 (订单状态徽章，支持数字和字符串状态)
+- 创建 OrderStatusSteps 组件 (订单状态步骤条，显示订单进度)
+- 创建 OrderCard 组件 (订单卡片，显示订单摘要和操作按钮)
+- 创建 OrdersPage 页面 (订单列表，支持状态筛选和分页)
+- 创建 OrderDetailPage 页面 (订单详情，显示完整订单信息和取消订单功能)
+- 修复后端返回数字状态码导致的类型错误
+- 配置路由 (/orders, /orders/:id)
+
+**修改的文件**：
+- `frontend/src/components/orders/OrderStatus.tsx` - 订单状态组件
+- `frontend/src/components/orders/OrderCard.tsx` - 订单卡片组件
+- `frontend/src/components/orders/index.ts` - 订单组件索引
+- `frontend/src/components/index.ts` - 组件总索引
+- `frontend/src/pages/OrdersPage.tsx` - 订单列表页面
+- `frontend/src/pages/OrderDetailPage.tsx` - 订单详情页面
+- `frontend/src/pages/index.ts` - 页面索引
+- `frontend/src/App.tsx` - 路由配置
+- `frontend/src/types/api.ts` - API 类型定义
+
+**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
 
 ### [2026-02-21] - 任务#18: 实现购物车页面
 
@@ -778,6 +803,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #18 - 2026-02-21
+- **AI 类型**：开发
+- **完成任务**：任务#19 - 实现订单列表和详情页
+- **主要变更**：创建订单状态徽章、订单状态步骤条、订单卡片组件，创建订单列表和详情页面，实现取消订单功能，修复后端返回数字状态码问题
+- **遗留问题**：无
 
 ### 会话 #17 - 2026-02-21
 - **AI 类型**：开发

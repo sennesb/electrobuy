@@ -87,7 +87,7 @@ export interface OrderItem {
 export interface Order {
   id: string
   orderNumber: string
-  status: OrderStatus
+  status: OrderStatus | number
   statusText: string
   totalAmount: number
   remark: string | null
