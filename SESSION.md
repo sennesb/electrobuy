@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-21
-> 累计会话次数：19
+> 累计会话次数：21
 
 ---
 
@@ -10,9 +10,9 @@
 ### 项目基本信息
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React 19 + TypeScript + Vite 7 + Tailwind CSS 4 + ASP.NET Core 8 + SQL Server
-- **总任务数**：20
-- **已完成任务**：20 (任务#1-20)
-- **当前阶段**：所有任务已完成，项目开发完毕
+- **总任务数**：5 (Phase 2)
+- **已完成任务**：2 (任务#1, #2)
+- **当前阶段**：Phase 2 - 管理员后台功能开发
 
 ### 关键文件清单
 
@@ -126,400 +126,56 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：所有任务已完成，项目开发完毕
+**当前步骤**：任务#2 已完成，等待开始任务#3
 
 ---
 
 ## ✅ 已完成任务摘要
 
-### [2026-02-21] - 任务#20: 实现个人中心页面
+### [2026-02-21] - 任务#2 (Phase 2): 实现管理员仪表盘页面
 
 **完成内容**：
-- 创建 UpdateUserDto 和 ChangePasswordDto (后端 DTOs)
-- 更新 IUserService 接口添加 UpdateUserAsync 和 ChangePasswordAsync 方法
-- 更新 UserService 实现用户信息更新和密码修改功能
-- 更新 AuthController 添加 PUT /api/auth/me 和 POST /api/auth/change-password 端点
-- 创建 ProfileForm 组件 (用户信息编辑表单)
-- 创建 ChangePasswordForm 组件 (修改密码表单)
-- 创建 ProfilePage 页面 (个人中心，包含信息编辑和修改密码两个标签页)
-- 配置路由 (/profile)
+- 后端创建 DashboardStatsDto、RecentOrderDto、DailySalesDto 数据传输对象
+- 后端创建 IDashboardService 接口和 DashboardService 实现
+- 后端创建 DashboardController 控制器 (GET /api/dashboard/stats)
+- 前端创建 StatCard、RecentOrders、SalesChart 组件
+- 前端更新 AdminDashboardPage 连接真实数据
 
 **修改的文件**：
-- `backend/src/ElectroBuy.Application/DTOs/Auth/UpdateUserDto.cs` - 更新用户信息 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Auth/ChangePasswordDto.cs` - 修改密码 DTO
-- `backend/src/ElectroBuy.Application/Interfaces/IUserService.cs` - 用户服务接口
-- `backend/src/ElectroBuy.Infrastructure/Services/UserService.cs` - 用户服务实现
-- `backend/src/ElectroBuy.Api/Controllers/AuthController.cs` - 认证控制器
-- `frontend/src/lib/api/auth.ts` - 认证 API
-- `frontend/src/components/profile/ProfileForm.tsx` - 用户信息表单组件
-- `frontend/src/components/profile/ChangePasswordForm.tsx` - 修改密码表单组件
-- `frontend/src/components/profile/index.ts` - 个人中心组件索引
-- `frontend/src/components/index.ts` - 组件总索引
-- `frontend/src/pages/ProfilePage.tsx` - 个人中心页面
-- `frontend/src/pages/index.ts` - 页面索引
-- `frontend/src/App.tsx` - 路由配置
+- `backend/src/ElectroBuy.Application/DTOs/Dashboard/*.cs` - 仪表盘 DTOs
+- `backend/src/ElectroBuy.Application/Interfaces/IDashboardService.cs` - 服务接口
+- `backend/src/ElectroBuy.Infrastructure/Services/DashboardService.cs` - 服务实现
+- `backend/src/ElectroBuy.Api/Controllers/DashboardController.cs` - 控制器
+- `frontend/src/types/api.ts` - 类型定义
+- `frontend/src/lib/api/dashboard.ts` - API 客户端
+- `frontend/src/components/dashboard/*.tsx` - 仪表盘组件
+- `frontend/src/pages/admin/AdminDashboardPage.tsx` - 仪表盘页面
 
-**测试结果**：✅ dotnet build 编译成功, ✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
+**测试结果**：✅ dotnet build 成功, ✅ npm run lint 通过, ✅ npm run build 成功, ✅ Playwright MCP 测试通过
 
-### [2026-02-21] - 任务#19: 实现订单列表和详情页
+### [2026-02-21] - 任务#1 (Phase 2): 创建管理员后台布局和路由保护
 
 **完成内容**：
-- 创建 OrderStatusBadge 组件 (订单状态徽章，支持数字和字符串状态)
-- 创建 OrderStatusSteps 组件 (订单状态步骤条，显示订单进度)
-- 创建 OrderCard 组件 (订单卡片，显示订单摘要和操作按钮)
-- 创建 OrdersPage 页面 (订单列表，支持状态筛选和分页)
-- 创建 OrderDetailPage 页面 (订单详情，显示完整订单信息和取消订单功能)
-- 修复后端返回数字状态码导致的类型错误
-- 配置路由 (/orders, /orders/:id)
+- 更新 authStore 添加 isAdmin 状态和 hasRole 辅助函数
+- 创建 ProtectedRoute 路由保护组件 (未登录用户重定向到登录页)
+- 创建 AdminRoute 管理员权限路由组件 (非管理员用户重定向到首页)
+- 创建 AdminDashboardPage 管理员仪表盘页面
+- 更新 App.tsx 配置管理员路由保护
+- 更新 AdminLayout 添加仪表盘菜单项
+- 优化 AdminOrdersPage 移除重复的权限检查
 
 **修改的文件**：
-- `frontend/src/components/orders/OrderStatus.tsx` - 订单状态组件
-- `frontend/src/components/orders/OrderCard.tsx` - 订单卡片组件
-- `frontend/src/components/orders/index.ts` - 订单组件索引
-- `frontend/src/components/index.ts` - 组件总索引
-- `frontend/src/pages/OrdersPage.tsx` - 订单列表页面
-- `frontend/src/pages/OrderDetailPage.tsx` - 订单详情页面
-- `frontend/src/pages/index.ts` - 页面索引
-- `frontend/src/App.tsx` - 路由配置
-- `frontend/src/types/api.ts` - API 类型定义
+- `frontend/src/stores/authStore.ts` - 添加 isAdmin 状态和 hasRole 函数
+- `frontend/src/components/auth/ProtectedRoute.tsx` - 路由保护组件
+- `frontend/src/components/auth/AdminRoute.tsx` - 管理员权限路由组件
+- `frontend/src/components/auth/index.ts` - 导出新组件
+- `frontend/src/components/layout/AdminLayout.tsx` - 添加仪表盘菜单项
+- `frontend/src/pages/admin/AdminDashboardPage.tsx` - 管理员仪表盘页面
+- `frontend/src/pages/admin/AdminOrdersPage.tsx` - 移除重复权限检查
+- `frontend/src/pages/index.ts` - 导出新页面
+- `frontend/src/App.tsx` - 配置路由保护
 
-**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
-
-### [2026-02-21] - 任务#18: 实现购物车页面
-
-**完成内容**：
-- 创建 CartItem 组件 (商品图片、信息、数量选择器、删除按钮、状态提示)
-- 创建 OrderSummary 组件 (订单摘要、备注输入、提交按钮、服务保障)
-- 创建 CartPage 页面 (购物车列表、订单摘要、清空购物车、提交订单)
-- 修复订单 API (createOrder 方法 415 错误)
-- 配置路由 (/cart)
-
-**修改的文件**：
-- `frontend/src/components/cart/CartItem.tsx` - 购物车项组件
-- `frontend/src/components/cart/OrderSummary.tsx` - 订单摘要组件
-- `frontend/src/components/cart/index.ts` - 购物车组件索引
-- `frontend/src/components/index.ts` - 组件总索引
-- `frontend/src/pages/CartPage.tsx` - 购物车页面
-- `frontend/src/pages/index.ts` - 页面索引
-- `frontend/src/App.tsx` - 路由配置
-- `frontend/src/lib/api/orders.ts` - 订单 API
-
-**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
-
-### [2026-02-21] - 任务#17: 实现产品详情页
-
-**完成内容**：
-- 创建 ProductGallery 组件 (产品图片展示、缩略图导航、图片加载失败占位图)
-- 创建 ProductInfo 组件 (产品信息展示、数量选择器、加入购物车按钮)
-- 创建 SpecTable 组件 (规格参数表格、斑马纹样式)
-- 创建 ProductDetailPage 页面 (面包屑导航、双栏布局、加入购物车功能)
-- 配置路由 (/products/:id)
-- 集成后端 API (productsApi.getProduct, cartApi.addToCart)
-
-**修改的文件**：
-- `frontend/src/components/products/ProductGallery.tsx` - 产品图片展示组件
-- `frontend/src/components/products/ProductInfo.tsx` - 产品信息组件
-- `frontend/src/components/products/SpecTable.tsx` - 规格参数表格组件
-- `frontend/src/components/products/index.ts` - 产品组件索引
-- `frontend/src/pages/ProductDetailPage.tsx` - 产品详情页面
-- `frontend/src/pages/index.ts` - 页面索引
-- `frontend/src/App.tsx` - 路由配置
-- `frontend/src/types/api.ts` - API 类型定义
-- `frontend/src/lib/api/index.ts` - API 导出
-
-**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
-
-### [2026-02-21] - 任务#15: 实现登录注册页面
-
-**完成内容**：
-- 创建 LoginForm 组件 (react-hook-form + zod 表单验证)
-- 创建 RegisterForm 组件 (姓名、邮箱、密码、确认密码、公司、电话字段)
-- 创建 LoginPage 页面 (渐变背景、品牌 Logo、登录表单)
-- 创建 RegisterPage 页面 (与登录页面风格一致)
-- 配置路由 (/login, /register)
-- 集成后端 API (authApi.login, authApi.register)
-
-**修改的文件**：
-- `frontend/src/components/auth/LoginForm.tsx` - 登录表单组件
-- `frontend/src/components/auth/RegisterForm.tsx` - 注册表单组件
-- `frontend/src/components/auth/index.ts` - 认证组件索引
-- `frontend/src/components/index.ts` - 组件总索引
-- `frontend/src/pages/LoginPage.tsx` - 登录页面
-- `frontend/src/pages/RegisterPage.tsx` - 注册页面
-- `frontend/src/pages/index.ts` - 页面索引
-- `frontend/src/App.tsx` - 路由配置
-
-**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
-
-### [2026-02-20] - 任务#12: 创建前端布局组件
-
-**完成内容**：
-- 创建 Header 组件 (Logo、导航菜单、搜索栏、用户菜单、购物车图标)
-- 创建 Footer 组件 (品牌介绍、产品分类链接、快速导航、客户服务、版权信息)
-- 创建 MainLayout 组件 (Header + Main + Footer 结构，支持侧边栏)
-- 创建 Sidebar 组件 (产品分类导航、热门品牌标签)
-- 更新 cartStore 添加 totalItems 状态
-
-**修改的文件**：
-- `frontend/src/components/layout/Header.tsx` - 页面头部组件
-- `frontend/src/components/layout/Footer.tsx` - 页面底部组件
-- `frontend/src/components/layout/MainLayout.tsx` - 主布局组件
-- `frontend/src/components/layout/Sidebar.tsx` - 侧边栏组件
-- `frontend/src/components/layout/index.ts` - 布局组件索引
-- `frontend/src/components/index.ts` - 组件总索引
-- `frontend/src/stores/cartStore.ts` - 购物车状态管理
-
-**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过
-
-### [2026-02-20] - 任务#11: 创建前端基础组件
-
-**完成内容**：
-- 创建 Button 组件 (5种变体、3种尺寸、加载状态、图标支持)
-- 创建 Input 组件 (密码切换、图标支持、错误提示、useId 生成唯一 ID)
-- 创建 Modal 组件 (5种尺寸、ESC关闭、遮罩层点击关闭)
-- 创建 Loading 组件 (Spinner、骨架屏、全屏加载)
-- 创建 Toast 消息组件 (4种类型、自动关闭、6种位置)
-- 创建 Pagination 组件 (智能页码、快速跳转、总数显示)
-
-**修改的文件**：
-- `frontend/src/components/ui/Button.tsx` - 按钮组件
-- `frontend/src/components/ui/Input.tsx` - 输入框组件
-- `frontend/src/components/ui/Modal.tsx` - 模态框组件
-- `frontend/src/components/ui/Loading.tsx` - 加载组件
-- `frontend/src/components/ui/Toast.tsx` - 消息提示组件
-- `frontend/src/components/ui/Pagination.tsx` - 分页组件
-- `frontend/src/components/ui/index.ts` - UI 组件索引
-- `frontend/src/components/index.ts` - 组件总索引
-
-**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过
-
-### [2026-02-20] - 任务#10: 初始化前端项目
-
-**完成内容**：
-- 使用 Vite 创建 React 19 + TypeScript 前端项目
-- 配置 Tailwind CSS 4.x (使用 @tailwindcss/vite 插件)
-- 配置路径别名 (@/) 指向 src 目录
-- 配置 ESLint + Prettier 代码规范
-- 安装核心依赖 (react-router-dom, zustand, @tanstack/react-query, axios, react-hook-form, zod 等)
-- 创建 API 客户端配置 (axios 实例、请求拦截器)
-- 创建 API 类型定义 (User, Product, Category, Cart, Order 等)
-- 创建 Zustand stores (authStore, cartStore, uiStore)
-- 配置 Vite 开发服务器代理 (代理 /api 到后端)
-
-**修改的文件**：
-- `frontend/package.json` - 前端依赖配置
-- `frontend/vite.config.ts` - Vite 配置 (Tailwind 插件、路径别名、API 代理)
-- `frontend/tsconfig.app.json` - TypeScript 配置 (路径别名)
-- `frontend/eslint.config.js` - ESLint 配置 (Prettier 集成)
-- `frontend/.prettierrc` - Prettier 配置
-- `frontend/src/index.css` - Tailwind CSS 入口
-- `frontend/src/App.tsx` - React 入口组件
-- `frontend/src/lib/api/*.ts` - API 客户端模块
-- `frontend/src/types/api.ts` - API 类型定义
-- `frontend/src/stores/*.ts` - Zustand 状态管理
-
-**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过
-
-### [2026-02-20] - 任务#9: 数据库迁移与种子数据
-
-**完成内容**：
-- 安装 EF Core CLI 工具 (dotnet-ef 8.0.24)
-- 创建初始数据库迁移 (InitialCreate)
-- 创建 DataSeeder.cs 种子数据初始化器
-- 添加 8 个产品分类 (PLC可编程控制器、变频器、传感器、低压电器、人机界面、伺服系统、工业通信、电源与配电)
-- 添加 19 个测试产品 (西门子、三菱、ABB、倍加福、施耐德品牌)
-- 添加管理员账户种子数据 (admin@electrobuy.com / Admin@123456)
-- 配置应用启动时自动迁移和种子数据初始化
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Infrastructure/Data/Migrations/20260220_InitialCreate.cs` - 迁移文件
-- `backend/src/ElectroBuy.Infrastructure/Data/Migrations/20260220_InitialCreate.Designer.cs` - 设计器文件
-- `backend/src/ElectroBuy.Infrastructure/Data/Migrations/ElectroBuyDbContextModelSnapshot.cs` - 模型快照
-- `backend/src/ElectroBuy.Infrastructure/Data/DataSeeder.cs` - 种子数据初始化器
-- `backend/src/ElectroBuy.Api/Program.cs` - 添加迁移和种子数据初始化逻辑
-- `backend/.config/dotnet-tools.json` - .NET 工具配置
-- `backend/src/ElectroBuy.Api/ElectroBuy.Api.csproj` - 添加 EF Core Design 包引用
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#8: 实现订单模块
-
-**完成内容**：
-- 创建订单相关 DTOs (OrderDto, OrderItemDto, OrderListDto, CreateOrderDto, OrderQueryDto)
-- 创建 IOrderService 接口和 OrderService 实现
-- 实现获取订单列表功能 (支持分页、状态筛选)
-- 实现获取订单详情功能 (包含订单项列表)
-- 实现创建订单功能 (从购物车创建，验证库存、产品状态，扣减库存，生成订单编号，清空购物车)
-- 实现取消订单功能 (仅待确认状态可取消，恢复库存)
-- 实现获取订单数量功能
-- 创建 OrdersController 控制器
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderDto.cs` - 订单 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderItemDto.cs` - 订单项 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderListDto.cs` - 订单列表分页 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Orders/CreateOrderDto.cs` - 创建订单 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Orders/OrderQueryDto.cs` - 订单查询参数 DTO
-- `backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs` - 订单服务接口
-- `backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs` - 订单服务实现
-- `backend/src/ElectroBuy.Api/Controllers/OrdersController.cs` - 订单控制器
-- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#7: 实现购物车模块
-
-**完成内容**：
-- 创建购物车相关 DTOs (CartDto, CartItemDto, AddToCartDto, UpdateCartDto)
-- 创建 ICartService 接口和 CartService 实现
-- 实现获取购物车功能 (返回用户购物车所有商品项)
-- 实现添加商品到购物车功能 (产品存在性验证、状态检查、库存检查、重复商品合并)
-- 实现更新购物车商品数量功能 (库存检查、数量为0时自动移除)
-- 实现移除购物车商品功能
-- 实现清空购物车功能
-- 实现获取购物车商品数量功能
-- 创建 CartController 控制器
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Application/DTOs/Cart/CartDto.cs` - 购物车 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Cart/CartItemDto.cs` - 购物车项 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Cart/AddToCartDto.cs` - 添加到购物车 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Cart/UpdateCartDto.cs` - 更新购物车 DTO
-- `backend/src/ElectroBuy.Application/Interfaces/ICartService.cs` - 购物车服务接口
-- `backend/src/ElectroBuy.Infrastructure/Services/CartService.cs` - 购物车服务实现
-- `backend/src/ElectroBuy.Api/Controllers/CartController.cs` - 购物车控制器
-- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#6: 实现产品模块
-
-**完成内容**：
-- 创建产品相关 DTOs (ProductDto, ProductListDto, CreateProductDto, UpdateProductDto, ProductQueryDto)
-- 创建 IProductService 接口和 ProductService 实现
-- 实现获取产品列表功能 (分页、关键词搜索、分类筛选、品牌筛选、价格区间筛选、排序)
-- 实现获取产品详情功能 (包含分类信息)
-- 实现创建产品功能 (分类存在性验证)
-- 实现更新产品功能 (分类存在性验证)
-- 实现删除产品功能 (检查购物车和订单关联)
-- 实现获取品牌列表功能
-- 创建 ProductsController 控制器
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Application/DTOs/Products/ProductDto.cs` - 产品信息 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Products/ProductListDto.cs` - 产品列表分页 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Products/CreateProductDto.cs` - 创建产品 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Products/UpdateProductDto.cs` - 更新产品 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Products/ProductQueryDto.cs` - 产品查询参数 DTO
-- `backend/src/ElectroBuy.Application/Interfaces/IProductService.cs` - 产品服务接口
-- `backend/src/ElectroBuy.Infrastructure/Services/ProductService.cs` - 产品服务实现
-- `backend/src/ElectroBuy.Api/Controllers/ProductsController.cs` - 产品控制器
-- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#5: 实现产品分类模块
-
-**完成内容**：
-- 创建分类相关 DTOs (CategoryDto, CategoryTreeDto, CreateCategoryDto, UpdateCategoryDto)
-- 创建 ICategoryService 接口和 CategoryService 实现
-- 实现获取分类列表功能 (按 SortOrder 和 Name 排序)
-- 实现获取分类树形结构功能 (递归构建)
-- 实现创建分类功能 (父分类验证)
-- 实现更新分类功能 (循环引用检测)
-- 实现删除分类功能 (检查子分类和关联产品)
-- 创建 CategoriesController 控制器
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Application/DTOs/Categories/CategoryDto.cs` - 分类信息 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Categories/CategoryTreeDto.cs` - 分类树 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Categories/CreateCategoryDto.cs` - 创建分类 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Categories/UpdateCategoryDto.cs` - 更新分类 DTO
-- `backend/src/ElectroBuy.Application/Interfaces/ICategoryService.cs` - 分类服务接口
-- `backend/src/ElectroBuy.Infrastructure/Services/CategoryService.cs` - 分类服务实现
-- `backend/src/ElectroBuy.Api/Controllers/CategoriesController.cs` - 分类控制器
-- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#4: 实现用户认证模块
-
-**完成内容**：
-- 创建认证相关 DTOs (RegisterDto, LoginDto, UserDto, AuthResponseDto)
-- 创建 IUserService 接口和 UserService 实现
-- 实现用户注册功能 (BCrypt 密码加密)
-- 实现用户登录功能 (JWT Token 生成)
-- 实现获取当前用户信息接口
-- 创建 AuthController 控制器
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Application/DTOs/Auth/RegisterDto.cs` - 注册请求 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Auth/LoginDto.cs` - 登录请求 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Auth/UserDto.cs` - 用户信息 DTO
-- `backend/src/ElectroBuy.Application/DTOs/Auth/AuthResponseDto.cs` - 认证响应 DTO
-- `backend/src/ElectroBuy.Application/Interfaces/IUserService.cs` - 用户服务接口
-- `backend/src/ElectroBuy.Infrastructure/Services/UserService.cs` - 用户服务实现
-- `backend/src/ElectroBuy.Api/Controllers/AuthController.cs` - 认证控制器
-- `backend/src/ElectroBuy.Api/Program.cs` - 注册服务到 DI 容器
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#3: 创建领域实体模型
-
-**完成内容**：
-- 创建枚举类型 (UserRole, OrderStatus)
-- 创建领域实体 (User, Category, Product, Order, OrderItem, CartItem)
-- 更新 ElectroBuyDbContext 配置实体映射和索引
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Domain/Enums/UserRole.cs` - 用户角色枚举
-- `backend/src/ElectroBuy.Domain/Enums/OrderStatus.cs` - 订单状态枚举
-- `backend/src/ElectroBuy.Domain/Entities/User.cs` - 用户实体
-- `backend/src/ElectroBuy.Domain/Entities/Category.cs` - 分类实体
-- `backend/src/ElectroBuy.Domain/Entities/Product.cs` - 产品实体
-- `backend/src/ElectroBuy.Domain/Entities/Order.cs` - 订单实体
-- `backend/src/ElectroBuy.Domain/Entities/OrderItem.cs` - 订单项实体
-- `backend/src/ElectroBuy.Domain/Entities/CartItem.cs` - 购物车项实体
-- `backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs` - 数据库上下文
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#2: 配置后端基础架构
-
-**完成内容**：
-- 安装 NuGet 包 (EF Core, JWT, Serilog, Swagger)
-- 配置 appsettings.json (数据库连接、JWT、Serilog、CORS)
-- 创建 ElectroBuyDbContext 数据库上下文
-- 配置 JWT 认证服务
-- 配置 Swagger/OpenAPI (含 JWT 认证支持)
-- 配置 Serilog 日志
-- 配置 CORS 策略
-- 创建 HealthController 健康检查端点
-
-**修改的文件**：
-- `backend/src/ElectroBuy.Api/Program.cs` - API 入口配置
-- `backend/src/ElectroBuy.Api/appsettings.json` - 应用配置
-- `backend/src/ElectroBuy.Api/appsettings.Development.json` - 开发环境配置
-- `backend/src/ElectroBuy.Api/Controllers/HealthController.cs` - 健康检查端点
-- `backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs` - 数据库上下文
-
-**测试结果**：✅ dotnet build 编译成功
-
-### [2026-02-19] - 任务#1: 初始化后端项目结构
-
-**完成内容**：
-- 安装 .NET SDK 8.0.418
-- 创建四层架构项目结构 (Api, Application, Domain, Infrastructure)
-- 配置项目引用关系
-
-**修改的文件**：
-- `backend/ElectroBuy.sln` - 解决方案文件
-- `backend/src/ElectroBuy.Api/` - Web API 项目
-- `backend/src/ElectroBuy.Application/` - 应用层
-- `backend/src/ElectroBuy.Domain/` - 领域层
-- `backend/src/ElectroBuy.Infrastructure/` - 基础设施层
-
-**测试结果**：✅ dotnet build 编译成功
+**测试结果**：✅ npm run lint 通过, ✅ npm run build 成功, ✅ Playwright MCP 测试通过
 
 ---
 
@@ -533,10 +189,8 @@
 
 | 问题 | 严重程度 | 状态 | 解决方案 | 关联任务 |
 |------|----------|------|----------|----------|
-| 数据库连接字符串需要配置 | 高 | ✅ 已解决 | 在 appsettings.json 中配置 | 任务#2 |
-| JWT 密钥需要生成 | 高 | ✅ 已解决 | 在 appsettings.json 中配置 | 任务#2 |
-| 需要创建领域实体模型 | 高 | ✅ 已解决 | 在 Domain 层创建实体类 | 任务#3 |
-| 需要创建数据库迁移 | 高 | ✅ 已解决 | 运行 dotnet ef migrations add | 任务#9 |
+| 产品管理页面未实现 | 高 | ⏳ 待处理 | 创建 AdminProductsPage | 任务#3 |
+| 用户管理页面未实现 | 高 | ⏳ 待处理 | 创建 AdminUsersPage | 任务#4 |
 
 ---
 
@@ -835,6 +489,18 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #21 - 2026-02-21
+- **AI 类型**：开发
+- **完成任务**：任务#2 (Phase 2) - 实现管理员仪表盘页面
+- **主要变更**：创建后端 DashboardService 和 DashboardController，创建前端 StatCard、RecentOrders、SalesChart 组件，更新 AdminDashboardPage 连接真实数据
+- **遗留问题**：无
+
+### 会话 #20 - 2026-02-21
+- **AI 类型**：开发
+- **完成任务**：任务#1 (Phase 2) - 创建管理员后台布局和路由保护
+- **主要变更**：创建 ProtectedRoute 和 AdminRoute 路由保护组件，创建 AdminDashboardPage 管理员仪表盘页面，更新 authStore 添加 isAdmin 状态
+- **遗留问题**：无
 
 ### 会话 #19 - 2026-02-21
 - **AI 类型**：开发

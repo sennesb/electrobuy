@@ -1,11 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { User } from '@/types'
+import type { User, UserRole } from '@/types'
 
 interface AuthState {
   user: User | null
   token: string | null
   isAuthenticated: boolean
+  isAdmin: boolean
   setAuth: (user: User, token: string) => void
   logout: () => void
 }
@@ -16,18 +17,34 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       isAuthenticated: false,
+      isAdmin: false,
       setAuth: (user, token) => {
         localStorage.setItem('token', token)
-        set({ user, token, isAuthenticated: true })
+        set({ 
+          user, 
+          token, 
+          isAuthenticated: true,
+          isAdmin: user.role === 'Admin'
+        })
       },
       logout: () => {
         localStorage.removeItem('token')
-        set({ user: null, token: null, isAuthenticated: false })
+        set({ user: null, token: null, isAuthenticated: false, isAdmin: false })
       },
     }),
     {
       name: 'auth-storage',
-      partialize: (state) => ({ user: state.user, token: state.token, isAuthenticated: state.isAuthenticated }),
+      partialize: (state) => ({ 
+        user: state.user, 
+        token: state.token, 
+        isAuthenticated: state.isAuthenticated,
+        isAdmin: state.isAdmin
+      }),
     }
   )
 )
+
+export function hasRole(user: User | null, roles: UserRole[]): boolean {
+  if (!user) return false
+  return roles.includes(user.role)
+}

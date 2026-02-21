@@ -8,7 +8,11 @@ export interface CreateOrderRequest {
 export interface OrderQuery {
   page?: number
   pageSize?: number
-  status?: string
+  status?: number
+}
+
+export interface ShipOrderRequest {
+  trackingNumber?: string
 }
 
 export const ordersApi = {
@@ -23,8 +27,8 @@ export const ordersApi = {
   },
 
   getOrderCount: async (): Promise<number> => {
-    const response = await apiClient.get<number>('/orders/count')
-    return response.data
+    const response = await apiClient.get<{ count: number }>('/orders/count')
+    return response.data.count
   },
 
   createOrder: async (data?: CreateOrderRequest): Promise<Order> => {
@@ -34,6 +38,26 @@ export const ordersApi = {
 
   cancelOrder: async (id: string): Promise<Order> => {
     const response = await apiClient.post<Order>(`/orders/${id}/cancel`)
+    return response.data
+  },
+
+  completeOrder: async (id: string): Promise<Order> => {
+    const response = await apiClient.post<Order>(`/orders/${id}/complete`)
+    return response.data
+  },
+
+  getAllOrders: async (params?: OrderQuery): Promise<OrderList> => {
+    const response = await apiClient.get<OrderList>('/orders/admin/all', { params })
+    return response.data
+  },
+
+  confirmOrder: async (id: string): Promise<Order> => {
+    const response = await apiClient.post<Order>(`/orders/admin/${id}/confirm`)
+    return response.data
+  },
+
+  shipOrder: async (id: string, data?: ShipOrderRequest): Promise<Order> => {
+    const response = await apiClient.post<Order>(`/orders/admin/${id}/ship`, data ?? {})
     return response.data
   },
 }

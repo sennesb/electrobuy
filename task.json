@@ -1,10 +1,10 @@
 {
   "project": "ElectroBuy",
   "description": "电气自动化产品采买平台 - 一个面向电气自动化行业的 B2B/B2C 电子商务平台",
-  "tasksQuantity": 20,
+  "tasksQuantity": 5,
   "metadata": {
-    "createdAt": "2026-02-19",
-    "lastUpdated": "2026-02-20",
+    "createdAt": "2026-02-21",
+    "lastUpdated": "2026-02-21",
     "techStack": [
       "React",
       "TypeScript",
@@ -25,587 +25,128 @@
   "tasks": [
     {
       "id": 1,
-      "title": "初始化后端项目结构",
-      "description": "创建 ASP.NET Core 后端解决方案，包含四层架构项目结构",
+      "title": "创建管理员后台布局和路由保护",
+      "description": "创建独立的管理员后台布局，实现路由权限保护，管理员登录后进入完全不同的后台界面",
       "priority": "high",
       "dependencies": [],
       "steps": [
-        { "description": "创建 ElectroBuy.sln 解决方案文件", "completed": true },
-        { "description": "创建 ElectroBuy.Api 项目 (Web API)", "completed": true },
-        { "description": "创建 ElectroBuy.Application 项目 (应用层)", "completed": true },
-        { "description": "创建 ElectroBuy.Domain 项目 (领域层)", "completed": true },
-        { "description": "创建 ElectroBuy.Infrastructure 项目 (基础设施层)", "completed": true },
-        { "description": "配置项目引用关系", "completed": true }
+        { "description": "创建 AdminLayout 管理员后台布局组件", "completed": true },
+        { "description": "创建 ProtectedRoute 路由保护组件", "completed": true },
+        { "description": "创建 AdminRoute 管理员权限路由组件", "completed": true },
+        { "description": "更新 App.tsx 配置管理员路由", "completed": true },
+        { "description": "更新 authStore 添加 isAdmin 判断", "completed": true }
       ],
       "passes": true,
-      "startedAt": "2026-02-19T19:12:00+08:00",
-      "completedAt": "2026-02-19T19:20:00+08:00",
+      "startedAt": "2026-02-21T13:00:00Z",
+      "completedAt": "2026-02-21T13:25:00Z",
       "modifiedFiles": [
-        "backend/ElectroBuy.sln",
-        "backend/src/ElectroBuy.Api/ElectroBuy.Api.csproj",
-        "backend/src/ElectroBuy.Application/ElectroBuy.Application.csproj",
-        "backend/src/ElectroBuy.Domain/ElectroBuy.Domain.csproj",
-        "backend/src/ElectroBuy.Infrastructure/ElectroBuy.Infrastructure.csproj"
+        "frontend/src/stores/authStore.ts",
+        "frontend/src/components/auth/ProtectedRoute.tsx",
+        "frontend/src/components/auth/AdminRoute.tsx",
+        "frontend/src/components/auth/index.ts",
+        "frontend/src/components/layout/AdminLayout.tsx",
+        "frontend/src/pages/admin/AdminDashboardPage.tsx",
+        "frontend/src/pages/admin/AdminOrdersPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx"
       ],
-      "notes": "安装了 .NET SDK 8.0.418，创建了四层架构项目结构"
+      "notes": "AdminLayout 已存在，添加了仪表盘菜单项。创建了 ProtectedRoute 和 AdminRoute 路由保护组件。创建了 AdminDashboardPage 管理员仪表盘页面。"
     },
     {
       "id": 2,
-      "title": "配置后端基础架构",
-      "description": "配置依赖注入、数据库上下文、JWT 认证等基础组件",
+      "title": "实现管理员仪表盘页面",
+      "description": "创建管理员首页仪表盘，展示关键业务数据和统计图表",
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "配置 Program.cs 和依赖注入", "completed": true },
-        { "description": "创建 ElectroBuyDbContext 数据库上下文", "completed": true },
-        { "description": "配置 JWT 认证服务", "completed": true },
-        { "description": "配置 Swagger/OpenAPI", "completed": true },
-        { "description": "配置 Serilog 日志", "completed": true },
-        { "description": "配置 CORS 策略", "completed": true }
+        { "description": "创建 AdminDashboardPage 仪表盘页面", "completed": true },
+        { "description": "创建 StatCard 统计卡片组件", "completed": true },
+        { "description": "创建 RecentOrders 最近订单组件", "completed": true },
+        { "description": "创建 SalesChart 销售趋势图表组件", "completed": true },
+        { "description": "后端添加统计数据 API 端点", "completed": true }
       ],
       "passes": true,
-      "startedAt": "2026-02-19T20:00:00+08:00",
-      "completedAt": "2026-02-19T20:30:00+08:00",
+      "startedAt": "2026-02-21T14:00:00Z",
+      "completedAt": "2026-02-21T14:35:00Z",
       "modifiedFiles": [
+        "backend/src/ElectroBuy.Application/DTOs/Dashboard/DashboardStatsDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Dashboard/RecentOrderDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Dashboard/DailySalesDto.cs",
+        "backend/src/ElectroBuy.Application/Interfaces/IDashboardService.cs",
+        "backend/src/ElectroBuy.Infrastructure/Services/DashboardService.cs",
+        "backend/src/ElectroBuy.Api/Controllers/DashboardController.cs",
         "backend/src/ElectroBuy.Api/Program.cs",
-        "backend/src/ElectroBuy.Api/appsettings.json",
-        "backend/src/ElectroBuy.Api/appsettings.Development.json",
-        "backend/src/ElectroBuy.Api/Controllers/HealthController.cs",
-        "backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs"
+        "frontend/src/types/api.ts",
+        "frontend/src/lib/api/dashboard.ts",
+        "frontend/src/lib/api/index.ts",
+        "frontend/src/components/dashboard/StatCard.tsx",
+        "frontend/src/components/dashboard/RecentOrders.tsx",
+        "frontend/src/components/dashboard/SalesChart.tsx",
+        "frontend/src/components/dashboard/index.ts",
+        "frontend/src/components/index.ts",
+        "frontend/src/pages/admin/AdminDashboardPage.tsx"
       ],
-      "notes": "配置了 EF Core、JWT 认证、Swagger、Serilog 日志、CORS 策略，安装了相关 NuGet 包"
+      "notes": "实现了完整的仪表盘功能，包括后端统计数据 API 和前端组件。仪表盘展示总订单数、总销售额、产品数量、用户数量、待处理订单、库存紧张产品、最近订单和近7天销售趋势图表。"
     },
     {
       "id": 3,
-      "title": "创建领域实体模型",
-      "description": "在 Domain 层创建所有实体类和枚举类型",
+      "title": "实现产品管理功能",
+      "description": "创建管理员产品管理页面，支持产品的增删改查",
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "创建 User 实体", "completed": true },
-        { "description": "创建 Category 实体", "completed": true },
-        { "description": "创建 Product 实体", "completed": true },
-        { "description": "创建 Order 和 OrderItem 实体", "completed": true },
-        { "description": "创建 CartItem 实体", "completed": true },
-        { "description": "创建枚举类型 (UserRole, OrderStatus)", "completed": true }
+        { "description": "创建 AdminProductsPage 产品列表页面", "completed": false },
+        { "description": "创建 ProductForm 产品表单组件", "completed": false },
+        { "description": "创建 ProductTable 产品表格组件", "completed": false },
+        { "description": "实现产品创建功能", "completed": false },
+        { "description": "实现产品编辑功能", "completed": false },
+        { "description": "实现产品删除功能", "completed": false },
+        { "description": "实现产品图片上传功能", "completed": false }
       ],
-      "passes": true,
-      "startedAt": "2026-02-19T21:00:00+08:00",
-      "completedAt": "2026-02-19T21:30:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Domain/Enums/UserRole.cs",
-        "backend/src/ElectroBuy.Domain/Enums/OrderStatus.cs",
-        "backend/src/ElectroBuy.Domain/Entities/User.cs",
-        "backend/src/ElectroBuy.Domain/Entities/Category.cs",
-        "backend/src/ElectroBuy.Domain/Entities/Product.cs",
-        "backend/src/ElectroBuy.Domain/Entities/Order.cs",
-        "backend/src/ElectroBuy.Domain/Entities/OrderItem.cs",
-        "backend/src/ElectroBuy.Domain/Entities/CartItem.cs",
-        "backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs"
-      ],
-      "notes": "创建了所有领域实体和枚举类型，配置了 DbContext 实体映射和索引"
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
     },
     {
       "id": 4,
-      "title": "实现用户认证模块",
-      "description": "实现用户注册、登录、JWT Token 生成和验证功能",
+      "title": "实现用户管理功能",
+      "description": "创建管理员用户管理页面，支持用户查看、编辑、禁用等操作",
       "priority": "high",
-      "dependencies": [2, 3],
+      "dependencies": [1],
       "steps": [
-        { "description": "创建 IUserService 接口和 UserService 实现", "completed": true },
-        { "description": "创建 AuthController 控制器", "completed": true },
-        { "description": "实现用户注册功能 (密码 BCrypt 加密)", "completed": true },
-        { "description": "实现用户登录功能 (JWT Token 生成)", "completed": true },
-        { "description": "实现获取当前用户信息接口", "completed": true },
-        { "description": "创建认证相关 DTOs", "completed": true }
+        { "description": "创建 AdminUsersPage 用户列表页面", "completed": false },
+        { "description": "创建 UserTable 用户表格组件", "completed": false },
+        { "description": "创建 UserDetail 用户详情组件", "completed": false },
+        { "description": "后端添加用户管理 API 端点", "completed": false },
+        { "description": "实现用户禁用/启用功能", "completed": false },
+        { "description": "实现用户角色修改功能", "completed": false }
       ],
-      "passes": true,
-      "startedAt": "2026-02-19T22:00:00+08:00",
-      "completedAt": "2026-02-19T22:30:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Auth/RegisterDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Auth/LoginDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Auth/UserDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Auth/AuthResponseDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/IUserService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/UserService.cs",
-        "backend/src/ElectroBuy.Infrastructure/ElectroBuy.Infrastructure.csproj",
-        "backend/src/ElectroBuy.Api/Controllers/AuthController.cs",
-        "backend/src/ElectroBuy.Api/Program.cs"
-      ],
-      "notes": "实现了用户认证模块，包括注册、登录、获取当前用户信息功能，使用 BCrypt 加密密码，JWT Token 生成和验证"
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
     },
     {
       "id": 5,
-      "title": "实现产品分类模块",
-      "description": "实现产品分类的 CRUD 操作",
-      "priority": "high",
-      "dependencies": [2, 3],
-      "steps": [
-        { "description": "创建 ICategoryService 接口和 CategoryService 实现", "completed": true },
-        { "description": "创建 CategoriesController 控制器", "completed": true },
-        { "description": "实现获取分类列表接口 (支持树形结构)", "completed": true },
-        { "description": "实现创建、更新、删除分类接口", "completed": true },
-        { "description": "创建分类相关 DTOs", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-19T23:00:00+08:00",
-      "completedAt": "2026-02-19T23:30:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Categories/CategoryDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Categories/CategoryTreeDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Categories/CreateCategoryDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Categories/UpdateCategoryDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/ICategoryService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/CategoryService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/CategoriesController.cs",
-        "backend/src/ElectroBuy.Api/Program.cs"
-      ],
-      "notes": "实现了产品分类模块，包括获取分类列表、树形结构、创建、更新、删除分类功能，支持父分类验证和循环引用检测"
-    },
-    {
-      "id": 6,
-      "title": "实现产品模块",
-      "description": "实现产品的 CRUD 操作和搜索功能",
-      "priority": "high",
-      "dependencies": [2, 3, 5],
-      "steps": [
-        { "description": "创建 IProductService 接口和 ProductService 实现", "completed": true },
-        { "description": "创建 ProductsController 控制器", "completed": true },
-        { "description": "实现获取产品列表接口 (分页、筛选、搜索)", "completed": true },
-        { "description": "实现获取产品详情接口", "completed": true },
-        { "description": "实现创建、更新、删除产品接口 (Admin)", "completed": true },
-        { "description": "创建产品相关 DTOs", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-19T00:00:00+08:00",
-      "completedAt": "2026-02-19T00:30:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Products/ProductDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Products/ProductListDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Products/CreateProductDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Products/UpdateProductDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Products/ProductQueryDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/IProductService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/ProductService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/ProductsController.cs",
-        "backend/src/ElectroBuy.Api/Program.cs"
-      ],
-      "notes": "实现了产品模块，包括分页、筛选、搜索、排序功能，支持按分类、品牌、价格区间筛选，支持关键词搜索，创建/更新/删除产品需要 Admin 角色"
-    },
-    {
-      "id": 7,
-      "title": "实现购物车模块",
-      "description": "实现购物车的增删改查功能",
-      "priority": "high",
-      "dependencies": [2, 3, 4, 6],
-      "steps": [
-        { "description": "创建 ICartService 接口和 CartService 实现", "completed": true },
-        { "description": "创建 CartController 控制器", "completed": true },
-        { "description": "实现获取购物车接口", "completed": true },
-        { "description": "实现添加商品到购物车接口", "completed": true },
-        { "description": "实现更新购物车商品数量接口", "completed": true },
-        { "description": "实现移除购物车商品接口", "completed": true },
-        { "description": "实现清空购物车接口", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-19T01:00:00+08:00",
-      "completedAt": "2026-02-19T01:30:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Cart/CartDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Cart/CartItemDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Cart/AddToCartDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Cart/UpdateCartDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/ICartService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/CartService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/CartController.cs",
-        "backend/src/ElectroBuy.Api/Program.cs"
-      ],
-      "notes": "实现了购物车模块，包括获取购物车、添加商品、更新数量、移除商品、清空购物车功能，支持库存检查、产品状态检查、重复商品合并"
-    },
-    {
-      "id": 8,
-      "title": "实现订单模块",
-      "description": "实现订单创建、查询、状态管理功能",
-      "priority": "high",
-      "dependencies": [2, 3, 4, 6, 7],
-      "steps": [
-        { "description": "创建 IOrderService 接口和 OrderService 实现", "completed": true },
-        { "description": "创建 OrdersController 控制器", "completed": true },
-        { "description": "实现创建订单接口 (从购物车创建)", "completed": true },
-        { "description": "实现获取订单列表接口", "completed": true },
-        { "description": "实现获取订单详情接口", "completed": true },
-        { "description": "实现取消订单接口", "completed": true },
-        { "description": "创建订单相关 DTOs", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-19T02:00:00+08:00",
-      "completedAt": "2026-02-19T02:30:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderItemDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderListDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Orders/CreateOrderDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderQueryDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/OrdersController.cs",
-        "backend/src/ElectroBuy.Api/Program.cs"
-      ],
-      "notes": "实现了订单模块，包括从购物车创建订单、获取订单列表、获取订单详情、取消订单功能，支持库存扣减和恢复、订单编号自动生成、订单状态管理"
-    },
-    {
-      "id": 9,
-      "title": "数据库迁移与种子数据",
-      "description": "创建数据库迁移并添加初始种子数据",
-      "priority": "high",
-      "dependencies": [3, 4, 5, 6, 7, 8],
-      "steps": [
-        { "description": "创建初始数据库迁移", "completed": true },
-        { "description": "创建种子数据脚本 (分类、测试产品)", "completed": true },
-        { "description": "创建管理员账户种子数据", "completed": true },
-        { "description": "验证数据库迁移成功", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-20T11:00:00+08:00",
-      "completedAt": "2026-02-20T11:30:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Infrastructure/Data/Migrations/20260220_InitialCreate.cs",
-        "backend/src/ElectroBuy.Infrastructure/Data/Migrations/20260220_InitialCreate.Designer.cs",
-        "backend/src/ElectroBuy.Infrastructure/Data/Migrations/ElectroBuyDbContextModelSnapshot.cs",
-        "backend/src/ElectroBuy.Infrastructure/Data/DataSeeder.cs",
-        "backend/src/ElectroBuy.Api/Program.cs",
-        "backend/.config/dotnet-tools.json",
-        "backend/src/ElectroBuy.Api/ElectroBuy.Api.csproj"
-      ],
-      "notes": "创建了初始数据库迁移，添加了8个产品分类、19个测试产品（PLC、变频器、传感器、低压电器、人机界面、伺服系统、工业通信、电源设备）、管理员账户种子数据，配置了应用启动时自动迁移和种子数据初始化"
-    },
-    {
-      "id": 10,
-      "title": "初始化前端项目",
-      "description": "创建 React + TypeScript + Vite 前端项目",
-      "priority": "high",
-      "dependencies": [],
-      "steps": [
-        { "description": "使用 Vite 创建 React + TypeScript 项目", "completed": true },
-        { "description": "配置 Tailwind CSS", "completed": true },
-        { "description": "配置路径别名 (@/)", "completed": true },
-        { "description": "配置 ESLint 和 Prettier", "completed": true },
-        { "description": "安装核心依赖 (react-router, zustand, tanstack-query 等)", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-20T15:00:00+08:00",
-      "completedAt": "2026-02-20T15:30:00+08:00",
-      "modifiedFiles": [
-        "frontend/package.json",
-        "frontend/vite.config.ts",
-        "frontend/tsconfig.app.json",
-        "frontend/eslint.config.js",
-        "frontend/.prettierrc",
-        "frontend/.prettierignore",
-        "frontend/src/index.css",
-        "frontend/src/App.tsx",
-        "frontend/src/lib/utils.ts",
-        "frontend/src/lib/constants/index.ts",
-        "frontend/src/lib/api/client.ts",
-        "frontend/src/lib/api/auth.ts",
-        "frontend/src/lib/api/products.ts",
-        "frontend/src/lib/api/cart.ts",
-        "frontend/src/lib/api/orders.ts",
-        "frontend/src/lib/api/index.ts",
-        "frontend/src/types/api.ts",
-        "frontend/src/types/index.ts",
-        "frontend/src/stores/authStore.ts",
-        "frontend/src/stores/cartStore.ts",
-        "frontend/src/stores/uiStore.ts",
-        "frontend/src/stores/index.ts"
-      ],
-      "notes": "创建了 React + TypeScript + Vite 前端项目，配置了 Tailwind CSS 4.x、路径别名、ESLint + Prettier，安装了核心依赖 (react-router-dom, zustand, @tanstack/react-query, axios, react-hook-form, zod, @hookform/resolvers, clsx, tailwind-merge)，创建了 API 客户端、类型定义、状态管理 stores"
-    },
-    {
-      "id": 11,
-      "title": "创建前端基础组件",
-      "description": "创建 UI 基础组件库 (Button, Input, Modal 等)",
-      "priority": "high",
-      "dependencies": [10],
-      "steps": [
-        { "description": "创建 Button 组件", "completed": true },
-        { "description": "创建 Input 组件", "completed": true },
-        { "description": "创建 Modal 组件", "completed": true },
-        { "description": "创建 Loading 组件", "completed": true },
-        { "description": "创建 Toast 消息组件", "completed": true },
-        { "description": "创建 Pagination 组件", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-20T16:00:00+08:00",
-      "completedAt": "2026-02-20T16:30:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/components/ui/Button.tsx",
-        "frontend/src/components/ui/Input.tsx",
-        "frontend/src/components/ui/Modal.tsx",
-        "frontend/src/components/ui/Loading.tsx",
-        "frontend/src/components/ui/Toast.tsx",
-        "frontend/src/components/ui/Pagination.tsx",
-        "frontend/src/components/ui/index.ts",
-        "frontend/src/components/index.ts"
-      ],
-      "notes": "创建了完整的基础 UI 组件库：Button (5种变体、3种尺寸、加载状态)、Input (密码显示切换、图标支持、错误提示)、Modal (多种尺寸、ESC关闭、遮罩层)、Loading (Spinner、骨架屏、全屏加载)、Toast (4种类型、自动关闭、手动关闭)、Pagination (页码范围、快速跳转、总数显示)"
-    },
-    {
-      "id": 12,
-      "title": "创建前端布局组件",
-      "description": "创建页面布局组件 (Header, Footer, MainLayout)",
-      "priority": "high",
-      "dependencies": [10, 11],
-      "steps": [
-        { "description": "创建 Header 组件 (Logo, 导航, 用户菜单)", "completed": true },
-        { "description": "创建 Footer 组件", "completed": true },
-        { "description": "创建 MainLayout 布局组件", "completed": true },
-        { "description": "创建 Sidebar 侧边栏组件", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-20T17:00:00+08:00",
-      "completedAt": "2026-02-20T17:30:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/components/layout/Header.tsx",
-        "frontend/src/components/layout/Footer.tsx",
-        "frontend/src/components/layout/MainLayout.tsx",
-        "frontend/src/components/layout/Sidebar.tsx",
-        "frontend/src/components/layout/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/stores/cartStore.ts"
-      ],
-      "notes": "创建了完整的布局组件：Header (Logo、导航菜单、搜索栏、用户菜单、购物车图标)、Footer (产品分类、快速链接、客户服务、版权信息)、MainLayout (Header + Main + Footer 结构，支持侧边栏)、Sidebar (产品分类导航、热门品牌)"
-    },
-    {
-      "id": 13,
-      "title": "实现前端 API 客户端",
-      "description": "创建 API 请求封装和类型定义",
-      "priority": "high",
-      "dependencies": [10],
-      "steps": [
-        { "description": "创建 Axios 实例配置", "completed": true },
-        { "description": "创建 API 类型定义 (types/api.ts)", "completed": true },
-        { "description": "创建认证 API (authApi)", "completed": true },
-        { "description": "创建产品 API (productsApi)", "completed": true },
-        { "description": "创建购物车 API (cartApi)", "completed": true },
-        { "description": "创建订单 API (ordersApi)", "completed": true },
-        { "description": "配置请求拦截器 (JWT Token)", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-20T15:00:00+08:00",
-      "completedAt": "2026-02-20T15:30:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/lib/api/client.ts",
-        "frontend/src/lib/api/auth.ts",
-        "frontend/src/lib/api/products.ts",
-        "frontend/src/lib/api/cart.ts",
-        "frontend/src/lib/api/orders.ts",
-        "frontend/src/lib/api/index.ts",
-        "frontend/src/types/api.ts",
-        "frontend/src/types/index.ts"
-      ],
-      "notes": "在任务#10中提前完成：创建了 Axios 实例配置、JWT Token 请求拦截器、401 自动跳转登录处理、所有 API 模块 (auth, products, cart, orders) 和完整的 API 类型定义"
-    },
-    {
-      "id": 14,
-      "title": "实现前端状态管理",
-      "description": "创建 Zustand stores 管理全局状态",
-      "priority": "high",
-      "dependencies": [10, 13],
-      "steps": [
-        { "description": "创建 authStore (用户认证状态)", "completed": true },
-        { "description": "创建 cartStore (购物车状态)", "completed": true },
-        { "description": "创建 uiStore (UI 状态)", "completed": true },
-        { "description": "配置状态持久化 (localStorage)", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-20T15:00:00+08:00",
-      "completedAt": "2026-02-20T15:30:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/stores/authStore.ts",
-        "frontend/src/stores/cartStore.ts",
-        "frontend/src/stores/uiStore.ts",
-        "frontend/src/stores/index.ts"
-      ],
-      "notes": "在任务#10中提前完成：创建了 authStore (用户认证状态，支持 localStorage 持久化)、cartStore (购物车状态)、uiStore (UI 状态)"
-    },
-    {
-      "id": 15,
-      "title": "实现登录注册页面",
-      "description": "创建用户登录和注册页面",
-      "priority": "high",
-      "dependencies": [11, 12, 13, 14],
-      "steps": [
-        { "description": "创建登录页面 (LoginPage)", "completed": true },
-        { "description": "创建注册页面 (RegisterPage)", "completed": true },
-        { "description": "创建登录表单组件 (LoginForm)", "completed": true },
-        { "description": "创建注册表单组件 (RegisterForm)", "completed": true },
-        { "description": "实现表单验证 (Zod)", "completed": true },
-        { "description": "实现登录/注册逻辑和跳转", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-21T00:40:00+08:00",
-      "completedAt": "2026-02-21T00:50:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/components/auth/LoginForm.tsx",
-        "frontend/src/components/auth/RegisterForm.tsx",
-        "frontend/src/components/auth/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/pages/LoginPage.tsx",
-        "frontend/src/pages/RegisterPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx"
-      ],
-      "notes": "创建了登录注册页面和表单组件，使用 react-hook-form + zod 实现表单验证，集成后端 API 实现登录注册功能，Playwright MCP 测试通过"
-    },
-    {
-      "id": 16,
-      "title": "实现首页和产品列表页",
-      "description": "创建首页和产品浏览页面",
-      "priority": "high",
-      "dependencies": [11, 12, 13, 14],
-      "steps": [
-        { "description": "创建首页 (HomePage)", "completed": true },
-        { "description": "创建产品列表页 (ProductsPage)", "completed": true },
-        { "description": "创建产品卡片组件 (ProductCard)", "completed": true },
-        { "description": "创建产品筛选组件 (ProductFilter)", "completed": true },
-        { "description": "创建分类导航组件 (CategoryNav)", "completed": true },
-        { "description": "实现产品搜索功能", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-21T03:45:00+08:00",
-      "completedAt": "2026-02-21T03:50:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/components/products/ProductCard.tsx",
-        "frontend/src/components/products/ProductFilter.tsx",
-        "frontend/src/components/products/CategoryNav.tsx",
-        "frontend/src/components/products/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/pages/HomePage.tsx",
-        "frontend/src/pages/ProductsPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx"
-      ],
-      "notes": "创建了首页和产品列表页，包含产品卡片、筛选、分类导航组件，实现了产品搜索功能，Playwright MCP 测试通过"
-    },
-    {
-      "id": 17,
-      "title": "实现产品详情页",
-      "description": "创建产品详情页面和加入购物车功能",
-      "priority": "high",
-      "dependencies": [11, 12, 13, 14, 16],
-      "steps": [
-        { "description": "创建产品详情页 (ProductDetailPage)", "completed": true },
-        { "description": "创建产品图片展示组件 (ProductGallery)", "completed": true },
-        { "description": "创建产品信息组件 (ProductInfo)", "completed": true },
-        { "description": "创建规格参数表格组件 (SpecTable)", "completed": true },
-        { "description": "实现加入购物车功能", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-21T12:00:00+08:00",
-      "completedAt": "2026-02-21T12:20:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/components/products/ProductGallery.tsx",
-        "frontend/src/components/products/ProductInfo.tsx",
-        "frontend/src/components/products/SpecTable.tsx",
-        "frontend/src/components/products/index.ts",
-        "frontend/src/pages/ProductDetailPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx",
-        "frontend/src/types/api.ts",
-        "frontend/src/lib/api/index.ts"
-      ],
-      "notes": "创建了产品详情页和图片展示、产品信息、规格参数组件，实现了加入购物车功能，Playwright MCP 测试通过"
-    },
-    {
-      "id": 18,
-      "title": "实现购物车页面",
-      "description": "创建购物车页面和订单提交功能",
-      "priority": "high",
-      "dependencies": [11, 12, 13, 14, 17],
-      "steps": [
-        { "description": "创建购物车页面 (CartPage)", "completed": true },
-        { "description": "创建购物车项组件 (CartItem)", "completed": true },
-        { "description": "创建订单摘要组件 (OrderSummary)", "completed": true },
-        { "description": "实现购物车数量修改功能", "completed": true },
-        { "description": "实现提交订单功能", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-21T12:45:00+08:00",
-      "completedAt": "2026-02-21T12:55:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/components/cart/CartItem.tsx",
-        "frontend/src/components/cart/OrderSummary.tsx",
-        "frontend/src/components/cart/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/pages/CartPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx",
-        "frontend/src/lib/api/orders.ts"
-      ],
-      "notes": "创建了购物车页面和相关组件，实现了购物车数量修改、删除商品、清空购物车、提交订单功能，Playwright MCP 测试通过"
-    },
-    {
-      "id": 19,
-      "title": "实现订单列表和详情页",
-      "description": "创建订单历史和订单详情页面",
-      "priority": "high",
-      "dependencies": [11, 12, 13, 14, 18],
-      "steps": [
-        { "description": "创建订单列表页 (OrdersPage)", "completed": true },
-        { "description": "创建订单详情页 (OrderDetailPage)", "completed": true },
-        { "description": "创建订单卡片组件 (OrderCard)", "completed": true },
-        { "description": "创建订单状态组件 (OrderStatus)", "completed": true },
-        { "description": "实现取消订单功能", "completed": true }
-      ],
-      "passes": true,
-      "startedAt": "2026-02-21T13:55:00+08:00",
-      "completedAt": "2026-02-21T14:10:00+08:00",
-      "modifiedFiles": [
-        "frontend/src/components/orders/OrderStatus.tsx",
-        "frontend/src/components/orders/OrderCard.tsx",
-        "frontend/src/components/orders/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/pages/OrdersPage.tsx",
-        "frontend/src/pages/OrderDetailPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx",
-        "frontend/src/types/api.ts"
-      ],
-      "notes": "创建了订单列表和详情页面，包含订单状态徽章、订单状态步骤、订单卡片组件，实现了取消订单功能，修复了后端返回数字状态码的问题"
-    },
-    {
-      "id": 20,
-      "title": "实现个人中心页面",
-      "description": "创建用户个人中心和信息管理页面",
+      "title": "完善订单管理功能",
+      "description": "完善现有的订单管理页面，添加更多管理功能",
       "priority": "medium",
-      "dependencies": [11, 12, 13, 14, 15],
+      "dependencies": [1],
       "steps": [
-        { "description": "创建个人中心页面 (ProfilePage)", "completed": true },
-        { "description": "创建用户信息编辑表单", "completed": true },
-        { "description": "实现修改密码功能", "completed": true },
-        { "description": "实现用户信息更新功能", "completed": true }
+        { "description": "优化 AdminOrdersPage 页面布局", "completed": false },
+        { "description": "添加订单详情弹窗组件", "completed": false },
+        { "description": "添加订单导出功能", "completed": false },
+        { "description": "添加订单筛选和搜索功能", "completed": false },
+        { "description": "添加批量操作功能", "completed": false }
       ],
-      "passes": true,
-      "startedAt": "2026-02-21T14:20:00+08:00",
-      "completedAt": "2026-02-21T14:35:00+08:00",
-      "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Auth/UpdateUserDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Auth/ChangePasswordDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/IUserService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/UserService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/AuthController.cs",
-        "frontend/src/lib/api/auth.ts",
-        "frontend/src/components/profile/ProfileForm.tsx",
-        "frontend/src/components/profile/ChangePasswordForm.tsx",
-        "frontend/src/components/profile/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/pages/ProfilePage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx"
-      ],
-      "notes": "创建了个人中心页面，包含用户信息编辑表单和修改密码功能，后端添加了更新用户信息和修改密码的 API 端点"
+      "passes": false,
+      "startedAt": null,
+      "completedAt": null,
+      "modifiedFiles": [],
+      "notes": ""
     }
   ]
 }

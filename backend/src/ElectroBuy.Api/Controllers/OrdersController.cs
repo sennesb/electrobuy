@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using ElectroBuy.Application.DTOs.Orders;
 using ElectroBuy.Application.Interfaces;
+using ElectroBuy.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -94,6 +95,79 @@ public class OrdersController : ControllerBase
         try
         {
             var order = await _orderService.CancelOrderAsync(userId.Value, id);
+            if (order == null)
+            {
+                return NotFound(new { message = "订单不存在" });
+            }
+
+            return Ok(order);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("{id}/complete")]
+    public async Task<ActionResult<OrderDto>> CompleteOrder(Guid id)
+    {
+        var userId = GetCurrentUserId();
+        if (userId == null)
+        {
+            return Unauthorized();
+        }
+
+        try
+        {
+            var order = await _orderService.CompleteOrderAsync(userId.Value, id);
+            if (order == null)
+            {
+                return NotFound(new { message = "订单不存在" });
+            }
+
+            return Ok(order);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpGet("admin/all")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<OrderListDto>> GetAllOrders([FromQuery] OrderQueryDto query)
+    {
+        var orders = await _orderService.GetAllOrdersAsync(query);
+        return Ok(orders);
+    }
+
+    [HttpPost("admin/{id}/confirm")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<OrderDto>> ConfirmOrder(Guid id)
+    {
+        try
+        {
+            var order = await _orderService.ConfirmOrderAsync(id);
+            if (order == null)
+            {
+                return NotFound(new { message = "订单不存在" });
+            }
+
+            return Ok(order);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("admin/{id}/ship")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<OrderDto>> ShipOrder(Guid id, [FromBody] ShipOrderDto? dto)
+    {
+        try
+        {
+            var order = await _orderService.ShipOrderAsync(id, dto?.TrackingNumber);
             if (order == null)
             {
                 return NotFound(new { message = "订单不存在" });

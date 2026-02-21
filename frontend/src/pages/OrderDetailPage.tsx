@@ -13,6 +13,7 @@ export default function OrderDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { isAuthenticated } = useAuthStore()
   const [showCancelConfirm, setShowCancelConfirm] = useState(false)
+  const [showCompleteConfirm, setShowCompleteConfirm] = useState(false)
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -35,6 +36,15 @@ export default function OrderDetailPage() {
     },
   })
 
+  const completeMutation = useMutation({
+    mutationFn: () => ordersApi.completeOrder(id!),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['order', id] })
+      queryClient.invalidateQueries({ queryKey: ['orders'] })
+      setShowCompleteConfirm(false)
+    },
+  })
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleString('zh-CN', {
@@ -47,6 +57,7 @@ export default function OrderDetailPage() {
   }
 
   const canCancel = order ? (typeof order.status === 'number' ? order.status === 0 : order.status === 'Pending') : false
+  const canComplete = order ? (typeof order.status === 'number' ? order.status === 2 : order.status === 'Shipped') : false
 
   if (isLoading) {
     return (
@@ -183,15 +194,25 @@ export default function OrderDetailPage() {
             <Link to="/orders">
               <Button variant="outline">返回订单列表</Button>
             </Link>
-            {canCancel && (
-              <Button
-                variant="danger"
-                onClick={() => setShowCancelConfirm(true)}
-                disabled={cancelMutation.isPending}
-              >
-                {cancelMutation.isPending ? '取消中...' : '取消订单'}
-              </Button>
-            )}
+            <div className="flex gap-3">
+              {canComplete && (
+                <Button
+                  onClick={() => setShowCompleteConfirm(true)}
+                  disabled={completeMutation.isPending}
+                >
+                  {completeMutation.isPending ? '确认中...' : '确认收货'}
+                </Button>
+              )}
+              {canCancel && (
+                <Button
+                  variant="danger"
+                  onClick={() => setShowCancelConfirm(true)}
+                  disabled={cancelMutation.isPending}
+                >
+                  {cancelMutation.isPending ? '取消中...' : '取消订单'}
+                </Button>
+              )}
+            </div>
           </div>
 
           {showCancelConfirm && (
@@ -214,6 +235,31 @@ export default function OrderDetailPage() {
                     disabled={cancelMutation.isPending}
                   >
                     {cancelMutation.isPending ? '取消中...' : '确认取消'}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {showCompleteConfirm && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">确认收货</h3>
+                <p className="text-gray-600 mb-6">
+                  确认已收到订单 {order.orderNumber} 的商品吗？
+                </p>
+                <div className="flex gap-3 justify-end">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowCompleteConfirm(false)}
+                  >
+                    再想想
+                  </Button>
+                  <Button
+                    onClick={() => completeMutation.mutate()}
+                    disabled={completeMutation.isPending}
+                  >
+                    {completeMutation.isPending ? '确认中...' : '确认收货'}
                   </Button>
                 </div>
               </div>

@@ -719,4 +719,62 @@
 
 ---
 
+## [2026-02-21] - Task 1 (Phase 2): 创建管理员后台布局和路由保护
+
+### What was done:
+- 更新 authStore 添加 isAdmin 状态和 hasRole 辅助函数
+- 创建 ProtectedRoute 路由保护组件 (未登录用户重定向到登录页)
+- 创建 AdminRoute 管理员权限路由组件 (非管理员用户重定向到首页)
+- 更新 App.tsx 配置管理员路由保护
+- 创建 AdminDashboardPage 管理员仪表盘页面
+- 更新 AdminLayout 添加仪表盘菜单项
+- 优化 AdminOrdersPage 移除重复的权限检查
+
+### Testing:
+- ✅ npm run lint 检查通过
+- ✅ npm run build 构建成功
+- ✅ Playwright MCP 未登录用户访问 /admin 重定向到登录页
+- ✅ Playwright MCP 管理员登录后可访问 /admin 仪表盘
+- ✅ Playwright MCP 管理员可访问 /admin/orders 订单管理
+- ✅ Playwright MCP 普通用户访问 /admin 重定向到首页
+- ✅ Playwright MCP 普通用户可访问 /orders 订单列表
+
+### Notes:
+- AdminLayout 已存在，添加了仪表盘菜单项
+- 管理员账号: admin@electrobuy.com / Admin@123456
+- 普通用户账号: user@electrobuy.com / User@123456
+- 路由保护使用 React Router 的 Navigate 组件实现重定向
+
+---
+
+## [2026-02-21] - Task 2 (Phase 2): 实现管理员仪表盘页面
+
+### What was done:
+- 后端创建 DashboardStatsDto、RecentOrderDto、DailySalesDto 数据传输对象
+- 后端创建 IDashboardService 接口和 DashboardService 实现
+- 后端创建 DashboardController 控制器 (GET /api/dashboard/stats)
+- 后端注册 DashboardService 到 DI 容器
+- 前端创建 DashboardStats、RecentOrder、DailySales 类型定义
+- 前端创建 dashboardApi 客户端
+- 前端创建 StatCard 统计卡片组件
+- 前端创建 RecentOrders 最近订单组件
+- 前端创建 SalesChart 销售趋势图表组件
+- 前端更新 AdminDashboardPage 连接真实数据
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+- ✅ npm run lint 检查通过
+- ✅ npm run build 构建成功
+- ✅ Playwright MCP 管理员登录后访问 /admin 仪表盘显示真实数据
+- ✅ Playwright MCP 仪表盘显示: 总订单数 7, 总销售额 ¥22,200, 产品数量 19, 用户数量 10
+- ✅ Playwright MCP 最近订单和销售趋势图表正常显示
+
+### Notes:
+- 仪表盘展示总订单数、总销售额、产品数量、用户数量
+- 仪表盘展示待处理订单、库存紧张产品
+- 最近订单显示最近5条订单记录
+- 销售趋势图表显示近7天的销售数据
+
+---
+
 *最后更新：2026-02-21*

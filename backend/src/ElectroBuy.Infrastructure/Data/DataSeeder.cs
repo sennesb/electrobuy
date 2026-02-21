@@ -396,25 +396,60 @@ public static class DataSeeder
 
     private static async Task SeedAdminUserAsync(ElectroBuyDbContext context)
     {
-        if (await context.Users.AnyAsync(u => u.Role == UserRole.Admin))
+        var usersToAdd = new List<User>();
+
+        if (!await context.Users.AnyAsync(u => u.Email == "admin@electrobuy.com"))
         {
-            return;
+            usersToAdd.Add(new User
+            {
+                Id = Guid.NewGuid(),
+                Email = "admin@electrobuy.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123456"),
+                Name = "系统管理员",
+                Company = "ElectroBuy",
+                Phone = "13800138000",
+                Role = UserRole.Admin,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
+            });
         }
 
-        var adminUser = new User
+        if (!await context.Users.AnyAsync(u => u.Email == "enterprise@electrobuy.com"))
         {
-            Id = Guid.NewGuid(),
-            Email = "admin@electrobuy.com",
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123456"),
-            Name = "系统管理员",
-            Company = "ElectroBuy",
-            Phone = "13800138000",
-            Role = UserRole.Admin,
-            IsActive = true,
-            CreatedAt = DateTime.UtcNow
-        };
+            usersToAdd.Add(new User
+            {
+                Id = Guid.NewGuid(),
+                Email = "enterprise@electrobuy.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Enterprise@123456"),
+                Name = "企业用户",
+                Company = "测试企业有限公司",
+                Phone = "13800138001",
+                Role = UserRole.EnterpriseUser,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
+            });
+        }
 
-        await context.Users.AddAsync(adminUser);
-        await context.SaveChangesAsync();
+        if (!await context.Users.AnyAsync(u => u.Email == "user@electrobuy.com"))
+        {
+            usersToAdd.Add(new User
+            {
+                Id = Guid.NewGuid(),
+                Email = "user@electrobuy.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("User@123456"),
+                Name = "普通用户",
+                Company = null,
+                Phone = "13800138002",
+                Role = UserRole.User,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
+            });
+        }
+
+        if (usersToAdd.Any())
+        {
+            await context.Users.AddRangeAsync(usersToAdd);
+            await context.SaveChangesAsync();
+        }
     }
 }

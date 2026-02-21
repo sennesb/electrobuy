@@ -173,6 +173,107 @@ public class OrderService : IOrderService
             .CountAsync();
     }
 
+    public async Task<OrderDto?> ConfirmOrderAsync(Guid orderId)
+    {
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+
+        if (order == null)
+        {
+            return null;
+        }
+
+        if (order.Status != OrderStatus.Pending)
+        {
+            throw new InvalidOperationException("只有待确认状态的订单可以确认");
+        }
+
+        order.Status = OrderStatus.Confirmed;
+        order.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return MapToDto(order);
+    }
+
+    public async Task<OrderDto?> ShipOrderAsync(Guid orderId, string? trackingNumber)
+    {
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+
+        if (order == null)
+        {
+            return null;
+        }
+
+        if (order.Status != OrderStatus.Confirmed)
+        {
+            throw new InvalidOperationException("只有已确认状态的订单可以发货");
+        }
+
+        order.Status = OrderStatus.Shipped;
+        order.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return MapToDto(order);
+    }
+
+    public async Task<OrderDto?> CompleteOrderAsync(Guid userId, Guid orderId)
+    {
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
+
+        if (order == null)
+        {
+            return null;
+        }
+
+        if (order.Status != OrderStatus.Shipped)
+        {
+            throw new InvalidOperationException("只有已发货状态的订单可以确认收货");
+        }
+
+        order.Status = OrderStatus.Completed;
+        order.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return MapToDto(order);
+    }
+
+    public async Task<OrderListDto> GetAllOrdersAsync(OrderQueryDto query)
+    {
+        var queryable = _context.Orders
+            .Include(o => o.OrderItems)
+            .Include(o => o.User)
+            .AsQueryable();
+
+        if (query.Status.HasValue)
+        {
+            queryable = queryable.Where(o => (int)o.Status == query.Status.Value);
+        }
+
+        var total = await queryable.CountAsync();
+
+        var orders = await queryable
+            .OrderByDescending(o => o.CreatedAt)
+            .Skip((query.Page - 1) * query.PageSize)
+            .Take(query.PageSize)
+            .ToListAsync();
+
+        return new OrderListDto
+        {
+            Data = orders.Select(MapToDtoWithUser).ToList(),
+            Total = total,
+            Page = query.Page,
+            PageSize = query.PageSize
+        };
+    }
+
     private static string GenerateOrderNumber()
     {
         var timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
@@ -201,6 +302,33 @@ public class OrderService : IOrderService
                 Quantity = oi.Quantity,
                 UnitPrice = oi.UnitPrice
             }).ToList() ?? new List<OrderItemDto>()
+        };
+    }
+
+    private static OrderDto MapToDtoWithUser(Order order)
+    {
+        return new OrderDto
+        {
+            Id = order.Id,
+            OrderNumber = order.OrderNumber,
+            Status = (int)order.Status,
+            StatusText = GetStatusText(order.Status),
+            TotalAmount = order.TotalAmount,
+            Remark = order.Remark,
+            CreatedAt = order.CreatedAt,
+            UpdatedAt = order.UpdatedAt,
+            Items = order.OrderItems?.Select(oi => new OrderItemDto
+            {
+                Id = oi.Id,
+                ProductId = oi.ProductId,
+                ProductName = oi.ProductName,
+                ModelNumber = oi.ModelNumber,
+                Quantity = oi.Quantity,
+                UnitPrice = oi.UnitPrice
+            }).ToList() ?? new List<OrderItemDto>(),
+            UserId = order.UserId,
+            UserName = order.User?.Name,
+            UserEmail = order.User?.Email
         };
     }
 

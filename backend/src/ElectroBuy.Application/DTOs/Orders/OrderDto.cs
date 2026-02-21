@@ -12,4 +12,7 @@ public class OrderDto
     public DateTime? UpdatedAt { get; set; }
     public List<OrderItemDto> Items { get; set; } = new();
     public int TotalItems => Items.Sum(i => i.Quantity);
+    public Guid? UserId { get; set; }
+    public string? UserName { get; set; }
+    public string? UserEmail { get; set; }
 }

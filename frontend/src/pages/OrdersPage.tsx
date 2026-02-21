@@ -6,23 +6,22 @@ import { Pagination } from '@/components/ui'
 import { OrderCard, OrderCardSkeleton } from '@/components/orders'
 import { ordersApi } from '@/lib/api'
 import { useAuthStore } from '@/stores'
-import type { OrderStatus } from '@/types'
 import { cn } from '@/lib/utils'
 
-const statusFilters: { value: OrderStatus | 'all'; label: string }[] = [
+const statusFilters: { value: number | 'all'; label: string }[] = [
   { value: 'all', label: '全部订单' },
-  { value: 'Pending', label: '待确认' },
-  { value: 'Confirmed', label: '已确认' },
-  { value: 'Shipped', label: '已发货' },
-  { value: 'Completed', label: '已完成' },
-  { value: 'Cancelled', label: '已取消' },
+  { value: 0, label: '待确认' },
+  { value: 1, label: '已确认' },
+  { value: 2, label: '已发货' },
+  { value: 3, label: '已完成' },
+  { value: 4, label: '已取消' },
 ]
 
 export default function OrdersPage() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { isAuthenticated } = useAuthStore()
-  const [statusFilter, setStatusFilter] = useState<OrderStatus | 'all'>('all')
+  const [statusFilter, setStatusFilter] = useState<number | 'all'>('all')
   const [page, setPage] = useState(1)
   const pageSize = 10
 

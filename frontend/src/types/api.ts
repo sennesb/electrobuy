@@ -95,6 +95,9 @@ export interface Order {
   totalItems: number
   createdAt: string
   updatedAt: string | null
+  userId?: string
+  userName?: string
+  userEmail?: string
 }
 
 export interface OrderList {
@@ -109,4 +112,30 @@ export interface AuthResponse {
   user: User
   token: string
   expiration: string
+}
+
+export interface RecentOrder {
+  id: string
+  orderNumber: string
+  customerName: string
+  totalAmount: number
+  status: number
+  createdAt: string
+}
+
+export interface DailySales {
+  date: string
+  amount: number
+  orderCount: number
+}
+
+export interface DashboardStats {
+  totalOrders: number
+  totalSales: number
+  totalProducts: number
+  totalUsers: number
+  pendingOrders: number
+  lowStockProducts: number
+  recentOrders: RecentOrder[]
+  salesTrend: DailySales[]
 }
