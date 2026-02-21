@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-21
-> 累计会话次数：16
+> 累计会话次数：17
 
 ---
 
@@ -11,8 +11,8 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React 19 + TypeScript + Vite 7 + Tailwind CSS 4 + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：17 (任务#1-17)
-- **当前阶段**：产品详情页已完成，准备开发购物车页面
+- **已完成任务**：18 (任务#1-18)
+- **当前阶段**：购物车页面已完成，准备开发订单列表和详情页
 
 ### 关键文件清单
 
@@ -61,9 +61,10 @@
 | `frontend/src/components/layout/*.tsx` | 布局组件 | 2026-02-20 | 任务#12 |
 | `frontend/src/components/auth/*.tsx` | 认证组件 | 2026-02-21 | 任务#15 |
 | `frontend/src/components/products/*.tsx` | 产品组件 | 2026-02-21 | 任务#16, #17 |
-| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16, #17 |
-| `task.json` | 任务清单 | 2026-02-21 | 任务#17 |
-| `progress.txt` | 进度日志 | 2026-02-21 | 任务#17 |
+| `frontend/src/components/cart/*.tsx` | 购物车组件 | 2026-02-21 | 任务#18 |
+| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16, #17, #18 |
+| `task.json` | 任务清单 | 2026-02-21 | 任务#18 |
+| `progress.txt` | 进度日志 | 2026-02-21 | 任务#18 |
 
 ### API 端点清单
 
@@ -121,11 +122,32 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#17 已完成，产品详情页已创建，等待开始任务#18 (实现购物车页面)
+**当前步骤**：任务#18 已完成，购物车页面已创建，等待开始任务#19 (实现订单列表和详情页)
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-21] - 任务#18: 实现购物车页面
+
+**完成内容**：
+- 创建 CartItem 组件 (商品图片、信息、数量选择器、删除按钮、状态提示)
+- 创建 OrderSummary 组件 (订单摘要、备注输入、提交按钮、服务保障)
+- 创建 CartPage 页面 (购物车列表、订单摘要、清空购物车、提交订单)
+- 修复订单 API (createOrder 方法 415 错误)
+- 配置路由 (/cart)
+
+**修改的文件**：
+- `frontend/src/components/cart/CartItem.tsx` - 购物车项组件
+- `frontend/src/components/cart/OrderSummary.tsx` - 订单摘要组件
+- `frontend/src/components/cart/index.ts` - 购物车组件索引
+- `frontend/src/components/index.ts` - 组件总索引
+- `frontend/src/pages/CartPage.tsx` - 购物车页面
+- `frontend/src/pages/index.ts` - 页面索引
+- `frontend/src/App.tsx` - 路由配置
+- `frontend/src/lib/api/orders.ts` - 订单 API
+
+**测试结果**：✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
 
 ### [2026-02-21] - 任务#17: 实现产品详情页
 
@@ -756,6 +778,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #17 - 2026-02-21
+- **AI 类型**：开发
+- **完成任务**：任务#18 - 实现购物车页面
+- **主要变更**：创建购物车项、订单摘要组件，创建购物车页面，实现购物车数量修改、删除商品、清空购物车、提交订单功能
+- **遗留问题**：无
 
 ### 会话 #16 - 2026-02-21
 - **AI 类型**：开发

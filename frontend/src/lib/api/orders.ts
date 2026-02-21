@@ -28,7 +28,7 @@ export const ordersApi = {
   },
 
   createOrder: async (data?: CreateOrderRequest): Promise<Order> => {
-    const response = await apiClient.post<Order>('/orders', data)
+    const response = await apiClient.post<Order>('/orders', data ?? {})
     return response.data
   },
 

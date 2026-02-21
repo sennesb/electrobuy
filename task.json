@@ -525,17 +525,26 @@
       "priority": "high",
       "dependencies": [11, 12, 13, 14, 17],
       "steps": [
-        { "description": "创建购物车页面 (CartPage)", "completed": false },
-        { "description": "创建购物车项组件 (CartItem)", "completed": false },
-        { "description": "创建订单摘要组件 (OrderSummary)", "completed": false },
-        { "description": "实现购物车数量修改功能", "completed": false },
-        { "description": "实现提交订单功能", "completed": false }
+        { "description": "创建购物车页面 (CartPage)", "completed": true },
+        { "description": "创建购物车项组件 (CartItem)", "completed": true },
+        { "description": "创建订单摘要组件 (OrderSummary)", "completed": true },
+        { "description": "实现购物车数量修改功能", "completed": true },
+        { "description": "实现提交订单功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-21T12:45:00+08:00",
+      "completedAt": "2026-02-21T12:55:00+08:00",
+      "modifiedFiles": [
+        "frontend/src/components/cart/CartItem.tsx",
+        "frontend/src/components/cart/OrderSummary.tsx",
+        "frontend/src/components/cart/index.ts",
+        "frontend/src/components/index.ts",
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx",
+        "frontend/src/lib/api/orders.ts"
+      ],
+      "notes": "创建了购物车页面和相关组件，实现了购物车数量修改、删除商品、清空购物车、提交订单功能，Playwright MCP 测试通过"
     },
     {
       "id": 19,
