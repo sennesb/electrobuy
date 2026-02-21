@@ -73,15 +73,13 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                           ?? User.FindFirst("sub")?.Value;
-
-            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+            var userId = GetUserIdFromClaims();
+            if (userId == null)
             {
                 return Unauthorized(new { message = "无效的用户凭证" });
             }
 
-            var user = await _userService.GetCurrentUserAsync(userId);
+            var user = await _userService.GetCurrentUserAsync(userId.Value);
             if (user == null)
             {
                 return NotFound(new { message = "用户不存在" });
@@ -94,5 +92,85 @@ public class AuthController : ControllerBase
             _logger.LogError(ex, "获取当前用户信息发生错误");
             return StatusCode(500, new { message = "服务器内部错误" });
         }
+    }
+
+    [Authorize]
+    [HttpPut("me")]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateCurrentUser([FromBody] UpdateUserDto dto)
+    {
+        try
+        {
+            var userId = GetUserIdFromClaims();
+            if (userId == null)
+            {
+                return Unauthorized(new { message = "无效的用户凭证" });
+            }
+
+            var user = await _userService.UpdateUserAsync(userId.Value, dto);
+            _logger.LogInformation("用户信息更新成功: {UserId}", userId);
+            return Ok(user);
+        }
+        catch (InvalidOperationException ex)
+        {
+            _logger.LogWarning("用户信息更新失败: {Message}", ex.Message);
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "用户信息更新发生错误");
+            return StatusCode(500, new { message = "服务器内部错误" });
+        }
+    }
+
+    [Authorize]
+    [HttpPost("change-password")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+    {
+        try
+        {
+            var userId = GetUserIdFromClaims();
+            if (userId == null)
+            {
+                return Unauthorized(new { message = "无效的用户凭证" });
+            }
+
+            await _userService.ChangePasswordAsync(userId.Value, dto);
+            _logger.LogInformation("用户密码修改成功: {UserId}", userId);
+            return Ok(new { message = "密码修改成功" });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            _logger.LogWarning("用户密码修改失败: {Message}", ex.Message);
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            _logger.LogWarning("用户密码修改失败: {Message}", ex.Message);
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "用户密码修改发生错误");
+            return StatusCode(500, new { message = "服务器内部错误" });
+        }
+    }
+
+    private Guid? GetUserIdFromClaims()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                       ?? User.FindFirst("sub")?.Value;
+
+        if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+        {
+            return null;
+        }
+
+        return userId;
     }
 }

@@ -14,6 +14,18 @@ export interface RegisterRequest {
   phone?: string
 }
 
+export interface UpdateUserRequest {
+  name?: string
+  company?: string
+  phone?: string
+}
+
+export interface ChangePasswordRequest {
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
 export const authApi = {
   login: async (data: LoginRequest): Promise<AuthResponse> => {
     const response = await apiClient.post<AuthResponse>('/auth/login', data)
@@ -28,5 +40,14 @@ export const authApi = {
   getCurrentUser: async (): Promise<User> => {
     const response = await apiClient.get<User>('/auth/me')
     return response.data
+  },
+
+  updateUser: async (data: UpdateUserRequest): Promise<User> => {
+    const response = await apiClient.put<User>('/auth/me', data)
+    return response.data
+  },
+
+  changePassword: async (data: ChangePasswordRequest): Promise<void> => {
+    await apiClient.post('/auth/change-password', data)
   },
 }

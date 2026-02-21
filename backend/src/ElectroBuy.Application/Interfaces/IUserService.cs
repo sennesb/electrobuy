@@ -8,4 +8,6 @@ public interface IUserService
     Task<AuthResponseDto> LoginAsync(LoginDto dto);
     Task<UserDto?> GetCurrentUserAsync(Guid userId);
     Task<bool> UserExistsAsync(string email);
+    Task<UserDto> UpdateUserAsync(Guid userId, UpdateUserDto dto);
+    Task<bool> ChangePasswordAsync(Guid userId, ChangePasswordDto dto);
 }

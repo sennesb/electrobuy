@@ -1,7 +1,7 @@
 # 会话状态 - ElectroBuy
 
 > 最后更新：2026-02-21
-> 累计会话次数：18
+> 累计会话次数：19
 
 ---
 
@@ -11,8 +11,8 @@
 - **项目名称**：ElectroBuy - 电气自动化产品采买平台
 - **技术栈**：React 19 + TypeScript + Vite 7 + Tailwind CSS 4 + ASP.NET Core 8 + SQL Server
 - **总任务数**：20
-- **已完成任务**：19 (任务#1-19)
-- **当前阶段**：订单列表和详情页已完成，准备开发个人中心页面
+- **已完成任务**：20 (任务#1-20)
+- **当前阶段**：所有任务已完成，项目开发完毕
 
 ### 关键文件清单
 
@@ -63,9 +63,10 @@
 | `frontend/src/components/products/*.tsx` | 产品组件 | 2026-02-21 | 任务#16, #17 |
 | `frontend/src/components/cart/*.tsx` | 购物车组件 | 2026-02-21 | 任务#18 |
 | `frontend/src/components/orders/*.tsx` | 订单组件 | 2026-02-21 | 任务#19 |
-| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16, #17, #18, #19 |
-| `task.json` | 任务清单 | 2026-02-21 | 任务#19 |
-| `progress.txt` | 进度日志 | 2026-02-21 | 任务#19 |
+| `frontend/src/components/profile/*.tsx` | 个人中心组件 | 2026-02-21 | 任务#20 |
+| `frontend/src/pages/*.tsx` | 页面组件 | 2026-02-21 | 任务#15, #16, #17, #18, #19, #20 |
+| `task.json` | 任务清单 | 2026-02-21 | 任务#20 |
+| `progress.txt` | 进度日志 | 2026-02-21 | 任务#20 |
 
 ### API 端点清单
 
@@ -75,6 +76,8 @@
 | `/api/auth/register` | POST | 用户注册 | ✅ 已实现 |
 | `/api/auth/login` | POST | 用户登录 | ✅ 已实现 |
 | `/api/auth/me` | GET | 获取当前用户信息 | ✅ 已实现 |
+| `/api/auth/me` | PUT | 更新用户信息 | ✅ 已实现 |
+| `/api/auth/change-password` | POST | 修改密码 | ✅ 已实现 |
 | `/api/categories` | GET | 获取分类列表 | ✅ 已实现 |
 | `/api/categories/tree` | GET | 获取分类树形结构 | ✅ 已实现 |
 | `/api/categories/{id}` | GET | 获取分类详情 | ✅ 已实现 |
@@ -123,11 +126,40 @@
 ## 🔄 当前状态
 
 **正在进行的任务**：无
-**当前步骤**：任务#19 已完成，订单列表和详情页已创建，等待开始任务#20 (实现个人中心页面)
+**当前步骤**：所有任务已完成，项目开发完毕
 
 ---
 
 ## ✅ 已完成任务摘要
+
+### [2026-02-21] - 任务#20: 实现个人中心页面
+
+**完成内容**：
+- 创建 UpdateUserDto 和 ChangePasswordDto (后端 DTOs)
+- 更新 IUserService 接口添加 UpdateUserAsync 和 ChangePasswordAsync 方法
+- 更新 UserService 实现用户信息更新和密码修改功能
+- 更新 AuthController 添加 PUT /api/auth/me 和 POST /api/auth/change-password 端点
+- 创建 ProfileForm 组件 (用户信息编辑表单)
+- 创建 ChangePasswordForm 组件 (修改密码表单)
+- 创建 ProfilePage 页面 (个人中心，包含信息编辑和修改密码两个标签页)
+- 配置路由 (/profile)
+
+**修改的文件**：
+- `backend/src/ElectroBuy.Application/DTOs/Auth/UpdateUserDto.cs` - 更新用户信息 DTO
+- `backend/src/ElectroBuy.Application/DTOs/Auth/ChangePasswordDto.cs` - 修改密码 DTO
+- `backend/src/ElectroBuy.Application/Interfaces/IUserService.cs` - 用户服务接口
+- `backend/src/ElectroBuy.Infrastructure/Services/UserService.cs` - 用户服务实现
+- `backend/src/ElectroBuy.Api/Controllers/AuthController.cs` - 认证控制器
+- `frontend/src/lib/api/auth.ts` - 认证 API
+- `frontend/src/components/profile/ProfileForm.tsx` - 用户信息表单组件
+- `frontend/src/components/profile/ChangePasswordForm.tsx` - 修改密码表单组件
+- `frontend/src/components/profile/index.ts` - 个人中心组件索引
+- `frontend/src/components/index.ts` - 组件总索引
+- `frontend/src/pages/ProfilePage.tsx` - 个人中心页面
+- `frontend/src/pages/index.ts` - 页面索引
+- `frontend/src/App.tsx` - 路由配置
+
+**测试结果**：✅ dotnet build 编译成功, ✅ npm run build 构建成功, ✅ npm run lint 检查通过, ✅ Playwright MCP 测试通过
 
 ### [2026-02-21] - 任务#19: 实现订单列表和详情页
 
@@ -803,6 +835,12 @@
 ---
 
 ## 📜 会话历史
+
+### 会话 #19 - 2026-02-21
+- **AI 类型**：开发
+- **完成任务**：任务#20 - 实现个人中心页面
+- **主要变更**：创建用户信息编辑表单、修改密码表单组件，创建个人中心页面，后端添加更新用户信息和修改密码 API 端点
+- **遗留问题**：无
 
 ### 会话 #18 - 2026-02-21
 - **AI 类型**：开发

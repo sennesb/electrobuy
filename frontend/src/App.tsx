@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { LoginPage, RegisterPage, HomePage, ProductsPage, ProductDetailPage, CartPage, OrdersPage, OrderDetailPage } from '@/pages'
+import { LoginPage, RegisterPage, HomePage, ProductsPage, ProductDetailPage, CartPage, OrdersPage, OrderDetailPage, ProfilePage } from '@/pages'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +22,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/orders/:id" element={<OrderDetailPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />

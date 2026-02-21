@@ -640,6 +640,35 @@
 
 ---
 
+## [2026-02-21] - Task 20: 实现个人中心页面
+
+### What was done:
+- 创建 UpdateUserDto 和 ChangePasswordDto (后端 DTOs)
+- 更新 IUserService 接口添加 UpdateUserAsync 和 ChangePasswordAsync 方法
+- 更新 UserService 实现用户信息更新和密码修改功能
+- 更新 AuthController 添加 PUT /api/auth/me 和 POST /api/auth/change-password 端点
+- 创建 ProfileForm 组件 (用户信息编辑表单)
+- 创建 ChangePasswordForm 组件 (修改密码表单)
+- 创建 ProfilePage 页面 (个人中心，包含信息编辑和修改密码两个标签页)
+- 配置路由 (/profile)
+- 更新 authApi 添加 updateUser 和 changePassword 方法
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+- ✅ npm run build 构建成功
+- ✅ npm run lint 检查通过
+- ✅ Playwright MCP 个人中心页面加载测试通过
+- ✅ Playwright MCP 用户信息更新测试通过
+- ✅ Playwright MCP 修改密码测试通过
+
+### Notes:
+- 个人中心页面需要用户登录才能访问
+- 用户信息更新后自动同步到 authStore
+- 修改密码后需要使用新密码登录
+- 页面包含快捷入口链接到订单和购物车
+
+---
+
 ## 记录格式说明
 
 每次完成任务后，AI 会按以下格式追加记录：
@@ -686,7 +715,7 @@
 | 17 | 实现产品详情页 | ✅ 已完成 |
 | 18 | 实现购物车页面 | ✅ 已完成 |
 | 19 | 实现订单列表和详情页 | ✅ 已完成 |
-| 20 | 实现个人中心页面 | ⏳ 待开始 |
+| 20 | 实现个人中心页面 | ✅ 已完成 |
 
 ---
 

@@ -582,16 +582,30 @@
       "priority": "medium",
       "dependencies": [11, 12, 13, 14, 15],
       "steps": [
-        { "description": "创建个人中心页面 (ProfilePage)", "completed": false },
-        { "description": "创建用户信息编辑表单", "completed": false },
-        { "description": "实现修改密码功能", "completed": false },
-        { "description": "实现用户信息更新功能", "completed": false }
+        { "description": "创建个人中心页面 (ProfilePage)", "completed": true },
+        { "description": "创建用户信息编辑表单", "completed": true },
+        { "description": "实现修改密码功能", "completed": true },
+        { "description": "实现用户信息更新功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-21T14:20:00+08:00",
+      "completedAt": "2026-02-21T14:35:00+08:00",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Application/DTOs/Auth/UpdateUserDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Auth/ChangePasswordDto.cs",
+        "backend/src/ElectroBuy.Application/Interfaces/IUserService.cs",
+        "backend/src/ElectroBuy.Infrastructure/Services/UserService.cs",
+        "backend/src/ElectroBuy.Api/Controllers/AuthController.cs",
+        "frontend/src/lib/api/auth.ts",
+        "frontend/src/components/profile/ProfileForm.tsx",
+        "frontend/src/components/profile/ChangePasswordForm.tsx",
+        "frontend/src/components/profile/index.ts",
+        "frontend/src/components/index.ts",
+        "frontend/src/pages/ProfilePage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx"
+      ],
+      "notes": "创建了个人中心页面，包含用户信息编辑表单和修改密码功能，后端添加了更新用户信息和修改密码的 API 端点"
     }
   ]
 }

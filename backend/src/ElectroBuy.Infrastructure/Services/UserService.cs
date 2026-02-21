@@ -94,6 +94,49 @@ public class UserService : IUserService
             .AnyAsync(u => u.Email.ToLower() == email.ToLower().Trim());
     }
 
+    public async Task<UserDto> UpdateUserAsync(Guid userId, UpdateUserDto dto)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            throw new InvalidOperationException("用户不存在");
+        }
+
+        if (dto.Name != null)
+            user.Name = dto.Name.Trim();
+        if (dto.Company != null)
+            user.Company = dto.Company.Trim();
+        if (dto.Phone != null)
+            user.Phone = dto.Phone.Trim();
+
+        user.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return MapToUserDto(user);
+    }
+
+    public async Task<bool> ChangePasswordAsync(Guid userId, ChangePasswordDto dto)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            throw new InvalidOperationException("用户不存在");
+        }
+
+        if (!BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash))
+        {
+            throw new UnauthorizedAccessException("当前密码错误");
+        }
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+        user.UpdatedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
     private string GenerateJwtToken(User user)
     {
         var jwtSettings = _configuration.GetSection("JwtSettings");
