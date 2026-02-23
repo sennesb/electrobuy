@@ -777,4 +777,69 @@
 
 ---
 
-*最后更新：2026-02-21*
+## [2026-02-22] - Task 3 (Phase 2): 实现产品管理功能
+
+### What was done:
+- 前端更新 productsApi 添加 createProduct、updateProduct、deleteProduct 方法
+- 前端创建 CreateProductDto 和 UpdateProductDto 类型定义
+- 前端创建 ProductTable 产品表格组件 (支持状态切换、编辑、删除)
+- 前端创建 ProductForm 产品表单组件 (支持创建和编辑，图片URL添加)
+- 前端创建 AdminProductsPage 产品管理页面
+- 前端配置 /admin/products 路由
+- 实现产品搜索、分类筛选、品牌筛选、状态筛选功能
+- 实现产品创建功能 (填写名称、型号、分类、品牌、价格、库存等)
+- 实现产品编辑功能 (修改产品信息和上下架状态)
+- 实现产品删除功能 (带确认弹窗)
+- 实现产品上下架状态切换功能
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+- ✅ npm run lint 检查通过
+- ✅ npm run build 构建成功
+- ✅ Playwright MCP 产品列表页面加载正常，显示19个产品
+- ✅ Playwright MCP 添加产品测试通过 (产品数量从19变为20)
+- ✅ Playwright MCP 编辑产品测试通过 (价格从¥3,500更新为¥3,800，库存从50更新为100)
+- ✅ Playwright MCP 删除产品测试通过 (产品数量从20变回19)
+
+### Notes:
+- 产品管理页面支持多条件筛选 (分类、品牌、状态)
+- 产品表单使用 react-hook-form + zod 进行验证
+- 产品图片支持通过URL添加，可添加多张图片
+- 删除产品时显示确认弹窗，防止误删
+- 产品状态切换按钮直接在表格中操作
+
+---
+
+## [2026-02-22] - Task 4 (Phase 2): 实现用户管理功能
+
+### What was done:
+- 后端创建 UserListDto、UserDto、UserQueryDto、UpdateUserByAdminDto、ResetPasswordDto 数据传输对象
+- 后端更新 IUserService 接口添加用户管理方法
+- 后端更新 UserService 实现用户列表查询、用户编辑、状态切换、密码重置功能
+- 后端创建 UsersController 控制器 (GET/PUT/POST 端点)
+- 前端创建 usersApi 客户端
+- 前端创建 UserTable 用户表格组件 (支持状态切换、编辑、重置密码)
+- 前端创建 UserForm 用户表单组件 (支持编辑用户信息和重置密码两个标签页)
+- 前端创建 AdminUsersPage 用户管理页面
+- 前端配置 /admin/users 路由
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+- ✅ npm run lint 检查通过
+- ✅ npm run build 构建成功
+- ✅ Playwright MCP 用户列表页面加载正常，显示10个用户
+- ✅ Playwright MCP 编辑用户测试通过 (修改用户角色)
+- ✅ Playwright MCP 用户状态切换测试通过 (正常→已禁用)
+- ✅ Playwright MCP 重置密码测试通过
+- ✅ Playwright MCP 搜索功能测试通过 (搜索admin显示1个用户)
+
+### Notes:
+- 用户管理页面支持多条件筛选 (角色、状态)
+- 用户列表显示用户信息、公司、角色、订单数、注册时间、状态
+- 用户表单支持编辑姓名、公司、电话、角色、启用状态
+- 用户表单支持重置密码功能 (需输入新密码)
+- 状态切换按钮直接在表格中操作
+
+---
+
+*最后更新：2026-02-22*

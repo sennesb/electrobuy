@@ -11,4 +11,11 @@ public class OrderQueryDto
     public int PageSize { get; set; } = 10;
 
     public int? Status { get; set; }
+
+    [StringLength(100, ErrorMessage = "关键词不能超过100个字符")]
+    public string? Keyword { get; set; }
+
+    public DateTime? StartDate { get; set; }
+
+    public DateTime? EndDate { get; set; }
 }

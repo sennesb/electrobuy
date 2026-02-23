@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui'
 import { OrderStatusBadge } from './OrderStatus'
-import type { Order } from '@/types'
+import type { Order } from '@/lib/api'
 
 export interface OrderCardProps {
   order: Order
@@ -68,7 +68,7 @@ export function OrderCard({ order, onCancel, isCancelling = false, className }: 
               </div>
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">
-                  ¥{item.subtotal.toLocaleString()}
+                  ¥{(item.unitPrice * item.quantity).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -82,7 +82,7 @@ export function OrderCard({ order, onCancel, isCancelling = false, className }: 
 
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
           <div className="text-sm text-gray-600">
-            共 <span className="font-medium text-gray-900">{order.totalItems}</span> 件商品
+            共 <span className="font-medium text-gray-900">{order.items.reduce((sum, item) => sum + item.quantity, 0)}</span> 件商品
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">

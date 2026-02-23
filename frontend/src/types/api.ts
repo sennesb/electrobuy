@@ -76,6 +76,7 @@ export interface Cart {
 export type OrderStatus = 'Pending' | 'Confirmed' | 'Shipped' | 'Completed' | 'Cancelled'
 
 export interface OrderItem {
+  id: string
   productId: string
   productName: string
   modelNumber: string
@@ -92,12 +93,11 @@ export interface Order {
   totalAmount: number
   remark: string | null
   items: OrderItem[]
-  totalItems: number
   createdAt: string
   updatedAt: string | null
   userId?: string
-  userName?: string
-  userEmail?: string
+  userName?: string | null
+  userEmail?: string | null
 }
 
 export interface OrderList {

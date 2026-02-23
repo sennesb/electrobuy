@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { LoginPage, RegisterPage, HomePage, ProductsPage, ProductDetailPage, CartPage, OrdersPage, OrderDetailPage, ProfilePage, AdminOrdersPage, AdminDashboardPage } from '@/pages'
+import { LoginPage, RegisterPage, HomePage, ProductsPage, ProductDetailPage, CartPage, OrdersPage, OrderDetailPage, ProfilePage, AdminOrdersPage, AdminDashboardPage, AdminProductsPage, AdminUsersPage } from '@/pages'
 import { AdminRoute, ProtectedRoute } from '@/components/auth'
 
 const queryClient = new QueryClient({
@@ -31,6 +31,8 @@ function App() {
           <Route path="/admin" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
           <Route path="/admin/orders" element={<AdminRoute><AdminOrdersPage /></AdminRoute>} />
+          <Route path="/admin/products" element={<AdminRoute><AdminProductsPage /></AdminRoute>} />
+          <Route path="/admin/users" element={<AdminRoute><AdminUsersPage /></AdminRoute>} />
           
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

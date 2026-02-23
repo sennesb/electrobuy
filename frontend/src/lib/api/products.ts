@@ -13,6 +13,35 @@ export interface ProductQuery {
   sortOrder?: 'asc' | 'desc'
 }
 
+export interface CreateProductDto {
+  name: string
+  modelNumber: string
+  categoryId: number
+  brand: string
+  price: number
+  unit?: string
+  stock: number
+  minOrderQty?: number
+  specs?: string
+  description?: string
+  images?: string[]
+}
+
+export interface UpdateProductDto {
+  name: string
+  modelNumber: string
+  categoryId: number
+  brand: string
+  price: number
+  unit?: string
+  stock: number
+  minOrderQty?: number
+  specs?: string
+  description?: string
+  images?: string[]
+  isActive: boolean
+}
+
 export const productsApi = {
   getProducts: async (params?: ProductQuery): Promise<ProductList> => {
     const response = await apiClient.get<ProductList>('/products', { params })
@@ -27,6 +56,20 @@ export const productsApi = {
   getBrands: async (): Promise<string[]> => {
     const response = await apiClient.get<string[]>('/products/brands')
     return response.data
+  },
+
+  createProduct: async (data: CreateProductDto): Promise<Product> => {
+    const response = await apiClient.post<Product>('/products', data)
+    return response.data
+  },
+
+  updateProduct: async (id: string, data: UpdateProductDto): Promise<Product> => {
+    const response = await apiClient.put<Product>(`/products/${id}`, data)
+    return response.data
+  },
+
+  deleteProduct: async (id: string): Promise<void> => {
+    await apiClient.delete(`/products/${id}`)
   },
 }
 

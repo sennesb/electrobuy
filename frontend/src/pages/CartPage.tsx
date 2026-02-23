@@ -58,7 +58,7 @@ export default function CartPage() {
   })
 
   const createOrderMutation = useMutation({
-    mutationFn: (remark?: string) => ordersApi.createOrder(remark ? { remark } : undefined),
+    mutationFn: (remark?: string) => ordersApi.createOrder(remark ? { remark } : {}),
     onSuccess: (order) => {
       queryClient.invalidateQueries({ queryKey: ['cart'] })
       queryClient.invalidateQueries({ queryKey: ['orders'] })

@@ -151,7 +151,7 @@ export default function OrderDetailPage() {
 
           <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
             <h2 className="text-lg font-medium text-gray-900 mb-4">
-              商品清单 ({order.totalItems}件)
+              商品清单 ({order.items.reduce((sum, item) => sum + item.quantity, 0)}件)
             </h2>
             <div className="space-y-4">
               {order.items.map((item, index) => (
@@ -175,7 +175,7 @@ export default function OrderDetailPage() {
                   </div>
                   <div className="text-right">
                     <p className="text-base font-medium text-gray-900">
-                      ¥{item.subtotal.toLocaleString()}
+                      ¥{(item.unitPrice * item.quantity).toLocaleString()}
                     </p>
                   </div>
                 </div>

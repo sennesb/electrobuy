@@ -29,10 +29,12 @@ public class OrderService : IOrderService
 
         var total = await queryable.CountAsync();
 
+        var pageSize = Math.Min(Math.Max(query.PageSize, 1), 100);
+
         var orders = await queryable
             .OrderByDescending(o => o.CreatedAt)
-            .Skip((query.Page - 1) * query.PageSize)
-            .Take(query.PageSize)
+            .Skip((query.Page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         return new OrderListDto
@@ -40,7 +42,7 @@ public class OrderService : IOrderService
             Data = orders.Select(MapToDto).ToList(),
             Total = total,
             Page = query.Page,
-            PageSize = query.PageSize
+            PageSize = pageSize
         };
     }
 
@@ -257,12 +259,36 @@ public class OrderService : IOrderService
             queryable = queryable.Where(o => (int)o.Status == query.Status.Value);
         }
 
+        if (!string.IsNullOrEmpty(query.Keyword))
+        {
+            var keyword = query.Keyword.ToLower().Trim();
+            queryable = queryable.Where(o =>
+                o.OrderNumber.ToLower().Contains(keyword) ||
+                (o.User != null && o.User.Email.ToLower().Contains(keyword)) ||
+                (o.User != null && o.User.Name != null && o.User.Name.ToLower().Contains(keyword))
+            );
+        }
+
+        if (query.StartDate.HasValue)
+        {
+            queryable = queryable.Where(o => o.CreatedAt >= query.StartDate.Value);
+        }
+
+        if (query.EndDate.HasValue)
+        {
+            var endDate = query.EndDate.Value.AddDays(1);
+            queryable = queryable.Where(o => o.CreatedAt < endDate);
+        }
+
         var total = await queryable.CountAsync();
+
+        var pageSize = Math.Min(Math.Max(query.PageSize, 1), 100);
+        var totalPages = (int)Math.Ceiling(total / (double)pageSize);
 
         var orders = await queryable
             .OrderByDescending(o => o.CreatedAt)
-            .Skip((query.Page - 1) * query.PageSize)
-            .Take(query.PageSize)
+            .Skip((query.Page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         return new OrderListDto
@@ -270,8 +296,87 @@ public class OrderService : IOrderService
             Data = orders.Select(MapToDtoWithUser).ToList(),
             Total = total,
             Page = query.Page,
-            PageSize = query.PageSize
+            PageSize = pageSize
         };
+    }
+
+    public async Task<OrderDto?> GetOrderByIdForAdminAsync(Guid orderId)
+    {
+        var order = await _context.Orders
+            .Include(o => o.OrderItems)
+            .Include(o => o.User)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+
+        if (order == null)
+        {
+            return null;
+        }
+
+        return MapToDtoWithUser(order);
+    }
+
+    public async Task<byte[]> ExportOrdersAsync(OrderQueryDto query)
+    {
+        var queryable = _context.Orders
+            .Include(o => o.OrderItems)
+            .Include(o => o.User)
+            .AsQueryable();
+
+        if (query.Status.HasValue)
+        {
+            queryable = queryable.Where(o => (int)o.Status == query.Status.Value);
+        }
+
+        if (!string.IsNullOrEmpty(query.Keyword))
+        {
+            var keyword = query.Keyword.ToLower().Trim();
+            queryable = queryable.Where(o =>
+                o.OrderNumber.ToLower().Contains(keyword) ||
+                (o.User != null && o.User.Email.ToLower().Contains(keyword))
+            );
+        }
+
+        if (query.StartDate.HasValue)
+        {
+            queryable = queryable.Where(o => o.CreatedAt >= query.StartDate.Value);
+        }
+
+        if (query.EndDate.HasValue)
+        {
+            var endDate = query.EndDate.Value.AddDays(1);
+            queryable = queryable.Where(o => o.CreatedAt < endDate);
+        }
+
+        var orders = await queryable
+            .OrderByDescending(o => o.CreatedAt)
+            .Take(1000)
+            .ToListAsync();
+
+        var csv = new System.Text.StringBuilder();
+        csv.AppendLine("订单号,用户邮箱,用户姓名,商品数量,总金额,状态,下单时间");
+
+        foreach (var order in orders)
+        {
+            csv.AppendLine($"\"{order.OrderNumber}\",\"{order.User?.Email ?? ""}\",\"{order.User?.Name ?? ""}\",{order.OrderItems.Count},{order.TotalAmount},\"{GetStatusText(order.Status)}\",\"{order.CreatedAt:yyyy-MM-dd HH:mm:ss}\"");
+        }
+
+        return System.Text.Encoding.UTF8.GetBytes(csv.ToString());
+    }
+
+    public async Task<int> BatchConfirmOrdersAsync(List<Guid> orderIds)
+    {
+        var orders = await _context.Orders
+            .Where(o => orderIds.Contains(o.Id) && o.Status == OrderStatus.Pending)
+            .ToListAsync();
+
+        foreach (var order in orders)
+        {
+            order.Status = OrderStatus.Confirmed;
+            order.UpdatedAt = DateTime.UtcNow;
+        }
+
+        await _context.SaveChangesAsync();
+        return orders.Count;
     }
 
     private static string GenerateOrderNumber()

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui'
 import { Input } from '@/components/ui'
 import { authApi } from '@/lib/api'
@@ -23,6 +23,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const { setAuth } = useAuthStore()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -47,7 +48,17 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       })
 
       setAuth(response.user, response.token)
-      onSuccess?.()
+
+      if (onSuccess) {
+        onSuccess()
+      } else {
+        if (response.user.role === 'Admin') {
+          navigate('/admin', { replace: true })
+        } else {
+          const returnUrl = new URLSearchParams(window.location.search).get('returnUrl') || '/'
+          navigate(returnUrl, { replace: true })
+        }
+      }
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } }
       setServerError(err.response?.data?.message || '登录失败，请检查邮箱和密码')

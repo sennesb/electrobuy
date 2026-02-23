@@ -1,14 +1,6 @@
-import { useNavigate } from 'react-router-dom'
 import { LoginForm } from '@/components/auth'
 
 export default function LoginPage() {
-  const navigate = useNavigate()
-
-  const handleLoginSuccess = () => {
-    const returnUrl = new URLSearchParams(window.location.search).get('returnUrl') || '/'
-    navigate(returnUrl, { replace: true })
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
@@ -25,7 +17,7 @@ export default function LoginPage() {
             <p className="text-gray-500 mt-2">登录您的 ElectroBuy 账号</p>
           </div>
 
-          <LoginForm onSuccess={handleLoginSuccess} />
+          <LoginForm />
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-6">

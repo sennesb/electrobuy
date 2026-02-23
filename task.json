@@ -4,7 +4,7 @@
   "tasksQuantity": 5,
   "metadata": {
     "createdAt": "2026-02-21",
-    "lastUpdated": "2026-02-21",
+    "lastUpdated": "2026-02-23",
     "techStack": [
       "React",
       "TypeScript",
@@ -95,19 +95,29 @@
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "创建 AdminProductsPage 产品列表页面", "completed": false },
-        { "description": "创建 ProductForm 产品表单组件", "completed": false },
-        { "description": "创建 ProductTable 产品表格组件", "completed": false },
-        { "description": "实现产品创建功能", "completed": false },
-        { "description": "实现产品编辑功能", "completed": false },
-        { "description": "实现产品删除功能", "completed": false },
-        { "description": "实现产品图片上传功能", "completed": false }
+        { "description": "创建 AdminProductsPage 产品列表页面", "completed": true },
+        { "description": "创建 ProductForm 产品表单组件", "completed": true },
+        { "description": "创建 ProductTable 产品表格组件", "completed": true },
+        { "description": "实现产品创建功能", "completed": true },
+        { "description": "实现产品编辑功能", "completed": true },
+        { "description": "实现产品删除功能", "completed": true },
+        { "description": "实现产品图片上传功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-22T15:00:00Z",
+      "completedAt": "2026-02-22T15:20:00Z",
+      "modifiedFiles": [
+        "frontend/src/lib/api/products.ts",
+        "frontend/src/lib/api/index.ts",
+        "frontend/src/components/admin/ProductTable.tsx",
+        "frontend/src/components/admin/ProductForm.tsx",
+        "frontend/src/components/admin/index.ts",
+        "frontend/src/components/index.ts",
+        "frontend/src/pages/admin/AdminProductsPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx"
+      ],
+      "notes": "实现了完整的产品管理功能，包括产品列表展示、搜索筛选、添加产品、编辑产品、删除产品、上下架状态切换。产品表单支持图片URL添加。"
     },
     {
       "id": 4,
@@ -116,18 +126,33 @@
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "创建 AdminUsersPage 用户列表页面", "completed": false },
-        { "description": "创建 UserTable 用户表格组件", "completed": false },
-        { "description": "创建 UserDetail 用户详情组件", "completed": false },
-        { "description": "后端添加用户管理 API 端点", "completed": false },
-        { "description": "实现用户禁用/启用功能", "completed": false },
-        { "description": "实现用户角色修改功能", "completed": false }
+        { "description": "创建 AdminUsersPage 用户列表页面", "completed": true },
+        { "description": "创建 UserTable 用户表格组件", "completed": true },
+        { "description": "创建 UserForm 用户表单组件", "completed": true },
+        { "description": "后端添加用户管理 API 端点", "completed": true },
+        { "description": "实现用户禁用/启用功能", "completed": true },
+        { "description": "实现用户角色修改功能", "completed": true },
+        { "description": "实现重置密码功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-22T15:30:00Z",
+      "completedAt": "2026-02-22T16:00:00Z",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Application/DTOs/Users/UserListDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Users/UserQueryDto.cs",
+        "backend/src/ElectroBuy.Application/Interfaces/IUserService.cs",
+        "backend/src/ElectroBuy.Infrastructure/Services/UserService.cs",
+        "backend/src/ElectroBuy.Api/Controllers/UsersController.cs",
+        "frontend/src/lib/api/users.ts",
+        "frontend/src/lib/api/index.ts",
+        "frontend/src/components/admin/UserTable.tsx",
+        "frontend/src/components/admin/UserForm.tsx",
+        "frontend/src/components/admin/index.ts",
+        "frontend/src/pages/admin/AdminUsersPage.tsx",
+        "frontend/src/pages/index.ts",
+        "frontend/src/App.tsx"
+      ],
+      "notes": "实现了完整的用户管理功能，包括用户列表展示、搜索筛选、编辑用户信息、修改用户角色、启用/禁用用户、重置密码功能。"
     },
     {
       "id": 5,
@@ -136,17 +161,30 @@
       "priority": "medium",
       "dependencies": [1],
       "steps": [
-        { "description": "优化 AdminOrdersPage 页面布局", "completed": false },
-        { "description": "添加订单详情弹窗组件", "completed": false },
-        { "description": "添加订单导出功能", "completed": false },
-        { "description": "添加订单筛选和搜索功能", "completed": false },
-        { "description": "添加批量操作功能", "completed": false }
+        { "description": "优化 AdminOrdersPage 页面布局", "completed": true },
+        { "description": "添加订单详情弹窗组件", "completed": true },
+        { "description": "添加订单导出功能", "completed": true },
+        { "description": "添加订单筛选和搜索功能", "completed": true },
+        { "description": "添加批量操作功能", "completed": true }
       ],
-      "passes": false,
-      "startedAt": null,
-      "completedAt": null,
-      "modifiedFiles": [],
-      "notes": ""
+      "passes": true,
+      "startedAt": "2026-02-23T05:00:00Z",
+      "completedAt": "2026-02-23T05:30:00Z",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderQueryDto.cs",
+        "backend/src/ElectroBuy.Application/DTOs/Orders/ShipOrderDto.cs",
+        "backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs",
+        "backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs",
+        "backend/src/ElectroBuy.Api/Controllers/OrdersController.cs",
+        "frontend/src/lib/api/orders.ts",
+        "frontend/src/lib/api/index.ts",
+        "frontend/src/components/admin/OrderTable.tsx",
+        "frontend/src/components/admin/OrderDetailModal.tsx",
+        "frontend/src/components/admin/index.ts",
+        "frontend/src/pages/admin/AdminOrdersPage.tsx",
+        "frontend/src/types/api.ts"
+      ],
+      "notes": "完善了订单管理功能，包括订单详情弹窗、按状态/日期范围筛选、关键词搜索、CSV导出、批量确认、单个确认和发货功能。"
     }
   ]
 }
