@@ -1,0 +1,34 @@
+{
+  "brand": "ElectroBuy",
+  "brandTagline": "电气自动化产品采买平台",
+  "nav": {
+    "home": "首页",
+    "products": "产品中心",
+    "categories": "产品分类",
+    "about": "关于我们",
+    "contact": "联系我们"
+  },
+  "search": {
+    "placeholder": "搜索产品...",
+    "button": "搜索"
+  },
+  "user": {
+    "login": "登录",
+    "register": "注册",
+    "profile": "个人中心",
+    "orders": "我的订单",
+    "logout": "退出登录",
+    "welcome": "欢迎"
+  },
+  "cart": {
+    "title": "购物车",
+    "empty": "购物车为空",
+    "items": "{{count}} 件商品"
+  },
+  "admin": {
+    "dashboard": "仪表盘",
+    "orders": "订单管理",
+    "products": "产品管理",
+    "users": "用户管理"
+  }
+}

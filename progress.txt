@@ -842,4 +842,59 @@
 
 ---
 
-*最后更新：2026-02-22*
+## [2026-02-23] - Task 5 (Phase 2): 完善订单管理功能
+
+### What was done:
+- 后端更新 OrderQueryDto 添加 keyword、startDate、endDate 查询参数
+- 后端创建 ShipOrderDto、BatchConfirmDto 数据传输对象
+- 后端更新 IOrderService 接口添加订单管理方法
+- 后端更新 OrderService 实现订单查询、确认、发货、导出、批量确认功能
+- 后端更新 OrdersController 添加管理员订单管理 API 端点
+- 前端更新 ordersApi 添加管理员订单管理方法
+- 前端创建 OrderTable 订单表格组件 (支持多选、状态显示、操作按钮)
+- 前端创建 OrderDetailModal 订单详情弹窗组件
+- 前端更新 AdminOrdersPage 添加筛选、搜索、导出、批量操作功能
+- 修复管理员登录跳转问题 (管理员登录后自动跳转到 /admin)
+
+### Testing:
+- ✅ dotnet build 编译成功 (0 警告, 0 错误)
+- ✅ npm run lint 检查通过
+- ✅ npm run build 构建成功
+- ✅ Playwright MCP 订单列表页面加载正常，显示7个订单
+- ✅ Playwright MCP 状态筛选测试通过 (待确认订单3个)
+- ✅ Playwright MCP 确认订单测试通过
+- ✅ Playwright MCP 订单详情弹窗测试通过
+- ✅ Playwright MCP 批量确认测试通过
+- ✅ Playwright MCP 发货功能测试通过
+
+### Notes:
+- 订单管理支持按状态、日期范围、关键词筛选
+- 支持单个确认/发货和批量确认
+- 订单详情弹窗显示完整订单信息和商品明细
+- 支持 CSV 导出功能
+- 管理员登录后自动跳转到后台管理界面
+
+---
+
+## [2026-02-23] - Phase 2 完成，Phase 3 开始
+
+### Phase 2 完成总结:
+- ✅ 任务#1: 创建管理员后台布局和路由保护
+- ✅ 任务#2: 实现管理员仪表盘页面
+- ✅ 任务#3: 实现产品管理功能
+- ✅ 任务#4: 实现用户管理功能
+- ✅ 任务#5: 完善订单管理功能
+
+### Phase 3: 国际化改造
+- 目标: 将前台用户界面改造为国际版，支持多语言
+- 范围: 仅改造前台用户界面，后台管理保持中文
+- 任务#1: Setup i18n Infrastructure
+- 任务#2: Internationalize Core UI Components
+- 任务#3: Internationalize Product Pages
+- 任务#4: Internationalize Cart and Checkout
+- 任务#5: Internationalize Order and Profile Pages
+- 任务#6: Backend API Internationalization Support
+
+---
+
+*最后更新：2026-02-23*

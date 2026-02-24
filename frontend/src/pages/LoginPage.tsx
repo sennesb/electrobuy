@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next'
 import { LoginForm } from '@/components/auth'
 
 export default function LoginPage() {
+  const { t } = useTranslation('auth')
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
@@ -13,15 +16,15 @@ export default function LoginPage() {
                 </svg>
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">欢迎回来</h1>
-            <p className="text-gray-500 mt-2">登录您的 ElectroBuy 账号</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('login.title')}</h1>
+            <p className="text-gray-500 mt-2">{t('login.subtitle')}</p>
           </div>
 
           <LoginForm />
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          &copy; 2026 ElectroBuy. 电气自动化产品采买平台
+          &copy; 2026 ElectroBuy. Industrial Automation Products Platform
         </p>
       </div>
     </div>

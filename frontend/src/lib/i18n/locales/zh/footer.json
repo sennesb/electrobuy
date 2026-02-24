@@ -1,0 +1,39 @@
+{
+  "description": "您信赖的电气自动化产品采购平台。优质产品，专业服务。",
+  "sections": {
+    "categories": "产品分类",
+    "quickLinks": "快速链接",
+    "support": "客户服务"
+  },
+  "categories": {
+    "plc": "PLC可编程控制器",
+    "vfd": "变频器",
+    "sensors": "传感器",
+    "lowVoltage": "低压电器",
+    "hmi": "人机界面",
+    "servo": "伺服系统"
+  },
+  "quickLinks": {
+    "products": "产品目录",
+    "cart": "购物车",
+    "orders": "我的订单",
+    "profile": "个人中心"
+  },
+  "support": {
+    "help": "帮助中心",
+    "contact": "联系我们",
+    "about": "关于我们",
+    "privacy": "隐私政策"
+  },
+  "hotline": {
+    "title": "客服热线",
+    "number": "400-888-8888",
+    "hours": "周一至周五 9:00-18:00"
+  },
+  "copyright": "© {{year}} ElectroBuy. 保留所有权利。",
+  "legal": {
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "sitemap": "网站地图"
+  }
+}

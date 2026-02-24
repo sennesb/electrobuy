@@ -1,0 +1,43 @@
+{
+  "title": "My Profile",
+  "subtitle": "Manage your account settings",
+  "tabs": {
+    "profile": "Profile",
+    "password": "Change Password"
+  },
+  "info": {
+    "title": "Personal Information",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "edit": "Edit Profile",
+    "save": "Save Changes",
+    "cancel": "Cancel"
+  },
+  "password": {
+    "title": "Change Password",
+    "current": "Current Password",
+    "new": "New Password",
+    "confirm": "Confirm New Password",
+    "submit": "Update Password",
+    "success": "Password updated successfully",
+    "error": "Failed to update password"
+  },
+  "shortcuts": {
+    "title": "Quick Links",
+    "orders": "My Orders",
+    "ordersDesc": "View order history",
+    "cart": "Shopping Cart",
+    "cartDesc": "View cart items"
+  },
+  "errors": {
+    "nameRequired": "Name is required",
+    "phoneInvalid": "Please enter a valid phone number",
+    "currentPasswordRequired": "Current password is required",
+    "newPasswordRequired": "New password is required",
+    "newPasswordMin": "New password must be at least 6 characters",
+    "confirmPasswordRequired": "Please confirm your new password",
+    "passwordMismatch": "Passwords do not match"
+  }
+}

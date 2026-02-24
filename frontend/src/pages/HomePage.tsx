@@ -1,59 +1,14 @@
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { MainLayout } from '@/components/layout'
 import { ProductCard, ProductCardSkeleton, CategoryNavHorizontal } from '@/components/products'
 import { Button } from '@/components/ui'
 import { productsApi, categoriesApi } from '@/lib/api'
 
-const heroSlides = [
-  {
-    title: '工业自动化一站式采购平台',
-    subtitle: 'PLC、变频器、传感器等电气自动化产品',
-    cta: '立即选购',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200',
-  },
-]
-
-const features = [
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-      </svg>
-    ),
-    title: '正品保障',
-    description: '所有产品均为官方授权正品',
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: '快速发货',
-    description: '下单后24小时内发货',
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-    ),
-    title: '专业服务',
-    description: '专业技术支持团队',
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-    title: '售后无忧',
-    description: '7天无理由退换货',
-  },
-]
-
 export function HomePage() {
+  const { t } = useTranslation('products')
+
   const { data: categories, isLoading: categoriesLoading } = useQuery({
     queryKey: ['categories', 'tree'],
     queryFn: categoriesApi.getCategoryTree,
@@ -69,20 +24,59 @@ export function HomePage() {
     queryFn: productsApi.getBrands,
   })
 
+  const features = [
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+      ),
+      title: t('home.features.authentic.title'),
+      description: t('home.features.authentic.description'),
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      title: t('home.features.fastShipping.title'),
+      description: t('home.features.fastShipping.description'),
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      ),
+      title: t('home.features.support.title'),
+      description: t('home.features.support.description'),
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+      title: t('home.features.warranty.title'),
+      description: t('home.features.warranty.description'),
+    },
+  ]
+
   return (
     <MainLayout>
       <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="max-w-2xl">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">
-              {heroSlides[0].title}
+              {t('home.hero.title')}
             </h1>
             <p className="text-lg md:text-xl text-blue-100 mb-8">
-              {heroSlides[0].subtitle}
+              {t('home.hero.subtitle')}
             </p>
             <Link to="/products">
               <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
-                {heroSlides[0].cta}
+                {t('home.hero.cta')}
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -120,12 +114,12 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">最新上架</h2>
-              <p className="text-gray-500 mt-1">发现最新的电气自动化产品</p>
+              <h2 className="text-2xl font-bold text-gray-900">{t('home.newArrivals')}</h2>
+              <p className="text-gray-500 mt-1">{t('home.newArrivalsDesc')}</p>
             </div>
             <Link to="/products?sortBy=createdAt&sortOrder=desc">
               <Button variant="outline">
-                查看更多
+                {t('home.viewMore')}
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -147,7 +141,7 @@ export function HomePage() {
             </div>
           ) : (
             <div className="text-center py-12 text-gray-500">
-              暂无产品
+              {t('empty.title')}
             </div>
           )}
         </div>
@@ -156,7 +150,7 @@ export function HomePage() {
       {brands && brands.length > 0 && (
         <section className="py-12 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">热门品牌</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t('home.popularBrands')}</h2>
             <div className="flex flex-wrap justify-center gap-4">
               {brands.slice(0, 8).map((brand) => (
                 <Link
@@ -175,7 +169,7 @@ export function HomePage() {
       {categories && !categoriesLoading && (
         <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">产品分类</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">{t('home.categories')}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {categories.map((category) => (
                 <Link
@@ -198,7 +192,7 @@ export function HomePage() {
                   )}
                   {category.children && category.children.length > 0 && (
                     <p className="text-xs text-gray-400 mt-2">
-                      {category.children.length} 个子分类
+                      {t('home.subcategories', { count: category.children.length })}
                     </p>
                   )}
                 </Link>

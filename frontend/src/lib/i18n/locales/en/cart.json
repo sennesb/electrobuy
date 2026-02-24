@@ -1,0 +1,53 @@
+{
+  "title": "Shopping Cart",
+  "subtitle": "Review your items before checkout",
+  "itemCount": "{{count}} items",
+  "clearCart": "Clear Cart",
+  "recommendations": "You May Also Like",
+  "recommendationsDesc": "Recommendations feature coming soon...",
+  "empty": {
+    "title": "Your cart is empty",
+    "description": "Start shopping to add items to your cart",
+    "button": "Continue Shopping",
+    "confirm": "Are you sure you want to clear your cart?"
+  },
+  "success": {
+    "title": "Order submitted successfully!",
+    "subtitle": "Your order has been created. View your orders for details.",
+    "viewOrders": "View Orders",
+    "continueShopping": "Continue Shopping"
+  },
+  "error": {
+    "loadFailed": "Failed to load cart. Please refresh the page."
+  },
+  "item": {
+    "product": "Product",
+    "price": "Price",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "remove": "Remove",
+    "update": "Update",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "unavailable": "Product Unavailable",
+    "minOrder": "Min. Order",
+    "units": "units"
+  },
+  "summary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "shippingFree": "Free",
+    "tax": "Tax",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "invalidItems": "Some items are unavailable"
+  },
+  "messages": {
+    "added": "Product added to cart",
+    "removed": "Product removed from cart",
+    "updated": "Cart updated",
+    "error": "Failed to update cart"
+  }
+}

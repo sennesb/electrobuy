@@ -1,0 +1,87 @@
+{
+  "title": "Products",
+  "subtitle": "Browse our industrial automation products",
+  "featured": "Featured Products",
+  "newArrivals": "New Arrivals",
+  "bestSellers": "Best Sellers",
+  "home": {
+    "hero": {
+      "title": "One-Stop Industrial Automation Platform",
+      "subtitle": "PLC, VFD, Sensors and other industrial automation products",
+      "cta": "Shop Now"
+    },
+    "features": {
+      "authentic": {
+        "title": "Authentic Products",
+        "description": "All products are officially authorized"
+      },
+      "fastShipping": {
+        "title": "Fast Shipping",
+        "description": "Shipped within 24 hours"
+      },
+      "support": {
+        "title": "Professional Support",
+        "description": "Expert technical support team"
+      },
+      "warranty": {
+        "title": "Worry-Free Returns",
+        "description": "7-day no-questions-asked returns"
+      }
+    },
+    "newArrivals": "New Arrivals",
+    "newArrivalsDesc": "Discover the latest industrial automation products",
+    "viewMore": "View More",
+    "popularBrands": "Popular Brands",
+    "categories": "Product Categories",
+    "subcategories": "{{count}} subcategories"
+  },
+  "filter": {
+    "title": "Filter",
+    "category": "Category",
+    "brand": "Brand",
+    "price": "Price",
+    "priceRange": "Price Range",
+    "status": "Status",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "all": "All",
+    "clear": "Clear Filters"
+  },
+  "sort": {
+    "label": "Sort by",
+    "newest": "Newest",
+    "priceAsc": "Price: Low to High",
+    "priceDesc": "Price: High to Low",
+    "popular": "Most Popular"
+  },
+  "card": {
+    "addToCart": "Add to Cart",
+    "viewDetails": "View Details",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "minOrder": "Min. Order",
+    "units": "units"
+  },
+  "detail": {
+    "specifications": "Specifications",
+    "description": "Description",
+    "relatedProducts": "Related Products",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "quantity": "Quantity",
+    "inStock": "{{count}} in stock",
+    "outOfStock": "Out of Stock",
+    "brand": "Brand",
+    "model": "Model",
+    "category": "Category",
+    "minOrder": "Minimum Order",
+    "unit": "Unit"
+  },
+  "empty": {
+    "title": "No Products Found",
+    "description": "Try adjusting your filters or search terms"
+  },
+  "pagination": {
+    "showing": "Showing {{from}}-{{to}} of {{total}} products"
+  }
+}

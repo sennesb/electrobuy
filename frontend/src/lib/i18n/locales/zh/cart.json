@@ -1,0 +1,53 @@
+{
+  "title": "购物车",
+  "subtitle": "确认您的商品后结算",
+  "itemCount": "{{count}} 件商品",
+  "clearCart": "清空购物车",
+  "recommendations": "猜你喜欢",
+  "recommendationsDesc": "推荐功能开发中...",
+  "empty": {
+    "title": "购物车为空",
+    "description": "开始购物，添加商品到购物车",
+    "button": "继续购物",
+    "confirm": "确定要清空购物车吗？"
+  },
+  "success": {
+    "title": "订单提交成功！",
+    "subtitle": "订单已生成，请前往订单列表查看详情",
+    "viewOrders": "查看订单",
+    "continueShopping": "继续购物"
+  },
+  "error": {
+    "loadFailed": "加载购物车失败，请刷新页面重试"
+  },
+  "item": {
+    "product": "商品",
+    "price": "单价",
+    "quantity": "数量",
+    "subtotal": "小计",
+    "remove": "删除",
+    "update": "更新",
+    "inStock": "有货",
+    "outOfStock": "缺货",
+    "unavailable": "商品已下架",
+    "minOrder": "最小起订",
+    "units": "件"
+  },
+  "summary": {
+    "title": "订单摘要",
+    "subtotal": "商品小计",
+    "shipping": "运费",
+    "shippingFree": "免运费",
+    "tax": "税费",
+    "total": "合计",
+    "checkout": "去结算",
+    "continueShopping": "继续购物",
+    "invalidItems": "部分商品已下架"
+  },
+  "messages": {
+    "added": "商品已加入购物车",
+    "removed": "商品已从购物车移除",
+    "updated": "购物车已更新",
+    "error": "购物车更新失败"
+  }
+}

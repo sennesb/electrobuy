@@ -1,0 +1,39 @@
+{
+  "description": "Your trusted platform for industrial automation products. Quality products, professional service.",
+  "sections": {
+    "categories": "Categories",
+    "quickLinks": "Quick Links",
+    "support": "Support"
+  },
+  "categories": {
+    "plc": "PLC Controllers",
+    "vfd": "Variable Frequency Drives",
+    "sensors": "Sensors",
+    "lowVoltage": "Low Voltage Equipment",
+    "hmi": "HMI Panels",
+    "servo": "Servo Systems"
+  },
+  "quickLinks": {
+    "products": "Products",
+    "cart": "Cart",
+    "orders": "My Orders",
+    "profile": "Profile"
+  },
+  "support": {
+    "help": "Help Center",
+    "contact": "Contact Us",
+    "about": "About Us",
+    "privacy": "Privacy Policy"
+  },
+  "hotline": {
+    "title": "Customer Service",
+    "number": "+1-800-888-8888",
+    "hours": "Mon-Fri 9:00-18:00"
+  },
+  "copyright": "© {{year}} ElectroBuy. All rights reserved.",
+  "legal": {
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "sitemap": "Sitemap"
+  }
+}

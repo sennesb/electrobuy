@@ -1,0 +1,52 @@
+{
+  "title": "我的订单",
+  "subtitle": "查看和跟踪您的订单",
+  "filter": {
+    "all": "全部订单",
+    "pending": "待确认",
+    "confirmed": "已确认",
+    "shipped": "已发货",
+    "completed": "已完成",
+    "cancelled": "已取消"
+  },
+  "empty": {
+    "title": "暂无订单",
+    "description": "开始购物，下单购买商品",
+    "button": "去购物"
+  },
+  "status": {
+    "pending": "待确认",
+    "confirmed": "已确认",
+    "shipped": "已发货",
+    "completed": "已完成",
+    "cancelled": "已取消"
+  },
+  "card": {
+    "orderNumber": "订单号：{{number}}",
+    "date": "下单时间",
+    "total": "订单金额",
+    "items": "{{count}} 件商品",
+    "viewDetails": "查看详情",
+    "trackOrder": "跟踪物流",
+    "reorder": "再次购买",
+    "cancel": "取消订单"
+  },
+  "detail": {
+    "title": "订单详情",
+    "orderNumber": "订单编号",
+    "orderDate": "下单时间",
+    "status": "订单状态",
+    "items": "订单商品",
+    "shipping": "配送信息",
+    "payment": "支付信息",
+    "subtotal": "商品小计",
+    "shippingFee": "运费",
+    "total": "订单总额",
+    "remark": "订单备注"
+  },
+  "actions": {
+    "cancel": "取消订单",
+    "confirm": "确认收货",
+    "track": "物流跟踪"
+  }
+}

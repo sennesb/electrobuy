@@ -2,28 +2,30 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui'
 import { Input } from '@/components/ui'
 import { authApi } from '@/lib/api'
 import { useAuthStore } from '@/stores'
 import { useState } from 'react'
 
-const loginSchema = z.object({
-  email: z.string().min(1, '请输入邮箱').email('请输入有效的邮箱地址'),
-  password: z.string().min(1, '请输入密码').min(6, '密码至少6个字符'),
-})
-
-type LoginFormData = z.infer<typeof loginSchema>
-
 interface LoginFormProps {
   onSuccess?: () => void
 }
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
+  const { t } = useTranslation('auth')
   const [isLoading, setIsLoading] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const { setAuth } = useAuthStore()
   const navigate = useNavigate()
+
+  const loginSchema = z.object({
+    email: z.string().min(1, t('login.errors.emailRequired')).email(t('login.errors.emailInvalid')),
+    password: z.string().min(1, t('login.errors.passwordRequired')).min(6, t('login.errors.passwordMin')),
+  })
+
+  type LoginFormData = z.infer<typeof loginSchema>
 
   const {
     register,
@@ -61,7 +63,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       }
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } }
-      setServerError(err.response?.data?.message || '登录失败，请检查邮箱和密码')
+      setServerError(err.response?.data?.message || t('login.errors.loginFailed'))
     } finally {
       setIsLoading(false)
     }
@@ -78,8 +80,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       <Input
         {...register('email')}
         type="email"
-        label="邮箱"
-        placeholder="请输入邮箱"
+        label={t('login.email')}
+        placeholder={t('login.emailPlaceholder')}
         error={errors.email?.message}
         autoComplete="email"
         leftIcon={
@@ -92,8 +94,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       <Input
         {...register('password')}
         type="password"
-        label="密码"
-        placeholder="请输入密码"
+        label={t('login.password')}
+        placeholder={t('login.passwordPlaceholder')}
         error={errors.password?.message}
         autoComplete="current-password"
         leftIcon={
@@ -109,21 +111,21 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
           />
-          <span className="ml-2 text-sm text-gray-600">记住我</span>
+          <span className="ml-2 text-sm text-gray-600">{t('login.rememberMe')}</span>
         </label>
         <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-500">
-          忘记密码？
+          {t('login.forgotPassword')}
         </Link>
       </div>
 
       <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
-        登录
+        {t('login.submit')}
       </Button>
 
       <p className="text-center text-sm text-gray-600">
-        还没有账号？{' '}
+        {t('login.noAccount')}{' '}
         <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-          立即注册
+          {t('login.registerNow')}
         </Link>
       </p>
     </form>

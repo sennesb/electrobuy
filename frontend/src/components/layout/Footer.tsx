@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 
 interface FooterProps {
@@ -6,29 +7,30 @@ interface FooterProps {
 }
 
 export function Footer({ className }: FooterProps) {
+  const { t } = useTranslation('footer')
   const currentYear = new Date().getFullYear()
 
   const productCategories = [
-    { name: 'PLC可编程控制器', path: '/products?categoryId=1' },
-    { name: '变频器', path: '/products?categoryId=2' },
-    { name: '传感器', path: '/products?categoryId=3' },
-    { name: '低压电器', path: '/products?categoryId=4' },
-    { name: '人机界面', path: '/products?categoryId=5' },
-    { name: '伺服系统', path: '/products?categoryId=6' },
+    { nameKey: 'categories.plc', path: '/products?categoryId=1' },
+    { nameKey: 'categories.vfd', path: '/products?categoryId=2' },
+    { nameKey: 'categories.sensors', path: '/products?categoryId=3' },
+    { nameKey: 'categories.lowVoltage', path: '/products?categoryId=4' },
+    { nameKey: 'categories.hmi', path: '/products?categoryId=5' },
+    { nameKey: 'categories.servo', path: '/products?categoryId=6' },
   ]
 
   const quickLinks = [
-    { name: '产品目录', path: '/products' },
-    { name: '购物车', path: '/cart' },
-    { name: '我的订单', path: '/orders' },
-    { name: '个人中心', path: '/profile' },
+    { nameKey: 'quickLinks.products', path: '/products' },
+    { nameKey: 'quickLinks.cart', path: '/cart' },
+    { nameKey: 'quickLinks.orders', path: '/orders' },
+    { nameKey: 'quickLinks.profile', path: '/profile' },
   ]
 
   const supportLinks = [
-    { name: '帮助中心', path: '/help' },
-    { name: '联系我们', path: '/contact' },
-    { name: '关于我们', path: '/about' },
-    { name: '隐私政策', path: '/privacy' },
+    { nameKey: 'support.help', path: '/help' },
+    { nameKey: 'support.contact', path: '/contact' },
+    { nameKey: 'support.about', path: '/about' },
+    { nameKey: 'support.privacy', path: '/privacy' },
   ]
 
   return (
@@ -43,7 +45,7 @@ export function Footer({ className }: FooterProps) {
               <span className="text-xl font-bold text-white">ElectroBuy</span>
             </Link>
             <p className="text-sm text-gray-400 mb-4">
-              专业的电气自动化产品采买平台，为工程师、采购人员和企业提供优质的产品和服务。
+              {t('description')}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -65,7 +67,7 @@ export function Footer({ className }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">产品分类</h3>
+            <h3 className="text-white font-semibold mb-4">{t('sections.categories')}</h3>
             <ul className="space-y-2">
               {productCategories.map((category) => (
                 <li key={category.path}>
@@ -73,7 +75,7 @@ export function Footer({ className }: FooterProps) {
                     to={category.path}
                     className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
-                    {category.name}
+                    {t(category.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -81,7 +83,7 @@ export function Footer({ className }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">快速链接</h3>
+            <h3 className="text-white font-semibold mb-4">{t('sections.quickLinks')}</h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.path}>
@@ -89,7 +91,7 @@ export function Footer({ className }: FooterProps) {
                     to={link.path}
                     className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
-                    {link.name}
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -97,7 +99,7 @@ export function Footer({ className }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">客户服务</h3>
+            <h3 className="text-white font-semibold mb-4">{t('sections.support')}</h3>
             <ul className="space-y-2">
               {supportLinks.map((link) => (
                 <li key={link.path}>
@@ -105,15 +107,15 @@ export function Footer({ className }: FooterProps) {
                     to={link.path}
                     className="text-sm text-gray-400 hover:text-white transition-colors"
                   >
-                    {link.name}
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
             </ul>
             <div className="mt-4">
-              <p className="text-sm text-gray-400">客服热线</p>
-              <p className="text-lg font-semibold text-white">400-888-8888</p>
-              <p className="text-xs text-gray-500 mt-1">周一至周五 9:00-18:00</p>
+              <p className="text-sm text-gray-400">{t('hotline.title')}</p>
+              <p className="text-lg font-semibold text-white">{t('hotline.number')}</p>
+              <p className="text-xs text-gray-500 mt-1">{t('hotline.hours')}</p>
             </div>
           </div>
         </div>
@@ -121,26 +123,26 @@ export function Footer({ className }: FooterProps) {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-500">
-              © {currentYear} ElectroBuy. 保留所有权利。
+              {t('copyright', { year: currentYear })}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link
                 to="/terms"
                 className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
               >
-                服务条款
+                {t('legal.terms')}
               </Link>
               <Link
                 to="/privacy"
                 className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
               >
-                隐私政策
+                {t('legal.privacy')}
               </Link>
               <Link
                 to="/sitemap"
                 className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
               >
-                网站地图
+                {t('legal.sitemap')}
               </Link>
             </div>
           </div>

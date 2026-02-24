@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { RegisterForm } from '@/components/auth'
 
 export default function RegisterPage() {
+  const { t } = useTranslation('auth')
   const navigate = useNavigate()
 
   const handleRegisterSuccess = () => {
@@ -20,15 +22,15 @@ export default function RegisterPage() {
                 </svg>
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">创建账号</h1>
-            <p className="text-gray-500 mt-2">加入 ElectroBuy，开启采购之旅</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('register.title')}</h1>
+            <p className="text-gray-500 mt-2">{t('register.subtitle')}</p>
           </div>
 
           <RegisterForm onSuccess={handleRegisterSuccess} />
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          &copy; 2026 ElectroBuy. 电气自动化产品采买平台
+          &copy; 2026 ElectroBuy. Industrial Automation Products Platform
         </p>
       </div>
     </div>

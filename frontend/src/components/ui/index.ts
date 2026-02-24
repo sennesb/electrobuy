@@ -24,3 +24,4 @@ export {
   type ToastType,
 } from './Toast'
 export { Pagination, type PaginationProps } from './Pagination'
+export { LanguageSwitcher } from './LanguageSwitcher'

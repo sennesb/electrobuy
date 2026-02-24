@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/stores/authStore'
 import { useCartStore } from '@/stores/cartStore'
-import { Button } from '@/components/ui'
+import { Button, LanguageSwitcher } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 interface HeaderProps {
@@ -10,6 +11,7 @@ interface HeaderProps {
 }
 
 export function Header({ className }: HeaderProps) {
+  const { t } = useTranslation('header')
   const navigate = useNavigate()
   const { user, isAuthenticated, logout } = useAuthStore()
   const { totalItems } = useCartStore()
@@ -38,7 +40,7 @@ export function Header({ className }: HeaderProps) {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">E</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">ElectroBuy</span>
+              <span className="text-xl font-bold text-gray-900">{t('brand')}</span>
             </Link>
 
             <nav className="hidden md:flex items-center space-x-6">
@@ -46,25 +48,25 @@ export function Header({ className }: HeaderProps) {
                 to="/products"
                 className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
               >
-                产品目录
+                {t('nav.products')}
               </Link>
               <Link
                 to="/products?categoryId=1"
                 className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
               >
-                PLC控制器
+                PLC
               </Link>
               <Link
                 to="/products?categoryId=2"
                 className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
               >
-                变频器
+                VFD
               </Link>
               <Link
                 to="/products?categoryId=3"
                 className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
               >
-                传感器
+                Sensors
               </Link>
             </nav>
           </div>
@@ -73,7 +75,7 @@ export function Header({ className }: HeaderProps) {
             <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
-                placeholder="搜索产品型号、名称..."
+                placeholder={t('search.placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -95,6 +97,8 @@ export function Header({ className }: HeaderProps) {
           </div>
 
           <div className="flex items-center space-x-4">
+            <LanguageSwitcher />
+
             <Link
               to="/cart"
               className="relative p-2 text-gray-600 hover:text-blue-600 transition-colors"
@@ -155,20 +159,20 @@ export function Header({ className }: HeaderProps) {
                       onClick={() => setIsUserMenuOpen(false)}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      个人中心
+                      {t('user.profile')}
                     </Link>
                     <Link
                       to="/orders"
                       onClick={() => setIsUserMenuOpen(false)}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      我的订单
+                      {t('user.orders')}
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
                     >
-                      退出登录
+                      {t('user.logout')}
                     </button>
                   </div>
                 )}
@@ -177,12 +181,12 @@ export function Header({ className }: HeaderProps) {
               <div className="flex items-center space-x-2">
                 <Link to="/login">
                   <Button variant="ghost" size="sm">
-                    登录
+                    {t('user.login')}
                   </Button>
                 </Link>
                 <Link to="/register">
                   <Button variant="primary" size="sm">
-                    注册
+                    {t('user.register')}
                   </Button>
                 </Link>
               </div>

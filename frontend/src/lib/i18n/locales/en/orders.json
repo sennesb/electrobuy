@@ -1,0 +1,53 @@
+{
+  "title": "My Orders",
+  "subtitle": "View and track your orders",
+  "filter": {
+    "all": "All Orders",
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "shipped": "Shipped",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "empty": {
+    "title": "No Orders Yet",
+    "description": "Start shopping to place your first order",
+    "button": "Start Shopping"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "shipped": "Shipped",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "card": {
+    "orderNumber": "Order #{{number}}",
+    "date": "Order Date",
+    "total": "Total",
+    "items": "{{count}} item",
+    "items_plural": "{{count}} items",
+    "viewDetails": "View Details",
+    "trackOrder": "Track Order",
+    "reorder": "Reorder",
+    "cancel": "Cancel Order"
+  },
+  "detail": {
+    "title": "Order Details",
+    "orderNumber": "Order Number",
+    "orderDate": "Order Date",
+    "status": "Status",
+    "items": "Order Items",
+    "shipping": "Shipping Info",
+    "payment": "Payment Info",
+    "subtotal": "Subtotal",
+    "shippingFee": "Shipping",
+    "total": "Total",
+    "remark": "Remarks"
+  },
+  "actions": {
+    "cancel": "Cancel Order",
+    "confirm": "Confirm Receipt",
+    "track": "Track Shipment"
+  }
+}

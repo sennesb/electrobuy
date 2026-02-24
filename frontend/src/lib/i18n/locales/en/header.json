@@ -1,0 +1,35 @@
+{
+  "brand": "ElectroBuy",
+  "brandTagline": "Industrial Automation Products",
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "search": {
+    "placeholder": "Search products...",
+    "button": "Search"
+  },
+  "user": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "profile": "Profile",
+    "orders": "My Orders",
+    "logout": "Sign Out",
+    "welcome": "Welcome"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "items": "{{count}} item",
+    "items_plural": "{{count}} items"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "products": "Products",
+    "users": "Users"
+  }
+}

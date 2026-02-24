@@ -2,34 +2,36 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui'
 import { Input } from '@/components/ui'
 import { authApi } from '@/lib/api'
 import { useAuthStore } from '@/stores'
 import { useState } from 'react'
 
-const registerSchema = z.object({
-  name: z.string().min(1, '请输入姓名').min(2, '姓名至少2个字符'),
-  email: z.string().min(1, '请输入邮箱').email('请输入有效的邮箱地址'),
-  password: z.string().min(1, '请输入密码').min(6, '密码至少6个字符'),
-  confirmPassword: z.string().min(1, '请确认密码'),
-  company: z.string().optional(),
-  phone: z.string().optional(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: '两次输入的密码不一致',
-  path: ['confirmPassword'],
-})
-
-type RegisterFormData = z.infer<typeof registerSchema>
-
 interface RegisterFormProps {
   onSuccess?: () => void
 }
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
+  const { t } = useTranslation('auth')
   const [isLoading, setIsLoading] = useState(false)
   const [serverError, setServerError] = useState<string | null>(null)
   const { setAuth } = useAuthStore()
+
+  const registerSchema = z.object({
+    name: z.string().min(1, t('register.errors.nameRequired')).min(2, t('register.errors.nameMin')),
+    email: z.string().min(1, t('register.errors.emailRequired')).email(t('register.errors.emailInvalid')),
+    password: z.string().min(1, t('register.errors.passwordRequired')).min(6, t('register.errors.passwordMin')),
+    confirmPassword: z.string().min(1, t('register.errors.confirmPasswordRequired')),
+    company: z.string().optional(),
+    phone: z.string().optional(),
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: t('register.errors.passwordMismatch'),
+    path: ['confirmPassword'],
+  })
+
+  type RegisterFormData = z.infer<typeof registerSchema>
 
   const {
     register,
@@ -64,7 +66,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       onSuccess?.()
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } }
-      setServerError(err.response?.data?.message || '注册失败，请稍后重试')
+      setServerError(err.response?.data?.message || t('register.errors.registerFailed'))
     } finally {
       setIsLoading(false)
     }
@@ -81,8 +83,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       <Input
         {...register('name')}
         type="text"
-        label="姓名"
-        placeholder="请输入您的姓名"
+        label={t('register.name')}
+        placeholder={t('register.namePlaceholder')}
         error={errors.name?.message}
         autoComplete="name"
         leftIcon={
@@ -95,8 +97,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       <Input
         {...register('email')}
         type="email"
-        label="邮箱"
-        placeholder="请输入邮箱"
+        label={t('register.email')}
+        placeholder={t('register.emailPlaceholder')}
         error={errors.email?.message}
         autoComplete="email"
         leftIcon={
@@ -109,8 +111,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       <Input
         {...register('password')}
         type="password"
-        label="密码"
-        placeholder="请输入密码 (至少6个字符)"
+        label={t('register.password')}
+        placeholder={t('register.passwordPlaceholder')}
         error={errors.password?.message}
         autoComplete="new-password"
         leftIcon={
@@ -123,8 +125,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       <Input
         {...register('confirmPassword')}
         type="password"
-        label="确认密码"
-        placeholder="请再次输入密码"
+        label={t('register.confirmPassword')}
+        placeholder={t('register.confirmPasswordPlaceholder')}
         error={errors.confirmPassword?.message}
         autoComplete="new-password"
         leftIcon={
@@ -138,8 +140,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         <Input
           {...register('company')}
           type="text"
-          label="公司名称 (选填)"
-          placeholder="请输入公司名称"
+          label={t('register.company')}
+          placeholder={t('register.companyPlaceholder')}
           error={errors.company?.message}
           autoComplete="organization"
         />
@@ -147,8 +149,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         <Input
           {...register('phone')}
           type="tel"
-          label="联系电话 (选填)"
-          placeholder="请输入联系电话"
+          label={t('register.phone')}
+          placeholder={t('register.phonePlaceholder')}
           error={errors.phone?.message}
           autoComplete="tel"
         />
@@ -156,25 +158,25 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
       <div className="pt-2">
         <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
-          注册
+          {t('register.submit')}
         </Button>
       </div>
 
       <p className="text-center text-sm text-gray-600">
-        已有账号？{' '}
+        {t('register.hasAccount')}{' '}
         <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
-          立即登录
+          {t('register.loginNow')}
         </Link>
       </p>
 
       <p className="text-center text-xs text-gray-500">
-        注册即表示您同意我们的{' '}
+        {t('register.agreement')}{' '}
         <Link to="/terms" className="text-blue-600 hover:text-blue-500">
-          服务条款
+          {t('register.terms')}
         </Link>{' '}
-        和{' '}
+        {t('register.and')}{' '}
         <Link to="/privacy" className="text-blue-600 hover:text-blue-500">
-          隐私政策
+          {t('register.privacy')}
         </Link>
       </p>
     </form>

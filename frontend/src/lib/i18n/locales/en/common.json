@@ -1,0 +1,41 @@
+{
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "add": "Add",
+  "search": "Search",
+  "reset": "Reset",
+  "submit": "Submit",
+  "back": "Back",
+  "next": "Next",
+  "previous": "Previous",
+  "close": "Close",
+  "yes": "Yes",
+  "no": "No",
+  "all": "All",
+  "none": "None",
+  "required": "Required",
+  "optional": "Optional",
+  "currency": {
+    "symbol": "$",
+    "code": "USD"
+  },
+  "pagination": {
+    "page": "Page",
+    "of": "of",
+    "items": "items",
+    "perPage": "per page"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  }
+}

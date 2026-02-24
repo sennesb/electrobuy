@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { MainLayout } from '@/components/layout'
 import { Pagination } from '@/components/ui'
 import { OrderCard, OrderCardSkeleton } from '@/components/orders'
@@ -8,22 +9,23 @@ import { ordersApi } from '@/lib/api'
 import { useAuthStore } from '@/stores'
 import { cn } from '@/lib/utils'
 
-const statusFilters: { value: number | 'all'; label: string }[] = [
-  { value: 'all', label: '全部订单' },
-  { value: 0, label: '待确认' },
-  { value: 1, label: '已确认' },
-  { value: 2, label: '已发货' },
-  { value: 3, label: '已完成' },
-  { value: 4, label: '已取消' },
-]
-
 export default function OrdersPage() {
+  const { t } = useTranslation('orders')
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { isAuthenticated } = useAuthStore()
   const [statusFilter, setStatusFilter] = useState<number | 'all'>('all')
   const [page, setPage] = useState(1)
   const pageSize = 10
+
+  const statusFilters: { value: number | 'all'; label: string }[] = [
+    { value: 'all', label: t('filter.all') },
+    { value: 0, label: t('filter.pending') },
+    { value: 1, label: t('filter.confirmed') },
+    { value: 2, label: t('filter.shipped') },
+    { value: 3, label: t('filter.completed') },
+    { value: 4, label: t('filter.cancelled') },
+  ]
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -59,13 +61,13 @@ export default function OrdersPage() {
         <div className="max-w-4xl mx-auto px-4">
           <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
             <Link to="/" className="hover:text-blue-600">
-              首页
+              {t('common:home', { ns: 'common' })}
             </Link>
             <span>/</span>
-            <span className="text-gray-900">我的订单</span>
+            <span className="text-gray-900">{t('title')}</span>
           </nav>
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">我的订单</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">{t('title')}</h1>
 
           <div className="flex flex-wrap gap-2 mb-6">
             {statusFilters.map((filter) => (
@@ -134,12 +136,13 @@ export default function OrdersPage() {
                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
                 />
               </svg>
-              <p className="text-gray-500 mb-4">暂无订单记录</p>
+              <p className="text-gray-500 mb-4">{t('empty.title')}</p>
+              <p className="text-gray-400 text-sm mb-4">{t('empty.description')}</p>
               <Link
                 to="/products"
                 className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
-                去购物
+                {t('empty.button')}
               </Link>
             </div>
           )}

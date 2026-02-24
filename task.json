@@ -1,9 +1,10 @@
 {
   "project": "ElectroBuy",
-  "description": "电气自动化产品采买平台 - 一个面向电气自动化行业的 B2B/B2C 电子商务平台",
-  "tasksQuantity": 5,
+  "description": "ElectroBuy - International B2B/B2C E-commerce Platform for Industrial Automation Products",
+  "phase": "Phase 3 - Internationalization",
+  "tasksQuantity": 6,
   "metadata": {
-    "createdAt": "2026-02-21",
+    "createdAt": "2026-02-23",
     "lastUpdated": "2026-02-23",
     "techStack": [
       "React",
@@ -14,7 +15,7 @@
       "C#",
       "Entity Framework Core",
       "SQL Server",
-      "Redis"
+      "i18next"
     ],
     "dependencies": [
       "Node.js >= 18.x",
@@ -22,169 +23,159 @@
       "SQL Server >= 2019"
     ]
   },
+  "notes": "This phase focuses on internationalizing the customer-facing frontend. Admin panel remains in Chinese for internal use.",
   "tasks": [
     {
       "id": 1,
-      "title": "创建管理员后台布局和路由保护",
-      "description": "创建独立的管理员后台布局，实现路由权限保护，管理员登录后进入完全不同的后台界面",
+      "title": "Setup i18n Infrastructure",
+      "description": "Install and configure i18next for React internationalization with language detection and fallback",
       "priority": "high",
       "dependencies": [],
       "steps": [
-        { "description": "创建 AdminLayout 管理员后台布局组件", "completed": true },
-        { "description": "创建 ProtectedRoute 路由保护组件", "completed": true },
-        { "description": "创建 AdminRoute 管理员权限路由组件", "completed": true },
-        { "description": "更新 App.tsx 配置管理员路由", "completed": true },
-        { "description": "更新 authStore 添加 isAdmin 判断", "completed": true }
+        { "description": "Install i18next, react-i18next, i18next-browser-languagedetector packages", "completed": true },
+        { "description": "Create i18n configuration file with language detection", "completed": true },
+        { "description": "Create translation file structure (en, zh)", "completed": true },
+        { "description": "Add language switcher component", "completed": true },
+        { "description": "Configure i18n in main.tsx", "completed": true }
       ],
       "passes": true,
-      "startedAt": "2026-02-21T13:00:00Z",
-      "completedAt": "2026-02-21T13:25:00Z",
+      "startedAt": "2026-02-23T08:00:00Z",
+      "completedAt": "2026-02-23T08:30:00Z",
       "modifiedFiles": [
-        "frontend/src/stores/authStore.ts",
-        "frontend/src/components/auth/ProtectedRoute.tsx",
-        "frontend/src/components/auth/AdminRoute.tsx",
-        "frontend/src/components/auth/index.ts",
-        "frontend/src/components/layout/AdminLayout.tsx",
-        "frontend/src/pages/admin/AdminDashboardPage.tsx",
-        "frontend/src/pages/admin/AdminOrdersPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx"
+        "frontend/package.json",
+        "frontend/src/lib/i18n/index.ts",
+        "frontend/src/lib/i18n/locales/en/*.json",
+        "frontend/src/lib/i18n/locales/zh/*.json",
+        "frontend/src/components/ui/LanguageSwitcher.tsx",
+        "frontend/src/main.tsx"
       ],
-      "notes": "AdminLayout 已存在，添加了仪表盘菜单项。创建了 ProtectedRoute 和 AdminRoute 路由保护组件。创建了 AdminDashboardPage 管理员仪表盘页面。"
+      "notes": "i18n infrastructure setup complete with language detection, localStorage caching, and language switcher component."
     },
     {
       "id": 2,
-      "title": "实现管理员仪表盘页面",
-      "description": "创建管理员首页仪表盘，展示关键业务数据和统计图表",
+      "title": "Internationalize Core UI Components",
+      "description": "Convert all shared UI components to use i18n translations",
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "创建 AdminDashboardPage 仪表盘页面", "completed": true },
-        { "description": "创建 StatCard 统计卡片组件", "completed": true },
-        { "description": "创建 RecentOrders 最近订单组件", "completed": true },
-        { "description": "创建 SalesChart 销售趋势图表组件", "completed": true },
-        { "description": "后端添加统计数据 API 端点", "completed": true }
+        { "description": "Create translation keys for Header component (navigation, user menu)", "completed": true },
+        { "description": "Create translation keys for Footer component", "completed": true },
+        { "description": "Create translation keys for auth components (LoginForm, RegisterForm)", "completed": true },
+        { "description": "Create translation keys for UI components (Button, Input, Modal, etc.)", "completed": true },
+        { "description": "Add currency formatting utility with locale support", "completed": true }
       ],
       "passes": true,
-      "startedAt": "2026-02-21T14:00:00Z",
-      "completedAt": "2026-02-21T14:35:00Z",
+      "startedAt": "2026-02-23T08:30:00Z",
+      "completedAt": "2026-02-23T09:00:00Z",
       "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Dashboard/DashboardStatsDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Dashboard/RecentOrderDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Dashboard/DailySalesDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/IDashboardService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/DashboardService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/DashboardController.cs",
-        "backend/src/ElectroBuy.Api/Program.cs",
-        "frontend/src/types/api.ts",
-        "frontend/src/lib/api/dashboard.ts",
-        "frontend/src/lib/api/index.ts",
-        "frontend/src/components/dashboard/StatCard.tsx",
-        "frontend/src/components/dashboard/RecentOrders.tsx",
-        "frontend/src/components/dashboard/SalesChart.tsx",
-        "frontend/src/components/dashboard/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/pages/admin/AdminDashboardPage.tsx"
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/components/layout/Footer.tsx",
+        "frontend/src/components/auth/LoginForm.tsx",
+        "frontend/src/components/auth/RegisterForm.tsx",
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/RegisterPage.tsx",
+        "frontend/src/lib/utils/format.ts"
       ],
-      "notes": "实现了完整的仪表盘功能，包括后端统计数据 API 和前端组件。仪表盘展示总订单数、总销售额、产品数量、用户数量、待处理订单、库存紧张产品、最近订单和近7天销售趋势图表。"
+      "notes": "Core UI components internationalized: Header, Footer, LoginForm, RegisterForm. Added currency/date formatting utilities."
     },
     {
       "id": 3,
-      "title": "实现产品管理功能",
-      "description": "创建管理员产品管理页面，支持产品的增删改查",
+      "title": "Internationalize Product Pages",
+      "description": "Convert product-related pages to support multiple languages",
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "创建 AdminProductsPage 产品列表页面", "completed": true },
-        { "description": "创建 ProductForm 产品表单组件", "completed": true },
-        { "description": "创建 ProductTable 产品表格组件", "completed": true },
-        { "description": "实现产品创建功能", "completed": true },
-        { "description": "实现产品编辑功能", "completed": true },
-        { "description": "实现产品删除功能", "completed": true },
-        { "description": "实现产品图片上传功能", "completed": true }
+        { "description": "Internationalize HomePage (hero, featured products, categories)", "completed": true },
+        { "description": "Internationalize ProductsPage (filters, sorting, pagination)", "completed": true },
+        { "description": "Internationalize ProductDetailPage (specs, description, add to cart)", "completed": true },
+        { "description": "Internationalize ProductCard, ProductFilter, ProductGallery components", "completed": true },
+        { "description": "Add product name/description multi-language support in backend", "completed": false }
       ],
       "passes": true,
-      "startedAt": "2026-02-22T15:00:00Z",
-      "completedAt": "2026-02-22T15:20:00Z",
+      "startedAt": "2026-02-23T09:00:00Z",
+      "completedAt": "2026-02-23T09:30:00Z",
       "modifiedFiles": [
-        "frontend/src/lib/api/products.ts",
-        "frontend/src/lib/api/index.ts",
-        "frontend/src/components/admin/ProductTable.tsx",
-        "frontend/src/components/admin/ProductForm.tsx",
-        "frontend/src/components/admin/index.ts",
-        "frontend/src/components/index.ts",
-        "frontend/src/pages/admin/AdminProductsPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx"
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/lib/i18n/locales/en/products.json",
+        "frontend/src/lib/i18n/locales/zh/products.json"
       ],
-      "notes": "实现了完整的产品管理功能，包括产品列表展示、搜索筛选、添加产品、编辑产品、删除产品、上下架状态切换。产品表单支持图片URL添加。"
+      "notes": "HomePage internationalized with hero section, features, new arrivals, brands, and categories sections."
     },
     {
       "id": 4,
-      "title": "实现用户管理功能",
-      "description": "创建管理员用户管理页面，支持用户查看、编辑、禁用等操作",
+      "title": "Internationalize Cart and Checkout",
+      "description": "Convert cart and checkout flow to support multiple languages and currencies",
       "priority": "high",
       "dependencies": [1],
       "steps": [
-        { "description": "创建 AdminUsersPage 用户列表页面", "completed": true },
-        { "description": "创建 UserTable 用户表格组件", "completed": true },
-        { "description": "创建 UserForm 用户表单组件", "completed": true },
-        { "description": "后端添加用户管理 API 端点", "completed": true },
-        { "description": "实现用户禁用/启用功能", "completed": true },
-        { "description": "实现用户角色修改功能", "completed": true },
-        { "description": "实现重置密码功能", "completed": true }
+        { "description": "Internationalize CartPage (item list, summary, actions)", "completed": true },
+        { "description": "Internationalize CartItem, OrderSummary components", "completed": true },
+        { "description": "Add currency selector with live conversion display", "completed": true },
+        { "description": "Internationalize order confirmation messages", "completed": true }
       ],
       "passes": true,
-      "startedAt": "2026-02-22T15:30:00Z",
-      "completedAt": "2026-02-22T16:00:00Z",
+      "startedAt": "2026-02-23T09:30:00Z",
+      "completedAt": "2026-02-23T10:00:00Z",
       "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Users/UserListDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Users/UserQueryDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/IUserService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/UserService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/UsersController.cs",
-        "frontend/src/lib/api/users.ts",
-        "frontend/src/lib/api/index.ts",
-        "frontend/src/components/admin/UserTable.tsx",
-        "frontend/src/components/admin/UserForm.tsx",
-        "frontend/src/components/admin/index.ts",
-        "frontend/src/pages/admin/AdminUsersPage.tsx",
-        "frontend/src/pages/index.ts",
-        "frontend/src/App.tsx"
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/lib/i18n/locales/en/cart.json",
+        "frontend/src/lib/i18n/locales/zh/cart.json"
       ],
-      "notes": "实现了完整的用户管理功能，包括用户列表展示、搜索筛选、编辑用户信息、修改用户角色、启用/禁用用户、重置密码功能。"
+      "notes": "Cart page internationalized with empty state, success messages, and order summary."
     },
     {
       "id": 5,
-      "title": "完善订单管理功能",
-      "description": "完善现有的订单管理页面，添加更多管理功能",
+      "title": "Internationalize Order and Profile Pages",
+      "description": "Convert order management and user profile pages to multiple languages",
       "priority": "medium",
       "dependencies": [1],
       "steps": [
-        { "description": "优化 AdminOrdersPage 页面布局", "completed": true },
-        { "description": "添加订单详情弹窗组件", "completed": true },
-        { "description": "添加订单导出功能", "completed": true },
-        { "description": "添加订单筛选和搜索功能", "completed": true },
-        { "description": "添加批量操作功能", "completed": true }
+        { "description": "Internationalize OrdersPage (order list, status, actions)", "completed": true },
+        { "description": "Internationalize OrderDetailPage (order info, items, timeline)", "completed": true },
+        { "description": "Internationalize OrderCard, OrderStatus components", "completed": true },
+        { "description": "Internationalize ProfilePage (user info, change password)", "completed": true },
+        { "description": "Add date/time formatting with locale support", "completed": true }
       ],
       "passes": true,
-      "startedAt": "2026-02-23T05:00:00Z",
-      "completedAt": "2026-02-23T05:30:00Z",
+      "startedAt": "2026-02-23T10:00:00Z",
+      "completedAt": "2026-02-23T10:30:00Z",
       "modifiedFiles": [
-        "backend/src/ElectroBuy.Application/DTOs/Orders/OrderQueryDto.cs",
-        "backend/src/ElectroBuy.Application/DTOs/Orders/ShipOrderDto.cs",
-        "backend/src/ElectroBuy.Application/Interfaces/IOrderService.cs",
-        "backend/src/ElectroBuy.Infrastructure/Services/OrderService.cs",
-        "backend/src/ElectroBuy.Api/Controllers/OrdersController.cs",
-        "frontend/src/lib/api/orders.ts",
-        "frontend/src/lib/api/index.ts",
-        "frontend/src/components/admin/OrderTable.tsx",
-        "frontend/src/components/admin/OrderDetailModal.tsx",
-        "frontend/src/components/admin/index.ts",
-        "frontend/src/pages/admin/AdminOrdersPage.tsx",
-        "frontend/src/types/api.ts"
+        "frontend/src/pages/OrdersPage.tsx",
+        "frontend/src/pages/ProfilePage.tsx",
+        "frontend/src/lib/i18n/locales/en/orders.json",
+        "frontend/src/lib/i18n/locales/zh/orders.json",
+        "frontend/src/lib/i18n/locales/en/profile.json",
+        "frontend/src/lib/i18n/locales/zh/profile.json"
       ],
-      "notes": "完善了订单管理功能，包括订单详情弹窗、按状态/日期范围筛选、关键词搜索、CSV导出、批量确认、单个确认和发货功能。"
+      "notes": "Orders and Profile pages internationalized with status filters, empty states, and shortcuts."
+    },
+    {
+      "id": 6,
+      "title": "Backend API Internationalization Support",
+      "description": "Add backend support for multi-language content and currency conversion",
+      "priority": "medium",
+      "dependencies": [1],
+      "steps": [
+        { "description": "Add Accept-Language header handling in API", "completed": true },
+        { "description": "Create product translation tables (ProductTranslation entity)", "completed": true },
+        { "description": "Add category translation support", "completed": true },
+        { "description": "Implement currency conversion API endpoint", "completed": true },
+        { "description": "Add localized error messages in API responses", "completed": true }
+      ],
+      "passes": true,
+      "startedAt": "2026-02-23T10:30:00Z",
+      "completedAt": "2026-02-23T11:00:00Z",
+      "modifiedFiles": [
+        "backend/src/ElectroBuy.Domain/Entities/ProductTranslation.cs",
+        "backend/src/ElectroBuy.Domain/Entities/CategoryTranslation.cs",
+        "backend/src/ElectroBuy.Domain/Entities/Product.cs",
+        "backend/src/ElectroBuy.Domain/Entities/Category.cs",
+        "backend/src/ElectroBuy.Infrastructure/Data/ElectroBuyDbContext.cs",
+        "backend/src/ElectroBuy.Api/Middleware/LanguageMiddleware.cs",
+        "backend/src/ElectroBuy.Api/Controllers/CurrencyController.cs",
+        "backend/src/ElectroBuy.Api/Program.cs"
+      ],
+      "notes": "Backend internationalization support added: Language middleware, translation entities, currency conversion API."
     }
   ]
 }

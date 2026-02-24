@@ -1,4 +1,5 @@
 using System.Text;
+using ElectroBuy.Api.Middleware;
 using ElectroBuy.Application.Interfaces;
 using ElectroBuy.Infrastructure.Data;
 using ElectroBuy.Infrastructure.Services;
@@ -138,6 +139,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("ElectroBuyCorsPolicy");
+
+app.UseMiddleware<LanguageMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
